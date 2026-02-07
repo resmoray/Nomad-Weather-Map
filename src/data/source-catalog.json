@@ -1,0 +1,62 @@
+{
+  "temperatureC": {
+    "sourceName": "Open-Meteo Climate API",
+    "sourceUrl": "https://open-meteo.com/en/docs/climate-api",
+    "notes": "Daily temperature averaged for selected month across baseline years."
+  },
+  "rainfallMm": {
+    "sourceName": "Open-Meteo Climate API",
+    "sourceUrl": "https://open-meteo.com/en/docs/climate-api",
+    "notes": "Daily precipitation totals summed by month, then averaged across baseline years."
+  },
+  "humidityPct": {
+    "sourceName": "Open-Meteo Climate API",
+    "sourceUrl": "https://open-meteo.com/en/docs/climate-api",
+    "notes": "Relative humidity monthly mean from daily values."
+  },
+  "windKph": {
+    "sourceName": "Open-Meteo Climate API",
+    "sourceUrl": "https://open-meteo.com/en/docs/climate-api",
+    "notes": "10m wind speed monthly mean from daily values."
+  },
+  "uvIndex": {
+    "sourceName": "Open-Meteo Air Quality API",
+    "sourceUrl": "https://open-meteo.com/en/docs/air-quality-api",
+    "notes": "Monthly average of daily UV maxima across baseline years."
+  },
+  "pm25": {
+    "sourceName": "Open-Meteo Air Quality API",
+    "sourceUrl": "https://open-meteo.com/en/docs/air-quality-api",
+    "notes": "Hourly PM2.5 values averaged for selected month across baseline years."
+  },
+  "aqi": {
+    "sourceName": "Open-Meteo Air Quality API",
+    "sourceUrl": "https://open-meteo.com/en/docs/air-quality-api",
+    "notes": "Hourly US AQI values averaged for selected month across baseline years."
+  },
+  "waveHeightM": {
+    "sourceName": "Open-Meteo Marine API",
+    "sourceUrl": "https://open-meteo.com/en/docs/marine-weather-api",
+    "notes": "Hourly significant wave height averaged for selected month across baseline years."
+  },
+  "wavePeriodS": {
+    "sourceName": "Open-Meteo Marine API",
+    "sourceUrl": "https://open-meteo.com/en/docs/marine-weather-api",
+    "notes": "Hourly wave period averaged for selected month across baseline years."
+  },
+  "waveDirectionDeg": {
+    "sourceName": "Open-Meteo Marine API",
+    "sourceUrl": "https://open-meteo.com/en/docs/marine-weather-api",
+    "notes": "Hourly wave direction averaged for selected month across baseline years."
+  },
+  "floodRisk": {
+    "sourceName": "Not available in Phase 1",
+    "sourceUrl": "https://open-meteo.com/",
+    "notes": "Field intentionally kept as null with explicit missing status."
+  },
+  "stormRisk": {
+    "sourceName": "Not available in Phase 1",
+    "sourceUrl": "https://open-meteo.com/",
+    "notes": "Field intentionally kept as null with explicit missing status."
+  }
+}
