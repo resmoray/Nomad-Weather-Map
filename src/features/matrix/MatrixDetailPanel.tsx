@@ -1,4 +1,5 @@
 import type { MatrixCellViewModel } from "../../types/presentation";
+import { METRIC_ROW_LABELS } from "./classifyMetric";
 
 interface MatrixDetailPanelProps {
   rowLabel: string;
@@ -16,7 +17,7 @@ function getMeaningText(rowLabel: string): string {
   }
 
   if (rowLabel === "Personal") {
-    return "Two-layer persona score: comfort profile + trip type priorities. This is your custom ranking layer.";
+    return "Custom preference score: tuned by your selected temperature, humidity, rain, air, UV and surf settings.";
   }
 
   return "Metric value for this region and month.";
@@ -48,6 +49,20 @@ export function MatrixDetailPanel({ rowLabel, columnLabel, cell }: MatrixDetailP
           <section>
             <h4>Confidence</h4>
             <p>{cell.confidenceText ? cell.confidenceText : "No confidence metadata for this metric."}</p>
+            {cell.confidenceDetails ? (
+              <>
+                <p>Coverage: {Math.round(cell.confidenceDetails.coverage * 100)}%</p>
+                <p>{cell.confidenceDetails.reason}</p>
+                {cell.confidenceDetails.missingMetrics.length > 0 ? (
+                  <p>
+                    Missing metrics:{" "}
+                    {cell.confidenceDetails.missingMetrics
+                      .map((metric) => METRIC_ROW_LABELS[metric] ?? metric)
+                      .join(", ")}
+                  </p>
+                ) : null}
+              </>
+            ) : null}
             {cell.marketConfidenceSource ? (
               <p>Market signal source quality: {cell.marketConfidenceSource}</p>
             ) : null}
@@ -82,6 +97,29 @@ export function MatrixDetailPanel({ rowLabel, columnLabel, cell }: MatrixDetailP
               </ul>
             ) : null}
           </section>
+          {cell.personalDrivers && cell.personalDrivers.length > 0 ? (
+            <section>
+              <h4>Score drivers</h4>
+              <ul className="matrix-source-list">
+                {cell.personalDrivers.map((driver) => (
+                  <li key={`${driver.metric}-${driver.contribution}`}>
+                    {driver.direction === "positive" ? "+" : "-"} {driver.metric}: {driver.reason} (
+                    {driver.contribution.toFixed(1)})
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          {cell.personalWarnings && cell.personalWarnings.length > 0 ? (
+            <section>
+              <h4>Warnings</h4>
+              <ul className="matrix-source-list">
+                {cell.personalWarnings.map((warning) => (
+                  <li key={warning}>{warning}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
         </div>
       )}
     </aside>

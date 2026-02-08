@@ -1,6 +1,6 @@
 # Nomad Weather Map
 
-Nomad Weather Map helps you compare destinations by month using weather metrics, fixed season context, and persona-based scoring.
+Nomad Weather Map helps you compare destinations by month using weather metrics, fixed season context, and custom plain-language preference scoring.
 
 It is designed to run immediately after clone with no API keys and no manual config.
 
