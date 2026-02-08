@@ -53,9 +53,6 @@
   --surf-button-border: #b9d8cf;
   --surf-button-hover: #d4e7e1;
   --matrix-detail-bg: #fcfffd;
-  --stop-bg: #0f172a;
-  --stop-hover: #1e293b;
-  --stop-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
   --theme-button-bg: #dce9e4;
   --theme-button-border: #b8d2c8;
   --theme-button-text: #1a4c43;
@@ -117,9 +114,6 @@
   --surf-button-border: #4f6f76;
   --surf-button-hover: #325056;
   --matrix-detail-bg: #1c2d32;
-  --stop-bg: #26384b;
-  --stop-hover: #32495f;
-  --stop-shadow: 0 10px 24px rgba(0, 0, 0, 0.32);
   --theme-button-bg: #263b3e;
   --theme-button-border: #4f6f73;
   --theme-button-text: #d9ece8;
@@ -193,32 +187,6 @@ body {
 .theme-toggle-button:hover:not(:disabled) {
   background: var(--theme-button-hover);
   box-shadow: none;
-}
-
-.stop-app-button {
-  background: var(--stop-bg);
-  border-color: var(--stop-bg);
-  white-space: nowrap;
-  box-shadow: var(--shadow-soft);
-}
-
-.stop-app-button:hover:not(:disabled) {
-  background: var(--stop-hover);
-}
-
-.stop-app-fab {
-  position: fixed;
-  right: 1.05rem;
-  bottom: 1.05rem;
-  z-index: 40;
-  background: var(--stop-bg);
-  border-color: var(--stop-bg);
-  box-shadow: var(--stop-shadow);
-  backdrop-filter: blur(3px);
-}
-
-.stop-app-fab:hover:not(:disabled) {
-  background: var(--stop-hover);
 }
 
 .hero p {
@@ -544,13 +512,6 @@ th {
 
   .map-container {
     height: 300px;
-  }
-
-  .stop-app-fab {
-    right: 0.8rem;
-    bottom: 0.8rem;
-    padding: 0.46rem 0.68rem;
-    font-size: 0.88rem;
   }
 }
 
