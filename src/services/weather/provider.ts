@@ -36,7 +36,7 @@ export class OpenMeteoWeatherProvider implements WeatherProvider {
     month: Month,
     options?: RecordLoadOptions,
   ): Promise<RegionMonthRecord> {
-    const includeMarine = options?.includeMarine ?? true;
+    const includeMarine = (options?.includeMarine ?? true) && region.isCoastal;
     const key = this.getCacheKey(region.id, month, includeMarine);
     const cachedEntry = this.monthCache.get(key);
 
@@ -89,10 +89,11 @@ export class OpenMeteoWeatherProvider implements WeatherProvider {
   }
 
   async getRegionTimeline(region: Region, options?: RecordLoadOptions): Promise<RegionMonthRecord[]> {
+    const includeMarine = (options?.includeMarine ?? true) && region.isCoastal;
     const records = await Promise.all(
       MONTHS.map((month) =>
         this.getRegionMonthRecord(region, month, {
-          includeMarine: options?.includeMarine ?? true,
+          includeMarine,
         }),
       ),
     );

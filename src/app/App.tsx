@@ -61,6 +61,14 @@ function isRateLimitedMessage(message: string | null): boolean {
   return typeof message === "string" && message.includes("status 429");
 }
 
+function isMissingVerifiedSnapshotMessage(message: string | null): boolean {
+  if (typeof message !== "string") {
+    return false;
+  }
+
+  return message.includes("No verified weather snapshot") || message.includes("weather:snapshot:update");
+}
+
 function firstRejectedReason(results: Array<PromiseSettledResult<unknown>>): string | null {
   for (const result of results) {
     if (result.status === "rejected") {
@@ -404,7 +412,11 @@ export default function App() {
         if (resolvedRecords.length === 0 && finalFailedCount > 0) {
           if (isRateLimitedMessage(finalFailureReason)) {
             setErrorMessage(
-              "Open-Meteo rate limit reached (429). Wait about 1-2 minutes, then press Try again.",
+              "Open-Meteo throttled requests (429). To keep data truthful, no estimated fallback is used. Try again later or reduce selected regions.",
+            );
+          } else if (isMissingVerifiedSnapshotMessage(finalFailureReason)) {
+            setErrorMessage(
+              "No verified weather snapshot is stored yet. Run: npm run weather:snapshot:update -- --limit=200",
             );
           } else {
             const reasonSuffix = finalFailureReason ? ` Last error: ${finalFailureReason}` : "";
@@ -779,11 +791,15 @@ export default function App() {
           </p>
           <ExportButtons
             records={records}
-            timelineRecords={timelineRecords}
             regions={selectedRegions}
             month={selectedMonth}
             seasonByRegion={seasonByRegion}
             profile={profile}
+            loadRegionTimeline={(region) =>
+              weatherProvider.getRegionTimeline(region, {
+                includeMarine: profile.surfEnabled,
+              })
+            }
           />
         </section>
       </section>

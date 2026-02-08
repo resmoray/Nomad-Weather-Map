@@ -5,6 +5,10 @@ import {
   getCrowdIndexByMonth,
   getPriceIndexByMonth,
 } from "./seasonService.ts";
+import {
+  getWeatherSummaryForRegionMonth,
+  startWeatherSnapshotAutoUpdater,
+} from "./weatherSummaryService.ts";
 
 const PORT = Number.parseInt(process.env.SEASON_SERVER_PORT ?? "8787", 10);
 const WEATHER_PROXY_CACHE_TTL_MS = Number.parseInt(process.env.WEATHER_PROXY_CACHE_TTL_MS ?? "21600000", 10);
@@ -74,6 +78,23 @@ function parseMonth(raw: string | null): number | undefined {
   }
 
   return parsed;
+}
+
+function parseBoolean(raw: string | null, fallback: boolean): boolean {
+  if (raw === null) {
+    return fallback;
+  }
+
+  const normalized = raw.trim().toLowerCase();
+  if (normalized === "1" || normalized === "true" || normalized === "yes") {
+    return true;
+  }
+
+  if (normalized === "0" || normalized === "false" || normalized === "no") {
+    return false;
+  }
+
+  return fallback;
 }
 
 function getFreshCachedWeather(cacheKey: string, now: number): CachedWeatherResponse | null {
@@ -147,6 +168,35 @@ createServer(async (request, response) => {
   try {
     if (request.method !== "GET") {
       sendJson(response, 405, { error: "Method not allowed" });
+      return;
+    }
+
+    if (url.pathname === "/api/weather/summary") {
+      const regionId = (url.searchParams.get("regionId") ?? "").trim();
+      const month = parseMonth(url.searchParams.get("month"));
+      const includeMarine = parseBoolean(url.searchParams.get("includeMarine"), true);
+      const refresh = parseBoolean(url.searchParams.get("refresh"), false);
+      const forceRefresh = parseBoolean(url.searchParams.get("forceRefresh"), false);
+      const allowStale = parseBoolean(url.searchParams.get("allowStale"), true);
+
+      if (!regionId) {
+        sendJson(response, 400, { error: "regionId is required" });
+        return;
+      }
+
+      if (!month) {
+        sendJson(response, 400, { error: "month must be between 1 and 12" });
+        return;
+      }
+
+      const summary = await getWeatherSummaryForRegionMonth({
+        regionId,
+        month,
+        includeMarine,
+        mode: forceRefresh ? "force_refresh" : refresh ? "refresh_if_stale" : "verified_only",
+        allowStaleSnapshot: allowStale,
+      });
+      sendJson(response, 200, summary);
       return;
     }
 
@@ -325,4 +375,5 @@ createServer(async (request, response) => {
   console.log(
     `Weather proxy cache enabled (ttl=${WEATHER_PROXY_CACHE_TTL_MS}ms, staleMaxAge=${WEATHER_PROXY_STALE_MAX_AGE_MS}ms)`,
   );
+  startWeatherSnapshotAutoUpdater();
 });

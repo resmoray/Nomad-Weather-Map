@@ -74,10 +74,17 @@ describe("exportMonthlyPlan", () => {
     });
 
     expect(downloadFileMock).toHaveBeenCalledTimes(1);
-    expect(downloadFileMock).toHaveBeenCalledWith(
-      expect.stringContaining('"type": "monthly-plan"'),
-      "nomad-weather-monthly-plan.json",
-      "application/json",
-    );
+    const [payload, fileName, mimeType] = downloadFileMock.mock.calls[0];
+    expect(fileName).toBe("nomad-weather-monthly-plan.json");
+    expect(mimeType).toBe("application/json");
+
+    const parsed = JSON.parse(String(payload)) as {
+      type: string;
+      coverage: { missingMonths: number[]; selectedRegionCount: number };
+    };
+
+    expect(parsed.type).toBe("monthly-plan");
+    expect(parsed.coverage.selectedRegionCount).toBe(1);
+    expect(parsed.coverage.missingMonths).toContain(2);
   });
 });

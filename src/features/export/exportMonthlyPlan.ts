@@ -49,6 +49,8 @@ export function exportMonthlyPlan(input: {
   timelineRecords: RegionMonthRecord[];
   profile: UserPreferenceProfile;
   seasonByRegion: Record<string, SeasonSignalByMonth>;
+  selectedRegionCount?: number;
+  failedRegionIds?: string[];
 }): void {
   const recordsByKey = new Map<string, RegionMonthRecord>();
   for (const record of [...input.monthRecords, ...input.timelineRecords]) {
@@ -58,6 +60,9 @@ export function exportMonthlyPlan(input: {
   const plan: MonthlyPlanEntry[] = MONTHS.map((month) =>
     bestRecordByMonth(month, input.regions, recordsByKey, input.profile),
   ).filter((entry): entry is MonthlyPlanEntry => Boolean(entry));
+  const coveredMonths = new Set(plan.map((entry) => entry.month));
+  const usedRegionIds = new Set(plan.map((entry) => entry.regionId));
+  const missingMonths = MONTHS.filter((month) => !coveredMonths.has(month));
 
   const payload = JSON.stringify(
     {
@@ -66,6 +71,13 @@ export function exportMonthlyPlan(input: {
       profile: input.profile,
       entries: plan,
       seasonByRegion: input.seasonByRegion,
+      coverage: {
+        selectedRegionCount: input.selectedRegionCount ?? input.regions.length,
+        includedRegionCount: input.regions.length,
+        usedRegionCount: usedRegionIds.size,
+        missingMonths,
+        failedRegionIds: input.failedRegionIds ?? [],
+      },
     },
     null,
     2,
