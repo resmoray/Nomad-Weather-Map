@@ -9,7 +9,7 @@ export function MatrixLegend() {
       <span className="legend-item severity-missing">Missing</span>
       <span className="legend-note">Market season = fixed demand/price calendar</span>
       <span className="legend-note">Climate season = fixed comfort calendar</span>
-      <span className="legend-note">Personal = comfort profile + trip type</span>
+      <span className="legend-note">Personal = your custom preference profile</span>
       <span className="legend-note">Metric rows below = live API values</span>
     </div>
   );

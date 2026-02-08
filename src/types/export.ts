@@ -1,5 +1,6 @@
 import type { CountryCode, SuitabilityBand } from "./weather";
 import type { MarketConfidenceSource, SeasonConfidence, SeasonLabel } from "./season";
+import type { UserPreferenceProfile } from "./presentation";
 
 export interface LLMExportRecord {
   region_id: string;
@@ -100,5 +101,20 @@ export interface LLMExportRecord {
   climate_season_reason?: string | null;
   market_season_label?: SeasonLabel | null;
   market_confidence_source?: MarketConfidenceSource | null;
+  profile_temp_preference?: UserPreferenceProfile["tempPreference"];
+  profile_humidity_preference?: UserPreferenceProfile["humidityPreference"];
+  profile_rain_tolerance?: UserPreferenceProfile["rainTolerance"];
+  profile_air_sensitivity?: UserPreferenceProfile["airSensitivity"];
+  profile_uv_sensitivity?: UserPreferenceProfile["uvSensitivity"];
+  profile_surf_enabled?: boolean;
+  profile_dealbreaker_avoid_heavy_rain?: boolean;
+  profile_dealbreaker_avoid_unhealthy_air?: boolean;
+  profile_dealbreaker_avoid_very_high_uv?: boolean;
+  profile_dealbreaker_avoid_strong_wind?: boolean;
+  profile_dealbreaker_coastal_only?: boolean;
+  personal_driver_summary?: string | null;
+  personal_warning_summary?: string | null;
+  scoring_model_version?: string;
+  threshold_version?: string;
   exported_at: string;
 }

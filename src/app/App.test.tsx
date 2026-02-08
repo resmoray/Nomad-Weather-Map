@@ -21,9 +21,13 @@ vi.mock("../services/season/seasonClient", () => ({
 
 vi.mock("../services/weather/provider", () => ({
   weatherProvider: {
-    getRegionMonthRecord: (region: Region, month: Month) =>
-      getRegionMonthRecordMock(region, month),
-    getRegionTimeline: (region: Region) => getRegionTimelineMock(region),
+    getRegionMonthRecord: (
+      region: Region,
+      month: Month,
+      options?: { includeMarine?: boolean },
+    ) => getRegionMonthRecordMock(region, month, options),
+    getRegionTimeline: (region: Region, options?: { includeMarine?: boolean }) =>
+      getRegionTimelineMock(region, options),
     clearCache: vi.fn(),
   },
 }));
@@ -90,7 +94,7 @@ describe("App", () => {
     render(<App />);
 
     const alert = await screen.findByRole("alert");
-    expect(alert).toHaveTextContent("API down");
+    expect(alert).toHaveTextContent("All selected regions failed to load");
   });
 
   it("refetches when country filter changes", async () => {
@@ -104,13 +108,18 @@ describe("App", () => {
       expect(getRegionMonthRecordMock).toHaveBeenCalled();
     });
 
-    const countrySelect = screen.getByLabelText("Country");
-    fireEvent.change(countrySelect, { target: { value: "TH" } });
+    const countryPicker = screen.getByLabelText("Country search and select");
+    fireEvent.focus(countryPicker);
+    fireEvent.change(countryPicker, { target: { value: "thai" } });
+
+    const thailandCheckbox = await screen.findByLabelText("Thailand (TH)");
+    fireEvent.click(thailandCheckbox);
 
     await waitFor(() => {
       expect(getRegionMonthRecordMock).toHaveBeenCalledWith(
         expect.objectContaining({ countryCode: "TH" }),
         1,
+        expect.objectContaining({ includeMarine: false }),
       );
     });
 

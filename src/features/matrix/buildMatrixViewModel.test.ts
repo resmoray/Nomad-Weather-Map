@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { SeasonSignalByMonth } from "../../types/season";
 import type { RegionMonthRecord } from "../../types/weather";
 import { buildMatrixViewModel } from "./buildMatrixViewModel";
+import { DEFAULT_PROFILE } from "./customProfile";
 
 function metric(value: number | null, unit: string) {
   return {
@@ -78,8 +79,7 @@ describe("buildMatrixViewModel", () => {
       monthRecords: [record],
       timelineRecords: [],
       seasonByRegion,
-      comfortProfileId: "perfectTemp",
-      tripTypeId: "cityTrip",
+      profile: DEFAULT_PROFILE,
     });
 
     const rowKeys = vm.rows.map((row) => row.key);
@@ -97,8 +97,7 @@ describe("buildMatrixViewModel", () => {
       monthRecords: [record],
       timelineRecords: [],
       seasonByRegion,
-      comfortProfileId: "perfectTemp",
-      tripTypeId: "cityTrip",
+      profile: DEFAULT_PROFILE,
     });
 
     expect(vm.rows[0]?.cells[0]?.label).toBe("high");
@@ -112,8 +111,7 @@ describe("buildMatrixViewModel", () => {
       monthRecords: [record],
       timelineRecords: [],
       seasonByRegion,
-      comfortProfileId: "perfectTemp",
-      tripTypeId: "cityTrip",
+      profile: DEFAULT_PROFILE,
     });
 
     expect(vm.rows[1]?.cells[0]?.label).toBe("high");

@@ -1,5 +1,5 @@
 import type { MetricKey, MetricValue, SuitabilityBand } from "../../types/weather";
-import type { CellSeverity, MetricAssessment } from "../../types/presentation";
+import type { CellSeverity, MetricAssessment, MatrixRowGroup } from "../../types/presentation";
 import type { SeasonLabel } from "../../types/season";
 
 export const METRIC_ROW_ORDER: MetricKey[] = [
@@ -16,19 +16,51 @@ export const METRIC_ROW_ORDER: MetricKey[] = [
 ];
 
 export const METRIC_ROW_LABELS: Record<MetricKey, string> = {
-  temperatureC: "Temp (min/avg/max)",
-  humidityPct: "Humidity",
-  rainfallMm: "Rain",
-  windKph: "Wind",
-  waveHeightM: "Wave height",
-  wavePeriodS: "Wave period",
-  waveDirectionDeg: "Wave direction",
-  uvIndex: "UV",
-  pm25: "PM2.5",
-  aqi: "Air quality",
+  temperatureC: "Temp (min/avg/max, C)",
+  humidityPct: "Humidity (%)",
+  rainfallMm: "Rain (mm)",
+  windKph: "Wind (kph)",
+  waveHeightM: "Wave height (m)",
+  wavePeriodS: "Wave period (s)",
+  waveDirectionDeg: "Wave direction (deg)",
+  uvIndex: "UV (index)",
+  pm25: "PM2.5 (ug/m3)",
+  aqi: "Air quality (AQI)",
   floodRisk: "Flood risk",
   stormRisk: "Storm risk",
 };
+
+export const METRIC_UNIT_HINTS: Partial<Record<MetricKey, string>> = {
+  temperatureC: "C",
+  humidityPct: "%",
+  rainfallMm: "mm",
+  windKph: "kph",
+  waveHeightM: "m",
+  wavePeriodS: "s",
+  waveDirectionDeg: "deg",
+  uvIndex: "index",
+  pm25: "ug/m3",
+  aqi: "index",
+};
+
+export const ROW_GROUP_LABELS: Record<MatrixRowGroup, string> = {
+  seasons: "Seasons & Personal",
+  comfort: "Comfort",
+  air: "Air & UV",
+  surf: "Surf",
+};
+
+export function metricToRowGroup(metric: MetricKey): MatrixRowGroup {
+  if (metric === "waveHeightM" || metric === "wavePeriodS" || metric === "waveDirectionDeg") {
+    return "surf";
+  }
+
+  if (metric === "uvIndex" || metric === "pm25" || metric === "aqi") {
+    return "air";
+  }
+
+  return "comfort";
+}
 
 function createAssessment(
   label: string,
@@ -183,7 +215,7 @@ function classifyPm25(value: number): MetricAssessment {
   }
 
   if (value <= 55.4) {
-    return createAssessment("USG", "caution", "Sensitive groups may be affected.", "mask");
+    return createAssessment("Sensitive groups", "caution", "Sensitive groups may be affected.", "mask");
   }
 
   if (value <= 150.4) {
@@ -203,7 +235,7 @@ function classifyAqi(value: number): MetricAssessment {
   }
 
   if (value <= 150) {
-    return createAssessment("USG", "caution", "Sensitive groups may notice symptoms.", "mask");
+    return createAssessment("Sensitive groups", "caution", "Sensitive groups may notice symptoms.", "mask");
   }
 
   if (value <= 200) {

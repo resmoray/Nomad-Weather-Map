@@ -377,6 +377,258 @@ const SOURCES_NEW_ZEALAND: FixedSeasonSource[] = [
   ...SOURCES_SHARED,
 ];
 
+const SOURCES_NORDICS: FixedSeasonSource[] = [
+  {
+    name: "World Meteorological Organization climate resources",
+    url: "https://wmo.int/",
+  },
+  {
+    name: "Nordic tourism season planning context",
+    url: "https://www.visitnordics.com/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_CANADA: FixedSeasonSource[] = [
+  {
+    name: "Environment and Climate Change Canada weather and climate",
+    url: "https://weather.gc.ca/",
+  },
+  {
+    name: "Destination Canada travel planning portal",
+    url: "https://www.destinationcanada.com/en",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_USA: FixedSeasonSource[] = [
+  {
+    name: "NOAA climate and weather guidance",
+    url: "https://www.noaa.gov/climate",
+  },
+  {
+    name: "Visit The USA travel planning portal",
+    url: "https://www.visittheusa.com/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_GULF: FixedSeasonSource[] = [
+  {
+    name: "World Bank Climate Knowledge Portal (Middle East)",
+    url: "https://climateknowledgeportal.worldbank.org/",
+  },
+  {
+    name: "UNWTO tourism data and seasonality context",
+    url: "https://www.unwto.org/tourism-data",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_CHILE: FixedSeasonSource[] = [
+  {
+    name: "Dirección Meteorológica de Chile",
+    url: "https://climatologia.meteochile.gob.cl/",
+  },
+  {
+    name: "Chile Travel planning portal",
+    url: "https://chile.travel/en/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_ARGENTINA: FixedSeasonSource[] = [
+  {
+    name: "Servicio Meteorológico Nacional Argentina",
+    url: "https://www.smn.gob.ar/",
+  },
+  {
+    name: "Visit Argentina planning portal",
+    url: "https://www.argentina.travel/en",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_BRAZIL: FixedSeasonSource[] = [
+  {
+    name: "Instituto Nacional de Meteorologia (INMET)",
+    url: "https://portal.inmet.gov.br/",
+  },
+  {
+    name: "Visit Brasil official tourism portal",
+    url: "https://www.visitbrasil.com/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_MEXICO: FixedSeasonSource[] = [
+  {
+    name: "Servicio Meteorológico Nacional (Mexico)",
+    url: "https://smn.conagua.gob.mx/",
+  },
+  {
+    name: "Visit Mexico tourism portal",
+    url: "https://www.visitmexico.com/en/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_ITALY: FixedSeasonSource[] = [
+  {
+    name: "Italian Meteorological Service",
+    url: "https://www.meteoam.it/en",
+  },
+  {
+    name: "Italia.it official tourism portal",
+    url: "https://www.italia.it/en",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_FRANCE: FixedSeasonSource[] = [
+  {
+    name: "Meteo-France climate guidance",
+    url: "https://meteofrance.com/",
+  },
+  {
+    name: "France.fr official tourism portal",
+    url: "https://www.france.fr/en",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_GERMANY: FixedSeasonSource[] = [
+  {
+    name: "Deutscher Wetterdienst (DWD)",
+    url: "https://www.dwd.de/EN/Home/home_node.html",
+  },
+  {
+    name: "Germany Travel official portal",
+    url: "https://www.germany.travel/en/home.html",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_UK: FixedSeasonSource[] = [
+  {
+    name: "Met Office UK climate guidance",
+    url: "https://www.metoffice.gov.uk/",
+  },
+  {
+    name: "VisitBritain official portal",
+    url: "https://www.visitbritain.com/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_PORTUGAL: FixedSeasonSource[] = [
+  {
+    name: "Instituto Portugues do Mar e da Atmosfera",
+    url: "https://www.ipma.pt/en/",
+  },
+  {
+    name: "Visit Portugal official portal",
+    url: "https://www.visitportugal.com/en",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_GREECE: FixedSeasonSource[] = [
+  {
+    name: "Hellenic National Meteorological Service",
+    url: "https://emy.gr/emy/en",
+  },
+  {
+    name: "Visit Greece official portal",
+    url: "https://www.visitgreece.gr/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_TURKEY: FixedSeasonSource[] = [
+  {
+    name: "Turkish State Meteorological Service",
+    url: "https://mgm.gov.tr/eng/",
+  },
+  {
+    name: "Go Turkiye official tourism portal",
+    url: "https://goturkiye.com/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_INDIA: FixedSeasonSource[] = [
+  {
+    name: "India Meteorological Department",
+    url: "https://mausam.imd.gov.in/",
+  },
+  {
+    name: "Incredible India official portal",
+    url: "https://www.incredibleindia.gov.in/en",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_EGYPT: FixedSeasonSource[] = [
+  {
+    name: "Egyptian Meteorological Authority",
+    url: "https://ema.gov.eg/",
+  },
+  {
+    name: "Experience Egypt official tourism portal",
+    url: "https://www.experienceegypt.eg/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_SOUTH_AFRICA: FixedSeasonSource[] = [
+  {
+    name: "South African Weather Service",
+    url: "https://www.weathersa.co.za/",
+  },
+  {
+    name: "South African Tourism official portal",
+    url: "https://www.southafrica.net/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_KENYA: FixedSeasonSource[] = [
+  {
+    name: "Kenya Meteorological Department",
+    url: "https://www.meteo.go.ke/",
+  },
+  {
+    name: "Magical Kenya tourism portal",
+    url: "https://magicalkenya.com/",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_PERU: FixedSeasonSource[] = [
+  {
+    name: "Servicio Nacional de Meteorologia e Hidrologia del Peru",
+    url: "https://www.senamhi.gob.pe/",
+  },
+  {
+    name: "Peru Travel official portal",
+    url: "https://www.peru.travel/en",
+  },
+  ...SOURCES_SHARED,
+];
+
+const SOURCES_COLOMBIA: FixedSeasonSource[] = [
+  {
+    name: "IDEAM climate monitoring (Colombia)",
+    url: "https://www.ideam.gov.co/",
+  },
+  {
+    name: "Colombia Travel official portal",
+    url: "https://colombia.travel/en",
+  },
+  ...SOURCES_SHARED,
+];
+
 const TEMPLATE_VN_NORTH = makeTemplate({
   marketHigh: asMonths([10, 11, 12, 1, 2, 3]),
   marketShoulder: asMonths([4, 5, 9]),
@@ -1013,6 +1265,369 @@ const TEMPLATE_NZ_QUEENSTOWN = makeTemplate({
   sources: SOURCES_NEW_ZEALAND,
 });
 
+const TEMPLATE_IS_REYKJAVIK = makeTemplate({
+  marketHigh: asMonths([6, 7, 8]),
+  marketShoulder: asMonths([5, 9, 10]),
+  marketOff: asMonths([11, 12, 1, 2, 3, 4]),
+  climateHigh: asMonths([6, 7, 8]),
+  climateShoulder: asMonths([5, 9]),
+  climateOff: asMonths([10, 11, 12, 1, 2, 3, 4]),
+  marketReason: "Fixed city market season profile for Reykjavik with strongest demand in long-day summer months.",
+  climateReason: "Fixed city climate season profile for Reykjavik where comfort is concentrated in short mild summer windows.",
+  sources: SOURCES_NORDICS,
+});
+
+const TEMPLATE_NO_TROMSO = makeTemplate({
+  marketHigh: asMonths([6, 7, 8, 12, 1, 2]),
+  marketShoulder: asMonths([3, 4, 5, 9, 10]),
+  marketOff: asMonths([11]),
+  climateHigh: asMonths([6, 7, 8]),
+  climateShoulder: asMonths([5, 9]),
+  climateOff: asMonths([10, 11, 12, 1, 2, 3, 4]),
+  marketReason:
+    "Fixed city market season profile for Tromso with dual demand peaks: midnight sun in summer and aurora season in winter.",
+  climateReason:
+    "Fixed city climate season profile for Tromso with short cool summers and long cold-season limitations.",
+  sources: SOURCES_NORDICS,
+});
+
+const TEMPLATE_FI_HELSINKI = makeTemplate({
+  marketHigh: asMonths([6, 7, 8, 12]),
+  marketShoulder: asMonths([5, 9, 10, 1]),
+  marketOff: asMonths([2, 3, 4, 11]),
+  climateHigh: asMonths([6, 7, 8]),
+  climateShoulder: asMonths([5, 9]),
+  climateOff: asMonths([10, 11, 12, 1, 2, 3, 4]),
+  marketReason:
+    "Fixed city market season profile for Helsinki with summer city-travel demand and a smaller winter holiday bump.",
+  climateReason: "Fixed city climate season profile for Helsinki with best comfort in the warm-season period.",
+  sources: SOURCES_NORDICS,
+});
+
+const TEMPLATE_CA_COAST = makeTemplate({
+  marketHigh: asMonths([6, 7, 8, 9]),
+  marketShoulder: asMonths([5, 10]),
+  marketOff: asMonths([11, 12, 1, 2, 3, 4]),
+  climateHigh: asMonths([6, 7, 8, 9]),
+  climateShoulder: asMonths([5, 10]),
+  climateOff: asMonths([11, 12, 1, 2, 3, 4]),
+  marketReason: "Fixed city market season profile for Vancouver with strongest demand in dry and mild summer months.",
+  climateReason: "Fixed city climate season profile for Pacific Canada with highest comfort in late spring through early autumn.",
+  sources: SOURCES_CANADA,
+});
+
+const TEMPLATE_CA_INTERIOR = makeTemplate({
+  marketHigh: asMonths([6, 7, 8, 9]),
+  marketShoulder: asMonths([5, 10]),
+  marketOff: asMonths([11, 12, 1, 2, 3, 4]),
+  climateHigh: asMonths([6, 7, 8]),
+  climateShoulder: asMonths([5, 9, 10]),
+  climateOff: asMonths([11, 12, 1, 2, 3, 4]),
+  marketReason: "Fixed city market season profile for Calgary with strongest demand in warm and shoulder months.",
+  climateReason: "Fixed city climate season profile for inland Canada with strong winter cold and short comfortable summer.",
+  sources: SOURCES_CANADA,
+});
+
+const TEMPLATE_US_ALASKA = makeTemplate({
+  marketHigh: asMonths([6, 7, 8]),
+  marketShoulder: asMonths([5, 9]),
+  marketOff: asMonths([10, 11, 12, 1, 2, 3, 4]),
+  climateHigh: asMonths([6, 7, 8]),
+  climateShoulder: asMonths([5, 9]),
+  climateOff: asMonths([10, 11, 12, 1, 2, 3, 4]),
+  marketReason: "Fixed city market season profile for Anchorage with strong summer demand and low winter demand.",
+  climateReason: "Fixed city climate season profile for Alaska with comfort heavily concentrated in short summer months.",
+  sources: SOURCES_USA,
+});
+
+const TEMPLATE_GULF_COAST = makeTemplate({
+  marketHigh: asMonths([11, 12, 1, 2, 3]),
+  marketShoulder: asMonths([4, 10]),
+  marketOff: asMonths([5, 6, 7, 8, 9]),
+  climateHigh: asMonths([11, 12, 1, 2, 3]),
+  climateShoulder: asMonths([4, 10]),
+  climateOff: asMonths([5, 6, 7, 8, 9]),
+  marketReason: "Fixed city market season profile for Gulf coast cities with demand concentrated in cooler months.",
+  climateReason: "Fixed city climate season profile for Gulf desert climates where summer heat severely reduces comfort.",
+  sources: SOURCES_GULF,
+});
+
+const TEMPLATE_GULF_INLAND = makeTemplate({
+  marketHigh: asMonths([11, 12, 1, 2]),
+  marketShoulder: asMonths([3, 4, 10]),
+  marketOff: asMonths([5, 6, 7, 8, 9]),
+  climateHigh: asMonths([11, 12, 1, 2, 3]),
+  climateShoulder: asMonths([4, 10]),
+  climateOff: asMonths([5, 6, 7, 8, 9]),
+  marketReason: "Fixed city market season profile for inland Gulf cities with strongest demand in winter months.",
+  climateReason: "Fixed city climate season profile for inland desert heat with broad summer off-season comfort.",
+  sources: SOURCES_GULF,
+});
+
+const TEMPLATE_CL_CENTRAL = makeTemplate({
+  marketHigh: asMonths([11, 12, 1, 2, 3]),
+  marketShoulder: asMonths([4, 10]),
+  marketOff: asMonths([5, 6, 7, 8, 9]),
+  climateHigh: asMonths([10, 11, 12, 1, 2, 3]),
+  climateShoulder: asMonths([4, 9]),
+  climateOff: asMonths([5, 6, 7, 8]),
+  marketReason: "Fixed city market season profile for central Chile with peak travel in southern-hemisphere summer.",
+  climateReason: "Fixed city climate season profile for Santiago's Mediterranean pattern with cool winters.",
+  sources: SOURCES_CHILE,
+});
+
+const TEMPLATE_CL_PATAGONIA = makeTemplate({
+  marketHigh: asMonths([12, 1, 2, 3]),
+  marketShoulder: asMonths([11, 4, 10]),
+  marketOff: asMonths([5, 6, 7, 8, 9]),
+  climateHigh: asMonths([12, 1, 2, 3]),
+  climateShoulder: asMonths([11, 4]),
+  climateOff: asMonths([5, 6, 7, 8, 9, 10]),
+  marketReason: "Fixed city market season profile for Patagonia with strong summer seasonality and wind-constrained winters.",
+  climateReason: "Fixed city climate season profile for southern Patagonia with comfort largely restricted to summer.",
+  sources: SOURCES_CHILE,
+});
+
+const TEMPLATE_AR_BUENOS_AIRES = makeTemplate({
+  marketHigh: asMonths([11, 12, 1, 2, 3, 10]),
+  marketShoulder: asMonths([4, 9]),
+  marketOff: asMonths([5, 6, 7, 8]),
+  climateHigh: asMonths([10, 11, 12, 1, 2, 3, 4]),
+  climateShoulder: asMonths([5, 9]),
+  climateOff: asMonths([6, 7, 8]),
+  marketReason: "Fixed city market season profile for Buenos Aires with strongest demand in spring and summer.",
+  climateReason: "Fixed city climate season profile for Buenos Aires where winter months are cooler and less favorable.",
+  sources: SOURCES_ARGENTINA,
+});
+
+const TEMPLATE_AU_DESERT = makeTemplate({
+  marketHigh: asMonths([4, 5, 6, 7, 8, 9]),
+  marketShoulder: asMonths([3, 10]),
+  marketOff: asMonths([11, 12, 1, 2]),
+  climateHigh: asMonths([4, 5, 6, 7, 8, 9]),
+  climateShoulder: asMonths([3, 10]),
+  climateOff: asMonths([11, 12, 1, 2]),
+  marketReason: "Fixed city market season profile for Australia's inland desert with peak demand in cooler months.",
+  climateReason: "Fixed city climate season profile for central Australia where summer heat strongly limits comfort.",
+  sources: SOURCES_AUSTRALIA,
+});
+
+const TEMPLATE_ES_CANARY = makeTemplate({
+  marketHigh: asMonths([11, 12, 1, 2, 3, 4, 5]),
+  marketShoulder: asMonths([6, 10]),
+  marketOff: asMonths([7, 8, 9]),
+  climateHigh: asMonths([10, 11, 12, 1, 2, 3, 4, 5]),
+  climateShoulder: asMonths([6, 9]),
+  climateOff: asMonths([7, 8]),
+  marketReason: "Fixed city market season profile for Canary Islands with strong winter-sun demand.",
+  climateReason: "Fixed city climate season profile for Canaries with mild year-round conditions and best shoulder comfort.",
+  sources: SOURCES_SPAIN,
+});
+
+const TEMPLATE_CN_URUMQI = makeTemplate({
+  marketHigh: asMonths([5, 6, 9, 10]),
+  marketShoulder: asMonths([4, 7, 8, 11]),
+  marketOff: asMonths([12, 1, 2, 3]),
+  climateHigh: asMonths([5, 6, 9, 10]),
+  climateShoulder: asMonths([4, 7, 8, 11]),
+  climateOff: asMonths([12, 1, 2, 3]),
+  marketReason: "Fixed city market season profile for far-west China with shoulder-season demand peaks.",
+  climateReason: "Fixed city climate season profile for Urumqi's continental dry climate with cold winters and hot summers.",
+  sources: SOURCES_CHINA,
+});
+
+const TEMPLATE_CN_LHASA = makeTemplate({
+  marketHigh: asMonths([5, 6, 9, 10]),
+  marketShoulder: asMonths([4, 7, 8, 11]),
+  marketOff: asMonths([12, 1, 2, 3]),
+  climateHigh: asMonths([5, 6, 9, 10]),
+  climateShoulder: asMonths([4, 7, 8, 11]),
+  climateOff: asMonths([12, 1, 2, 3]),
+  marketReason: "Fixed city market season profile for Tibetan highland travel with strongest demand in milder months.",
+  climateReason: "Fixed city climate season profile for Lhasa's high-altitude climate with cold winters and monsoon summer risks.",
+  sources: SOURCES_CHINA,
+});
+
+const TEMPLATE_BR_MAIN = makeTemplate({
+  marketHigh: asMonths([12, 1, 2, 7]),
+  marketShoulder: asMonths([3, 4, 5, 6, 8, 11]),
+  marketOff: asMonths([9, 10]),
+  climateHigh: asMonths([5, 6, 7, 8]),
+  climateShoulder: asMonths([4, 9, 10, 11]),
+  climateOff: asMonths([12, 1, 2, 3]),
+  marketReason: "Fixed country market season profile for Brazil balancing summer holiday demand and mid-year regional peaks.",
+  climateReason: "Fixed country climate season profile for Brazil across tropical and southern temperate zones.",
+  sources: SOURCES_BRAZIL,
+});
+
+const TEMPLATE_MX_MAIN = makeTemplate({
+  marketHigh: asMonths([11, 12, 1, 2, 3, 4]),
+  marketShoulder: asMonths([5, 10]),
+  marketOff: asMonths([6, 7, 8, 9]),
+  climateHigh: asMonths([11, 12, 1, 2, 3, 4]),
+  climateShoulder: asMonths([5, 10]),
+  climateOff: asMonths([6, 7, 8, 9]),
+  marketReason: "Fixed country market season profile for Mexico with highest demand during cooler dry-season months.",
+  climateReason: "Fixed country climate season profile for Mexico with rainy-season constraints in mid-year.",
+  sources: SOURCES_MEXICO,
+});
+
+const TEMPLATE_IT_MAIN = makeTemplate({
+  marketHigh: asMonths([5, 6, 9, 10]),
+  marketShoulder: asMonths([4, 7, 8, 11]),
+  marketOff: asMonths([12, 1, 2, 3]),
+  climateHigh: asMonths([5, 6, 9, 10]),
+  climateShoulder: asMonths([4, 7, 8, 11]),
+  climateOff: asMonths([12, 1, 2, 3]),
+  marketReason: "Fixed country market season profile for Italy with strongest city demand in spring and autumn.",
+  climateReason: "Fixed country climate season profile for Italy balancing summer heat and winter cold windows.",
+  sources: SOURCES_ITALY,
+});
+
+const TEMPLATE_FR_MAIN = makeTemplate({
+  marketHigh: asMonths([5, 6, 9]),
+  marketShoulder: asMonths([4, 7, 8, 10]),
+  marketOff: asMonths([11, 12, 1, 2, 3]),
+  climateHigh: asMonths([5, 6, 9]),
+  climateShoulder: asMonths([4, 7, 8, 10]),
+  climateOff: asMonths([11, 12, 1, 2, 3]),
+  marketReason: "Fixed country market season profile for France with spring-to-early-autumn concentration.",
+  climateReason: "Fixed country climate season profile for France with coolest comfort in late spring and early autumn.",
+  sources: SOURCES_FRANCE,
+});
+
+const TEMPLATE_DE_MAIN = makeTemplate({
+  marketHigh: asMonths([5, 6, 9]),
+  marketShoulder: asMonths([4, 7, 8, 10]),
+  marketOff: asMonths([11, 12, 1, 2, 3]),
+  climateHigh: asMonths([5, 6, 9]),
+  climateShoulder: asMonths([4, 7, 8, 10]),
+  climateOff: asMonths([11, 12, 1, 2, 3]),
+  marketReason: "Fixed country market season profile for Germany with strongest demand in warm shoulder months.",
+  climateReason: "Fixed country climate season profile for Germany with winter cold and occasional summer heat constraints.",
+  sources: SOURCES_GERMANY,
+});
+
+const TEMPLATE_GB_MAIN = makeTemplate({
+  marketHigh: asMonths([6, 7, 8]),
+  marketShoulder: asMonths([5, 9, 10]),
+  marketOff: asMonths([11, 12, 1, 2, 3, 4]),
+  climateHigh: asMonths([6, 7, 8]),
+  climateShoulder: asMonths([5, 9, 10]),
+  climateOff: asMonths([11, 12, 1, 2, 3, 4]),
+  marketReason: "Fixed country market season profile for the UK with demand peaking in summer and shoulder months.",
+  climateReason: "Fixed country climate season profile for the UK with best outdoor comfort in late spring through summer.",
+  sources: SOURCES_UK,
+});
+
+const TEMPLATE_PT_MAIN = makeTemplate({
+  marketHigh: asMonths([5, 6, 9, 10]),
+  marketShoulder: asMonths([4, 7, 8, 11]),
+  marketOff: asMonths([12, 1, 2, 3]),
+  climateHigh: asMonths([5, 6, 9, 10]),
+  climateShoulder: asMonths([4, 7, 8, 11]),
+  climateOff: asMonths([12, 1, 2, 3]),
+  marketReason: "Fixed country market season profile for Portugal with strongest demand in spring, summer and early autumn.",
+  climateReason: "Fixed country climate season profile for Portugal's Atlantic and Mediterranean transition.",
+  sources: SOURCES_PORTUGAL,
+});
+
+const TEMPLATE_GR_MAIN = makeTemplate({
+  marketHigh: asMonths([4, 5, 6, 9, 10]),
+  marketShoulder: asMonths([3, 7, 8, 11]),
+  marketOff: asMonths([12, 1, 2]),
+  climateHigh: asMonths([4, 5, 6, 9, 10]),
+  climateShoulder: asMonths([3, 7, 8, 11]),
+  climateOff: asMonths([12, 1, 2]),
+  marketReason: "Fixed country market season profile for Greece with high demand in spring, summer and early autumn.",
+  climateReason: "Fixed country climate season profile for Greece with peak-heat midsummer moderation.",
+  sources: SOURCES_GREECE,
+});
+
+const TEMPLATE_TR_MAIN = makeTemplate({
+  marketHigh: asMonths([4, 5, 6, 9, 10]),
+  marketShoulder: asMonths([3, 7, 8, 11]),
+  marketOff: asMonths([12, 1, 2]),
+  climateHigh: asMonths([4, 5, 6, 9, 10]),
+  climateShoulder: asMonths([3, 7, 8, 11]),
+  climateOff: asMonths([12, 1, 2]),
+  marketReason: "Fixed country market season profile for Turkey with strongest travel demand in spring and autumn windows.",
+  climateReason: "Fixed country climate season profile for Turkey across Mediterranean, continental and Black Sea influences.",
+  sources: SOURCES_TURKEY,
+});
+
+const TEMPLATE_IN_MAIN = makeTemplate({
+  marketHigh: asMonths([11, 12, 1, 2, 3]),
+  marketShoulder: asMonths([4, 10]),
+  marketOff: asMonths([5, 6, 7, 8, 9]),
+  climateHigh: asMonths([11, 12, 1, 2, 3]),
+  climateShoulder: asMonths([4, 10]),
+  climateOff: asMonths([5, 6, 7, 8, 9]),
+  marketReason: "Fixed country market season profile for India with demand concentration during cooler dry-season months.",
+  climateReason: "Fixed country climate season profile for India with broad monsoon-related comfort limits in mid-year.",
+  sources: SOURCES_INDIA,
+});
+
+const TEMPLATE_EG_MAIN = makeTemplate({
+  marketHigh: asMonths([11, 12, 1, 2, 3]),
+  marketShoulder: asMonths([4, 10]),
+  marketOff: asMonths([5, 6, 7, 8, 9]),
+  climateHigh: asMonths([11, 12, 1, 2, 3]),
+  climateShoulder: asMonths([4, 10]),
+  climateOff: asMonths([5, 6, 7, 8, 9]),
+  marketReason: "Fixed country market season profile for Egypt with strongest demand in cooler winter and shoulder periods.",
+  climateReason: "Fixed country climate season profile for Egypt where summer desert heat is a dominant comfort constraint.",
+  sources: SOURCES_EGYPT,
+});
+
+const TEMPLATE_ZA_MAIN = makeTemplate({
+  marketHigh: asMonths([12, 1, 2, 3, 11]),
+  marketShoulder: asMonths([4, 10]),
+  marketOff: asMonths([5, 6, 7, 8, 9]),
+  climateHigh: asMonths([11, 12, 1, 2, 3]),
+  climateShoulder: asMonths([4, 10]),
+  climateOff: asMonths([5, 6, 7, 8, 9]),
+  marketReason: "Fixed country market season profile for South Africa with summer-peak demand in the southern hemisphere.",
+  climateReason: "Fixed country climate season profile for South Africa with cooler winter months and warm coastal summers.",
+  sources: SOURCES_SOUTH_AFRICA,
+});
+
+const TEMPLATE_KE_MAIN = makeTemplate({
+  marketHigh: asMonths([1, 2, 6, 7, 8]),
+  marketShoulder: asMonths([3, 9, 10, 12]),
+  marketOff: asMonths([4, 5, 11]),
+  climateHigh: asMonths([1, 2, 6, 7, 8]),
+  climateShoulder: asMonths([3, 9, 10, 12]),
+  climateOff: asMonths([4, 5, 11]),
+  marketReason: "Fixed country market season profile for Kenya around drier windows between long and short rains.",
+  climateReason: "Fixed country climate season profile for Kenya with two rainy seasons reducing comfort in spring and late autumn.",
+  sources: SOURCES_KENYA,
+});
+
+const TEMPLATE_PE_MAIN = makeTemplate({
+  marketHigh: asMonths([5, 6, 7, 8, 9]),
+  marketShoulder: asMonths([4, 10, 11]),
+  marketOff: asMonths([12, 1, 2, 3]),
+  climateHigh: asMonths([5, 6, 7, 8, 9]),
+  climateShoulder: asMonths([4, 10, 11]),
+  climateOff: asMonths([12, 1, 2, 3]),
+  marketReason: "Fixed country market season profile for Peru with dry-season demand peaks in Andes and coastal shoulder balance.",
+  climateReason: "Fixed country climate season profile for Peru balancing coastal humidity, Andean seasonality and Amazon rainfall.",
+  sources: SOURCES_PERU,
+});
+
+const TEMPLATE_CO_MAIN = makeTemplate({
+  marketHigh: asMonths([12, 1, 2, 6, 7, 8]),
+  marketShoulder: asMonths([3, 4, 9, 10, 11]),
+  marketOff: asMonths([5]),
+  climateHigh: asMonths([12, 1, 2, 6, 7, 8]),
+  climateShoulder: asMonths([3, 4, 9, 10, 11]),
+  climateOff: asMonths([5]),
+  marketReason: "Fixed country market season profile for Colombia with strong travel windows in drier periods.",
+  climateReason: "Fixed country climate season profile for Colombia with intertropical rainfall peaks and altitude-driven variation.",
+  sources: SOURCES_COLOMBIA,
+});
+
 const REGION_TEMPLATE_MAP: Record<string, SeasonTemplate> = {
   "vn-hanoi": TEMPLATE_VN_NORTH,
   "vn-haiphong": TEMPLATE_VN_NORTH,
@@ -1137,6 +1752,101 @@ const REGION_TEMPLATE_MAP: Record<string, SeasonTemplate> = {
   "nz-queenstown": TEMPLATE_NZ_QUEENSTOWN,
   "nz-dunedin": TEMPLATE_NZ_MAIN,
   "nz-rotorua": TEMPLATE_NZ_MAIN,
+
+  "is-reykjavik": TEMPLATE_IS_REYKJAVIK,
+  "no-tromso": TEMPLATE_NO_TROMSO,
+  "fi-helsinki": TEMPLATE_FI_HELSINKI,
+
+  "ca-vancouver": TEMPLATE_CA_COAST,
+  "ca-calgary": TEMPLATE_CA_INTERIOR,
+  "us-anchorage": TEMPLATE_US_ALASKA,
+
+  "ae-dubai": TEMPLATE_GULF_COAST,
+  "sa-riyadh": TEMPLATE_GULF_INLAND,
+
+  "cl-santiago": TEMPLATE_CL_CENTRAL,
+  "cl-punta-arenas": TEMPLATE_CL_PATAGONIA,
+  "ar-buenos-aires": TEMPLATE_AR_BUENOS_AIRES,
+
+  "au-alice-springs": TEMPLATE_AU_DESERT,
+  "es-las-palmas": TEMPLATE_ES_CANARY,
+  "cn-urumqi": TEMPLATE_CN_URUMQI,
+  "cn-lhasa": TEMPLATE_CN_LHASA,
+  "br-sao-paulo": TEMPLATE_BR_MAIN,
+  "br-rio-de-janeiro": TEMPLATE_BR_MAIN,
+  "br-salvador": TEMPLATE_BR_MAIN,
+  "br-manaus": TEMPLATE_BR_MAIN,
+  "br-porto-alegre": TEMPLATE_BR_MAIN,
+  "mx-mexico-city": TEMPLATE_MX_MAIN,
+  "mx-cancun": TEMPLATE_MX_MAIN,
+  "mx-guadalajara": TEMPLATE_MX_MAIN,
+  "mx-monterrey": TEMPLATE_MX_MAIN,
+  "mx-puerto-vallarta": TEMPLATE_MX_MAIN,
+  "it-rome": TEMPLATE_IT_MAIN,
+  "it-milan": TEMPLATE_IT_MAIN,
+  "it-naples": TEMPLATE_IT_MAIN,
+  "it-palermo": TEMPLATE_IT_MAIN,
+  "it-venice": TEMPLATE_IT_MAIN,
+  "fr-paris": TEMPLATE_FR_MAIN,
+  "fr-lyon": TEMPLATE_FR_MAIN,
+  "fr-marseille": TEMPLATE_FR_MAIN,
+  "fr-nice": TEMPLATE_FR_MAIN,
+  "fr-bordeaux": TEMPLATE_FR_MAIN,
+  "de-berlin": TEMPLATE_DE_MAIN,
+  "de-munich": TEMPLATE_DE_MAIN,
+  "de-hamburg": TEMPLATE_DE_MAIN,
+  "de-frankfurt": TEMPLATE_DE_MAIN,
+  "de-cologne": TEMPLATE_DE_MAIN,
+  "gb-london": TEMPLATE_GB_MAIN,
+  "gb-manchester": TEMPLATE_GB_MAIN,
+  "gb-edinburgh": TEMPLATE_GB_MAIN,
+  "gb-glasgow": TEMPLATE_GB_MAIN,
+  "gb-belfast": TEMPLATE_GB_MAIN,
+  "pt-lisbon": TEMPLATE_PT_MAIN,
+  "pt-porto": TEMPLATE_PT_MAIN,
+  "pt-faro": TEMPLATE_PT_MAIN,
+  "pt-funchal": TEMPLATE_PT_MAIN,
+  "pt-ponta-delgada": TEMPLATE_PT_MAIN,
+  "gr-athens": TEMPLATE_GR_MAIN,
+  "gr-thessaloniki": TEMPLATE_GR_MAIN,
+  "gr-heraklion": TEMPLATE_GR_MAIN,
+  "gr-rhodes": TEMPLATE_GR_MAIN,
+  "gr-corfu": TEMPLATE_GR_MAIN,
+  "tr-istanbul": TEMPLATE_TR_MAIN,
+  "tr-ankara": TEMPLATE_TR_MAIN,
+  "tr-izmir": TEMPLATE_TR_MAIN,
+  "tr-antalya": TEMPLATE_TR_MAIN,
+  "tr-trabzon": TEMPLATE_TR_MAIN,
+  "in-delhi": TEMPLATE_IN_MAIN,
+  "in-mumbai": TEMPLATE_IN_MAIN,
+  "in-bengaluru": TEMPLATE_IN_MAIN,
+  "in-kolkata": TEMPLATE_IN_MAIN,
+  "in-chennai": TEMPLATE_IN_MAIN,
+  "eg-cairo": TEMPLATE_EG_MAIN,
+  "eg-alexandria": TEMPLATE_EG_MAIN,
+  "eg-luxor": TEMPLATE_EG_MAIN,
+  "eg-aswan": TEMPLATE_EG_MAIN,
+  "eg-sharm-el-sheikh": TEMPLATE_EG_MAIN,
+  "za-cape-town": TEMPLATE_ZA_MAIN,
+  "za-johannesburg": TEMPLATE_ZA_MAIN,
+  "za-durban": TEMPLATE_ZA_MAIN,
+  "za-pretoria": TEMPLATE_ZA_MAIN,
+  "za-port-elizabeth": TEMPLATE_ZA_MAIN,
+  "ke-nairobi": TEMPLATE_KE_MAIN,
+  "ke-mombasa": TEMPLATE_KE_MAIN,
+  "ke-kisumu": TEMPLATE_KE_MAIN,
+  "ke-eldoret": TEMPLATE_KE_MAIN,
+  "ke-malindi": TEMPLATE_KE_MAIN,
+  "pe-lima": TEMPLATE_PE_MAIN,
+  "pe-cusco": TEMPLATE_PE_MAIN,
+  "pe-arequipa": TEMPLATE_PE_MAIN,
+  "pe-iquitos": TEMPLATE_PE_MAIN,
+  "pe-trujillo": TEMPLATE_PE_MAIN,
+  "co-bogota": TEMPLATE_CO_MAIN,
+  "co-medellin": TEMPLATE_CO_MAIN,
+  "co-cartagena": TEMPLATE_CO_MAIN,
+  "co-cali": TEMPLATE_CO_MAIN,
+  "co-barranquilla": TEMPLATE_CO_MAIN,
 };
 
 export function getFixedSeasonProfile(regionId: string): FixedSeasonProfile | null {

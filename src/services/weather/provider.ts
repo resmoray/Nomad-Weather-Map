@@ -3,33 +3,51 @@ import { MONTHS, type Month, type Region, type RegionMonthRecord } from "../../t
 import { mapOpenMeteoSummaryToMetrics } from "./mapper";
 import { fetchOpenMeteoMonthlySummary } from "./openMeteoClient";
 
+interface RecordLoadOptions {
+  includeMarine?: boolean;
+}
+
 export interface WeatherProvider {
-  getRegionMonthRecord(region: Region, month: Month): Promise<RegionMonthRecord>;
-  getRegionTimeline(region: Region): Promise<RegionMonthRecord[]>;
+  getRegionMonthRecord(region: Region, month: Month, options?: RecordLoadOptions): Promise<RegionMonthRecord>;
+  getRegionTimeline(region: Region, options?: RecordLoadOptions): Promise<RegionMonthRecord[]>;
   clearCache(): void;
 }
 
-export class OpenMeteoWeatherProvider implements WeatherProvider {
-  private readonly monthCache = new Map<string, Promise<RegionMonthRecord>>();
+interface CacheEntry {
+  promise: Promise<RegionMonthRecord>;
+  expiresAt: number;
+}
 
-  private getCacheKey(regionId: string, month: Month): string {
-    return `${regionId}-${month}`;
+export class OpenMeteoWeatherProvider implements WeatherProvider {
+  private readonly monthCache = new Map<string, CacheEntry>();
+
+  private static readonly CACHE_TTL_MS = 15 * 60 * 1000;
+
+  private getCacheKey(regionId: string, month: Month, includeMarine: boolean): string {
+    return `${regionId}-${month}-${includeMarine ? "marine" : "no-marine"}`;
   }
 
   clearCache(): void {
     this.monthCache.clear();
   }
 
-  async getRegionMonthRecord(region: Region, month: Month): Promise<RegionMonthRecord> {
-    const key = this.getCacheKey(region.id, month);
-    const cached = this.monthCache.get(key);
+  async getRegionMonthRecord(
+    region: Region,
+    month: Month,
+    options?: RecordLoadOptions,
+  ): Promise<RegionMonthRecord> {
+    const includeMarine = options?.includeMarine ?? true;
+    const key = this.getCacheKey(region.id, month, includeMarine);
+    const cachedEntry = this.monthCache.get(key);
 
-    if (cached) {
-      return cached;
+    if (cachedEntry && cachedEntry.expiresAt > Date.now()) {
+      return cachedEntry.promise;
     }
 
     const loadPromise = (async () => {
-      const summary = await fetchOpenMeteoMonthlySummary(region, month);
+      const summary = await fetchOpenMeteoMonthlySummary(region, month, {
+        includeMarine,
+      });
       const metrics = mapOpenMeteoSummaryToMetrics(summary);
       const suitability = calculateSuitability(metrics);
 
@@ -46,18 +64,38 @@ export class OpenMeteoWeatherProvider implements WeatherProvider {
       };
     })();
 
-    this.monthCache.set(key, loadPromise);
+    this.monthCache.set(key, {
+      promise: loadPromise,
+      expiresAt: Date.now() + OpenMeteoWeatherProvider.CACHE_TTL_MS,
+    });
 
     try {
-      return await loadPromise;
+      const record = await loadPromise;
+      const missingAllAirMetrics =
+        record.metrics.pm25.value === null &&
+        record.metrics.aqi.value === null &&
+        record.metrics.uvIndex.value === null;
+
+      // Avoid caching all-null air snapshots for long periods; they are often transient.
+      if (missingAllAirMetrics) {
+        this.monthCache.delete(key);
+      }
+
+      return record;
     } catch (error) {
       this.monthCache.delete(key);
       throw error;
     }
   }
 
-  async getRegionTimeline(region: Region): Promise<RegionMonthRecord[]> {
-    const records = await Promise.all(MONTHS.map((month) => this.getRegionMonthRecord(region, month)));
+  async getRegionTimeline(region: Region, options?: RecordLoadOptions): Promise<RegionMonthRecord[]> {
+    const records = await Promise.all(
+      MONTHS.map((month) =>
+        this.getRegionMonthRecord(region, month, {
+          includeMarine: options?.includeMarine ?? true,
+        }),
+      ),
+    );
     return [...records].sort((left, right) => left.month - right.month);
   }
 }
