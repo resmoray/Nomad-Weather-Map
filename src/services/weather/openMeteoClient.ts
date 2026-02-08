@@ -1,7 +1,6 @@
 import { z } from "zod";
 import type { Month, Region } from "../../types/weather";
 
-const DEFAULT_CLIMATE_BASE_URL = "https://climate-api.open-meteo.com/v1/climate";
 const DEFAULT_CLIMATE_FALLBACK_BASE_URL = "https://historical-forecast-api.open-meteo.com/v1/forecast";
 const DEFAULT_CLIMATE_ARCHIVE_BASE_URL = "https://archive-api.open-meteo.com/v1/archive";
 const DEFAULT_AIR_BASE_URL = "https://air-quality-api.open-meteo.com/v1/air-quality";
@@ -9,7 +8,7 @@ const DEFAULT_MARINE_BASE_URL = "https://marine-api.open-meteo.com/v1/marine";
 const DEFAULT_BASELINE_YEARS = 3;
 const MIN_OPEN_METEO_YEAR = 2022;
 const DEFAULT_FETCH_CONCURRENCY = 6;
-const DEFAULT_FETCH_MAX_ATTEMPTS = 4;
+const DEFAULT_FETCH_MAX_ATTEMPTS = 2;
 const DEFAULT_RETRY_BASE_DELAY_MS = 800;
 const DEFAULT_FETCH_TIMEOUT_MS = 12000;
 
@@ -57,6 +56,24 @@ const marineResponseSchema = z.object({
   hourly: marineHourlySchema,
 });
 
+const weatherSummaryResponseSchema = z.object({
+  temperatureC: z.number().nullable(),
+  temperatureMinC: z.number().nullable(),
+  temperatureMaxC: z.number().nullable(),
+  rainfallMm: z.number().nullable(),
+  humidityPct: z.number().nullable(),
+  windKph: z.number().nullable(),
+  uvIndex: z.number().nullable(),
+  pm25: z.number().nullable(),
+  aqi: z.number().nullable(),
+  waveHeightM: z.number().nullable(),
+  wavePeriodS: z.number().nullable(),
+  waveDirectionDeg: z.number().nullable(),
+  climateLastUpdated: z.string(),
+  airQualityLastUpdated: z.string(),
+  marineLastUpdated: z.string(),
+});
+
 type ClimateDailyData = z.infer<typeof climateDailySchema>;
 type AirHourlyData = z.infer<typeof airHourlySchema>;
 type MarineHourlyData = z.infer<typeof marineHourlySchema>;
@@ -87,9 +104,10 @@ const FETCH_TIMEOUT_MS = parsePositiveInt(
   import.meta.env.VITE_OPEN_METEO_FETCH_TIMEOUT_MS,
   DEFAULT_FETCH_TIMEOUT_MS,
 );
-const WEATHER_PROXY_BASE_URL = (
-  import.meta.env.VITE_OPEN_METEO_PROXY_BASE_URL ??
-  (import.meta.env.DEV ? "http://localhost:8787/api/weather/open-meteo" : "")
+const WEATHER_PROXY_BASE_URL = (import.meta.env.VITE_OPEN_METEO_PROXY_BASE_URL ?? "").trim();
+const WEATHER_SUMMARY_BASE_URL = (
+  import.meta.env.VITE_WEATHER_SUMMARY_API_BASE_URL ??
+  (import.meta.env.DEV ? "http://localhost:8787" : "")
 ).trim();
 
 let activeFetchCount = 0;
@@ -116,6 +134,11 @@ export interface OpenMeteoMonthlySummary {
 interface FetchSummaryOptions {
   includeMarine?: boolean;
 }
+
+type ServerSummaryResult =
+  | { status: "success"; summary: OpenMeteoMonthlySummary }
+  | { status: "skip" }
+  | { status: "hard-fail"; error: Error };
 
 async function withFetchSlot<T>(task: () => Promise<T>): Promise<T> {
   if (activeFetchCount >= FETCH_CONCURRENCY_LIMIT) {
@@ -254,11 +277,13 @@ function getClimateBaseUrls(): string[] {
   const configuredFallback = (import.meta.env.VITE_OPEN_METEO_CLIMATE_FALLBACK_BASE_URL ?? "").trim();
   const configuredArchive = (import.meta.env.VITE_OPEN_METEO_CLIMATE_ARCHIVE_BASE_URL ?? "").trim();
 
-  const candidates = [
-    configuredPrimary || DEFAULT_CLIMATE_BASE_URL,
-    configuredFallback || DEFAULT_CLIMATE_FALLBACK_BASE_URL,
-    configuredArchive || DEFAULT_CLIMATE_ARCHIVE_BASE_URL,
-  ];
+  if (configuredPrimary || configuredFallback || configuredArchive) {
+    const configuredCandidates = [configuredPrimary, configuredFallback, configuredArchive].filter(Boolean);
+    return [...new Set(configuredCandidates)];
+  }
+
+  // Default to historical endpoints. The climate endpoint can trigger stricter throttling.
+  const candidates = [DEFAULT_CLIMATE_FALLBACK_BASE_URL, DEFAULT_CLIMATE_ARCHIVE_BASE_URL];
 
   return [...new Set(candidates)];
 }
@@ -308,6 +333,81 @@ function createMarineUrl(region: Region, year: number, month: Month): string {
   });
 
   return `${baseUrl}?${params.toString()}`;
+}
+
+function createWeatherSummaryUrl(region: Region, month: Month, includeMarine: boolean): string {
+  const params = new URLSearchParams({
+    regionId: region.id,
+    month: String(month),
+    includeMarine: includeMarine ? "1" : "0",
+  });
+  return `${WEATHER_SUMMARY_BASE_URL}/api/weather/summary?${params.toString()}`;
+}
+
+async function fetchServerSummary(
+  region: Region,
+  month: Month,
+  includeMarine: boolean,
+): Promise<ServerSummaryResult> {
+  if (!WEATHER_SUMMARY_BASE_URL) {
+    return { status: "skip" };
+  }
+
+  const url = createWeatherSummaryUrl(region, month, includeMarine);
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    let response: Response;
+
+    try {
+      response = await withFetchSlot(() => fetch(url, { signal: controller.signal }));
+    } finally {
+      clearTimeout(timeoutId);
+    }
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return { status: "skip" };
+      }
+
+      let responseDetails = "";
+      try {
+        responseDetails = await response.text();
+      } catch {
+        // ignore response parse errors
+      }
+      const detailsSuffix = responseDetails ? `: ${responseDetails}` : "";
+      return {
+        status: "hard-fail",
+        error: new Error(`Weather summary API failed with status ${response.status}${detailsSuffix}`),
+      };
+    }
+
+    const payload = await response.json();
+    const parsed = weatherSummaryResponseSchema.safeParse(payload);
+    if (!parsed.success) {
+      return {
+        status: "hard-fail",
+        error: new Error("Weather summary API returned unexpected data format"),
+      };
+    }
+
+    return {
+      status: "success",
+      summary: parsed.data,
+    };
+  } catch (error) {
+    if (isRetryableError(error)) {
+      // Backend likely unavailable in frontend-only mode.
+      return { status: "skip" };
+    }
+
+    return {
+      status: "hard-fail",
+      error: error instanceof Error ? error : new Error("Unknown weather summary API error"),
+    };
+  }
 }
 
 function buildRequestUrl(url: string): string {
@@ -539,8 +639,18 @@ export async function fetchOpenMeteoMonthlySummary(
   month: Month,
   options?: FetchSummaryOptions,
 ): Promise<OpenMeteoMonthlySummary> {
-  const baselineYears = getBaselineYears();
   const includeMarine = options?.includeMarine ?? true;
+  const serverResult = await fetchServerSummary(region, month, includeMarine);
+
+  if (serverResult.status === "success") {
+    return serverResult.summary;
+  }
+
+  if (serverResult.status === "hard-fail") {
+    throw serverResult.error;
+  }
+
+  const baselineYears = getBaselineYears();
 
   const [climateResults, airResults, marineResults] = await Promise.all([
     Promise.allSettled(baselineYears.map((year) => fetchClimateMonth(region, year, month))),

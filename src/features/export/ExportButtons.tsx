@@ -10,45 +10,32 @@ import { exportShortlist } from "./exportShortlist";
 
 interface ExportButtonsProps {
   records: RegionMonthRecord[];
-  timelineRecords: RegionMonthRecord[];
   regions: Region[];
   month: number;
   seasonByRegion: Record<string, SeasonSignalByMonth>;
   profile: UserPreferenceProfile;
+  loadRegionTimeline: (region: Region) => Promise<RegionMonthRecord[]>;
 }
 
 export function ExportButtons({
   records,
-  timelineRecords,
   regions,
   month,
   seasonByRegion,
   profile,
+  loadRegionTimeline,
 }: ExportButtonsProps) {
   const [message, setMessage] = useState<string>("");
+  const [isMonthlyPlanExporting, setIsMonthlyPlanExporting] = useState(false);
 
   const eligibleRecords = useMemo(
     () => records.filter((record) => evaluateDealbreakers(record, profile).passed),
     [records, profile],
   );
-  const eligibleTimelineRecords = useMemo(
-    () => timelineRecords.filter((record) => evaluateDealbreakers(record, profile).passed),
-    [timelineRecords, profile],
-  );
-  const eligibleRegionIds = useMemo(() => {
-    const ids = new Set<string>();
-    for (const record of [...eligibleRecords, ...eligibleTimelineRecords]) {
-      ids.add(record.region.id);
-    }
-    return ids;
-  }, [eligibleRecords, eligibleTimelineRecords]);
-  const eligibleRegions = useMemo(
-    () => regions.filter((region) => eligibleRegionIds.has(region.id)),
-    [regions, eligibleRegionIds],
-  );
 
   const disabled = eligibleRecords.length === 0;
   const excludedByDealbreakerCount = records.length - eligibleRecords.length;
+  const monthlyPlanDisabled = regions.length === 0 || isMonthlyPlanExporting;
 
   const recordCountLabel = useMemo(() => {
     if (eligibleRecords.length === 0) {
@@ -62,6 +49,79 @@ export function ExportButtons({
 
     return `${base} (${excludedByDealbreakerCount} excluded by dealbreakers)`;
   }, [eligibleRecords.length, excludedByDealbreakerCount]);
+
+  function errorMessage(error: unknown): string {
+    if (error instanceof Error) {
+      return error.message;
+    }
+
+    return "Unknown export error";
+  }
+
+  async function handleMonthlyPlanExport(): Promise<void> {
+    if (monthlyPlanDisabled) {
+      return;
+    }
+
+    setIsMonthlyPlanExporting(true);
+    setMessage("Loading full 12-month weather timeline for selected regions...");
+
+    try {
+      const timelineResults = await Promise.allSettled(
+        regions.map(async (region) => ({
+          region,
+          records: await loadRegionTimeline(region),
+        })),
+      );
+
+      const failedRegionIds: string[] = [];
+      const fullTimelineRecords: RegionMonthRecord[] = [];
+
+      for (let index = 0; index < timelineResults.length; index += 1) {
+        const result = timelineResults[index];
+        if (result.status === "fulfilled") {
+          fullTimelineRecords.push(...result.value.records);
+          continue;
+        }
+
+        if (result.status === "rejected") {
+          failedRegionIds.push(regions[index].id);
+        }
+      }
+
+      const eligibleTimelineRecords = fullTimelineRecords.filter(
+        (record) => evaluateDealbreakers(record, profile).passed,
+      );
+      const eligibleRegionIds = new Set(eligibleTimelineRecords.map((record) => record.region.id));
+      const regionsWithAnyEligibleMonth = regions.filter((region) => eligibleRegionIds.has(region.id));
+
+      if (eligibleTimelineRecords.length === 0 || regionsWithAnyEligibleMonth.length === 0) {
+        setMessage("Monthly plan not exported: no eligible month remained after dealbreakers.");
+        return;
+      }
+
+      exportMonthlyPlan({
+        regions: regionsWithAnyEligibleMonth,
+        monthRecords: [],
+        timelineRecords: eligibleTimelineRecords,
+        profile,
+        seasonByRegion,
+        selectedRegionCount: regions.length,
+        failedRegionIds,
+      });
+
+      if (failedRegionIds.length > 0) {
+        setMessage(`Monthly plan exported (${failedRegionIds.length} region load error(s), partial input).`);
+        return;
+      }
+
+      setMessage("Monthly plan exported.");
+    } catch (error) {
+      setMessage(`Monthly plan export failed: ${errorMessage(error)}`);
+    } finally {
+      setIsMonthlyPlanExporting(false);
+    }
+  }
 
   return (
     <section className="panel">
@@ -84,19 +144,12 @@ export function ExportButtons({
 
         <button
           type="button"
-          disabled={eligibleRegions.length === 0}
+          disabled={monthlyPlanDisabled}
           onClick={() => {
-            exportMonthlyPlan({
-              regions: eligibleRegions,
-              monthRecords: eligibleRecords,
-              timelineRecords: eligibleTimelineRecords,
-              profile,
-              seasonByRegion,
-            });
-            setMessage("Monthly plan exported.");
+            void handleMonthlyPlanExport();
           }}
         >
-          Export Monthly Plan
+          {isMonthlyPlanExporting ? "Exporting Monthly Plan..." : "Export Monthly Plan"}
         </button>
 
         <button
