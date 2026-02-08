@@ -1,6 +1,4 @@
 import { createServer } from "node:http";
-import { spawn } from "node:child_process";
-import { join } from "node:path";
 import { URL } from "node:url";
 import {
   buildSeasonSummary,
@@ -38,15 +36,6 @@ function parseMonth(raw: string | null): number | undefined {
   return parsed;
 }
 
-function isLocalRequest(request: import("node:http").IncomingMessage): boolean {
-  const remote = request.socket.remoteAddress ?? "";
-  return (
-    remote === "127.0.0.1" ||
-    remote === "::1" ||
-    remote === "::ffff:127.0.0.1"
-  );
-}
-
 createServer(async (request, response) => {
   if (!request.url) {
     sendJson(response, 400, { error: "Invalid request URL" });
@@ -66,28 +55,6 @@ createServer(async (request, response) => {
   const url = new URL(request.url, `http://localhost:${PORT}`);
 
   try {
-    if (url.pathname === "/api/dev/stop") {
-      if (request.method !== "POST") {
-        sendJson(response, 405, { error: "Method not allowed" });
-        return;
-      }
-
-      if (!isLocalRequest(request)) {
-        sendJson(response, 403, { error: "Forbidden" });
-        return;
-      }
-
-      const stopScript = join(process.cwd(), "scripts", "stop-dev.sh");
-      const proc = spawn("bash", [stopScript], {
-        detached: true,
-        stdio: "ignore",
-      });
-      proc.unref();
-
-      sendJson(response, 202, { ok: true, message: "Stopping dev services..." });
-      return;
-    }
-
     if (request.method !== "GET") {
       sendJson(response, 405, { error: "Method not allowed" });
       return;

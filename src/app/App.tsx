@@ -17,7 +17,6 @@ import { MONTH_LABELS } from "../utils/months";
 import "./App.css";
 
 type CountryFilter = CountryCode | "ALL";
-const DEFAULT_SEASON_API_BASE_URL = "http://localhost:8787";
 const THEME_STORAGE_KEY = "nomad-weather-theme";
 type ThemeMode = "light" | "dark";
 
@@ -90,38 +89,11 @@ export default function App() {
   const [timelineError, setTimelineError] = useState<string>("");
 
   const [seasonByRegion, setSeasonByRegion] = useState<Record<string, SeasonSignalByMonth>>({});
-  const [isStoppingApp, setIsStoppingApp] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", themeMode);
     window.localStorage.setItem(THEME_STORAGE_KEY, themeMode);
   }, [themeMode]);
-
-  async function handleStopApp(): Promise<void> {
-    const confirmed = window.confirm(
-      "App wirklich beenden? Das stoppt Frontend + Backend und versucht den Browser-Tab zu schließen.",
-    );
-    if (!confirmed) {
-      return;
-    }
-
-    setIsStoppingApp(true);
-    const baseUrl = import.meta.env.VITE_SEASON_API_BASE_URL ?? DEFAULT_SEASON_API_BASE_URL;
-
-    try {
-      await fetch(`${baseUrl}/api/dev/stop`, {
-        method: "POST",
-      });
-    } catch {
-      // Ignore network errors here, process stop may already be in progress.
-    }
-
-    setTimeout(() => {
-      window.open("", "_self");
-      window.close();
-      window.location.href = "about:blank";
-    }, 350);
-  }
 
   const visibleRegions = useMemo(() => {
     if (selectedCountry === "ALL") {
@@ -334,16 +306,6 @@ export default function App() {
             >
               {themeMode === "dark" ? "Light mode" : "Dark mode"}
             </button>
-            <button
-              type="button"
-              className="stop-app-button"
-              onClick={() => {
-                void handleStopApp();
-              }}
-              disabled={isStoppingApp}
-            >
-              {isStoppingApp ? "Stopping..." : "App beenden"}
-            </button>
           </div>
         </div>
         <p>
@@ -476,17 +438,6 @@ export default function App() {
           <ExportButtons records={records} month={selectedMonth} seasonByRegion={seasonByRegion} />
         </section>
       </section>
-
-      <button
-        type="button"
-        className="stop-app-fab"
-        onClick={() => {
-          void handleStopApp();
-        }}
-        disabled={isStoppingApp}
-      >
-        {isStoppingApp ? "Stopping..." : "App beenden"}
-      </button>
     </div>
   );
 }
