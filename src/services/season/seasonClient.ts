@@ -2,7 +2,7 @@ import { getFixedSeasonProfile } from "../../services/season/fixedSeasonProfiles
 import type { Month } from "../../types/weather";
 import type { SeasonSignal, SeasonSignalByMonth, SeasonSummaryResponse } from "../../types/season";
 
-const DEFAULT_API_BASE_URL = "http://localhost:8787";
+const DEFAULT_API_BASE_URL = import.meta.env.DEV ? "http://localhost:8787" : "";
 
 function toSignalMap(signals: SeasonSignal[]): SeasonSignalByMonth {
   return signals.reduce<SeasonSignalByMonth>((acc, signal) => {

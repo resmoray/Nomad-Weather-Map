@@ -3,17 +3,23 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
-    "dev": "vite",
-    "server:dev": "node --experimental-strip-types server/index.ts",
-    "dev:all": "concurrently --names server,web --prefix-colors yellow,cyan --kill-others-on-fail \"npm run server:dev\" \"npm run dev\"",
+    "dev": "npm run dev:all",
+    "dev:web": "vite",
+    "server:dev": "node --env-file-if-exists=.env --experimental-strip-types server/index.ts",
+    "dev:all": "concurrently --names server,web --prefix-colors yellow,cyan --kill-others-on-fail \"npm run server:dev\" \"npm run dev:web\"",
     "dev:health": "node scripts/dev-health.mjs",
     "dev:open": "open http://localhost:5173",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "check": "npm run lint && npm run test:run && npm run build"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

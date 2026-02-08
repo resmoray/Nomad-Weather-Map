@@ -7,8 +7,10 @@ LAUNCHER_TTY_FILE="$STATE_DIR/launcher.tty"
 cd "$PROJECT_DIR"
 
 if [[ ! -d "$PROJECT_DIR/node_modules" ]]; then
-  echo "Dependencies are missing. Run: npm install"
-  exit 1
+  echo "Installing dependencies (first run)..."
+  if ! npm ci; then
+    npm install
+  fi
 fi
 
 mkdir -p "$STATE_DIR"
@@ -22,7 +24,7 @@ if ! npm run dev:health; then
 fi
 
 echo "Starting Nomad Weather Map (backend + frontend)..."
-npm run dev:all &
+npm run dev &
 DEV_PID=$!
 
 cleanup() {

@@ -1,8 +1,9 @@
 # Nomad Weather Dev Launcher (macOS)
 
 This launcher starts both required services with one click:
-- Backend: `npm run server:dev` (port `8787`)
-- Frontend: `npm run dev` (port `5173`)
+- Combined dev command: `npm run dev`
+- Backend API on `8787`
+- Frontend on `5173`
 
 It keeps normal development fully intact.
 
@@ -42,16 +43,9 @@ cp -R "/tmp/Nomad Weather Dev.app" "/Applications/"
 
 Then launch via Spotlight: `Nomad Weather Dev`.
 
-## In-App Stop Button
-
-Inside the app header there is an **App beenden** button.
-It sends a local stop command to `POST /api/dev/stop`, stops backend + frontend,
-and then attempts to close the current browser tab/window.
-
-When started via the `.app`, Terminal is set to auto-close after services stop.
-
 ## Notes
 
 - If ports are already in use, stop old processes first (`./scripts/stop-dev.sh`).
-- If dependencies are missing, run `npm install`.
+- On first run, `launch-dev.sh` installs dependencies automatically.
+- If the launcher app is moved outside the repo, it will ask you once to select the project folder.
 - The launcher is for development convenience; build/release flow stays unchanged.
