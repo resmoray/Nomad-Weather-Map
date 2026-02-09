@@ -212,6 +212,7 @@ export default function App() {
   const [focusedRegionId, setFocusedRegionId] = useState<string>("");
   const [isScoringGuideOpen, setIsScoringGuideOpen] = useState(false);
   const comparisonSectionRef = useRef<HTMLElement | null>(null);
+  const supportSectionRef = useRef<HTMLElement | null>(null);
 
   const [timelineRecords, setTimelineRecords] = useState<RegionMonthRecord[]>([]);
   const [isTimelineLoading, setIsTimelineLoading] = useState(false);
@@ -481,10 +482,16 @@ export default function App() {
       );
 
       if (isCurrent) {
-        setSeasonByRegion((previous) => ({
-          ...previous,
-          ...Object.fromEntries(seasonResults),
-        }));
+        setSeasonByRegion((previous) => {
+          const merged: Record<string, SeasonSignalByMonth> = { ...previous };
+          for (const [regionId, seasonSignals] of seasonResults) {
+            merged[regionId] = {
+              ...(previous[regionId] ?? {}),
+              ...seasonSignals,
+            };
+          }
+          return merged;
+        });
       }
     }
 
@@ -610,6 +617,16 @@ export default function App() {
     setFocusedRegionId(regionId);
     window.requestAnimationFrame(() => {
       comparisonSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }
+
+  function navigateToRegionMap(regionId: string): void {
+    setFocusedRegionId(regionId);
+    window.requestAnimationFrame(() => {
+      supportSectionRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
@@ -782,13 +799,14 @@ export default function App() {
           onPinnedMetricToggle={togglePinnedMetric}
           focusedRegionId={focusedRegionId}
           onFocusRegion={setFocusedRegionId}
+          onNavigateToRegion={navigateToRegionMap}
           colorBlindMode={colorBlindMode}
         />
 
         {timelineError ? <ErrorState message={timelineError} /> : null}
       </section>
 
-      <section className="support-grid">
+      <section ref={supportSectionRef} className="support-grid">
         <WeatherMap
           records={records}
           profile={profile}

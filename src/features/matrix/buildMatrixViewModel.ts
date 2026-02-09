@@ -8,6 +8,7 @@ import type { SeasonSignalByMonth } from "../../types/season";
 import type { MetricKey, Month, RegionMonthRecord } from "../../types/weather";
 import { formatDate, formatNumber } from "../../utils/format";
 import { formatRegionLabel } from "../../utils/regionLabel";
+import { getFixedSeasonProfile } from "../../services/season/fixedSeasonProfiles";
 import {
   METRIC_ROW_LABELS,
   METRIC_ROW_ORDER,
@@ -71,6 +72,41 @@ function seasonCell(
   const signal = seasonByRegion[regionId]?.[month];
 
   if (!signal) {
+    const fixedProfile = getFixedSeasonProfile(regionId);
+    if (fixedProfile) {
+      const seasonLabel = fixedProfile.marketByMonth[month] ?? "shoulder";
+      const sources = fixedProfile.sources.map((source) => ({
+        name: source.name,
+        url: source.url,
+        lastUpdated: `${fixedProfile.lastReviewed}T00:00:00.000Z`,
+      }));
+      const primarySource = sources[0] ?? {
+        name: "Nomad Weather Map fixed season catalog",
+        url: "",
+        lastUpdated: `${fixedProfile.lastReviewed}T00:00:00.000Z`,
+      };
+
+      return {
+        key: `season-${regionId}-${month}`,
+        label: shortSeasonLabel(seasonLabel),
+        valueText: "",
+        severity: seasonToSeverity(seasonLabel),
+        icon: seasonLabel === "high" ? "arrow-up" : seasonLabel === "off" ? "arrow-down" : "equal",
+        reason: fixedProfile.marketReason,
+        sourceName: primarySource.name,
+        sourceUrl: primarySource.url,
+        lastUpdated: primarySource.lastUpdated,
+        confidenceText: "high confidence (fixed profile)",
+        seasonLabel,
+        seasonConfidence: "high",
+        marketConfidenceSource: "fixed",
+        isPriceFallback: false,
+        isCrowdFallback: false,
+        seasonSources: sources,
+        tooltipText: `${shortSeasonLabel(seasonLabel)} season. ${fixedProfile.marketReason}`,
+      };
+    }
+
     return {
       key: `season-${regionId}-${month}`,
       label: "No data",

@@ -1,5 +1,6 @@
-import { Fragment } from "react";
-import { CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
+import { Fragment, useEffect, useRef } from "react";
+import type { CircleMarker as LeafletCircleMarker } from "leaflet";
+import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import type { UserPreferenceProfile } from "../../types/presentation";
 import type { SeasonSignalByMonth } from "../../types/season";
 import type { RegionMonthRecord } from "../../types/weather";
@@ -37,6 +38,34 @@ interface ClusterMarker {
 interface PersonalRecordEntry {
   record: RegionMonthRecord;
   personalScore: number;
+}
+
+interface FocusedRegionViewportProps {
+  lat: number | null;
+  lon: number | null;
+}
+
+function FocusedRegionViewport({ lat, lon }: FocusedRegionViewportProps) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (lat === null || lon === null) {
+      return;
+    }
+
+    const current = map.getCenter();
+    const distance = Math.abs(current.lat - lat) + Math.abs(current.lng - lon);
+    if (distance < 0.01) {
+      return;
+    }
+
+    map.flyTo([lat, lon], Math.max(map.getZoom(), 5), {
+      animate: true,
+      duration: 0.75,
+    });
+  }, [map, lat, lon]);
+
+  return null;
 }
 
 function scoreColor(score: number): string {
@@ -109,6 +138,7 @@ export function WeatherMap({
   onFocusRegion,
   onNavigateToRegion,
 }: WeatherMapProps) {
+  const markerRefs = useRef<Record<string, LeafletCircleMarker | null>>({});
   const recordsWithPersonal = records.map((record) => {
     const climateSeasonLabel = classifyClimateSeason(record).label;
     const marketSeasonLabel = seasonByRegion[record.region.id]?.[record.month]?.seasonLabel ?? climateSeasonLabel;
@@ -124,8 +154,21 @@ export function WeatherMap({
   const filteredRawRecords = filteredRecords.map((item) => item.record);
   const dealbreakerExcludedCount = recordsWithPersonal.length - dealbreakerAllowed.length;
   const center = getMapCenter(filteredRawRecords);
-  const shouldCluster = filteredRawRecords.length > CLUSTER_THRESHOLD;
+  const focusedRegion = recordsWithPersonal.find((item) => item.record.region.id === focusedRegionId)?.record.region;
+  const focusedRegionVisible = filteredRawRecords.some((record) => record.region.id === focusedRegionId);
+  const shouldCluster = filteredRawRecords.length > CLUSTER_THRESHOLD && !focusedRegionVisible;
   const clusters = shouldCluster ? clusterRecords(filteredRecords) : [];
+  const focusedLat = focusedRegion?.lat ?? null;
+  const focusedLon = focusedRegion?.lon ?? null;
+  const visibleRegionIdsSignature = filteredRawRecords.map((record) => record.region.id).join("|");
+
+  useEffect(() => {
+    if (!focusedRegionId || shouldCluster) {
+      return;
+    }
+
+    markerRefs.current[focusedRegionId]?.openPopup();
+  }, [focusedRegionId, shouldCluster, visibleRegionIdsSignature]);
 
   return (
     <section className="panel">
@@ -160,6 +203,7 @@ export function WeatherMap({
 
       <div className="map-wrap" aria-label="Weather suitability map">
         <MapContainer center={center} zoom={5} scrollWheelZoom className="map-container">
+          <FocusedRegionViewport lat={focusedLat} lon={focusedLon} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -169,6 +213,9 @@ export function WeatherMap({
             ? filteredRecords.map(({ record, personal }) => (
                 <CircleMarker
                   key={record.region.id}
+                  ref={(marker) => {
+                    markerRefs.current[record.region.id] = marker;
+                  }}
                   center={[record.region.lat, record.region.lon]}
                   color={scoreColor(personal.score)}
                   radius={record.region.id === focusedRegionId ? 12 : 9}

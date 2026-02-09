@@ -26,6 +26,7 @@ interface ClimateMatrixProps {
   onPinnedMetricToggle: (metric: MetricKey) => void;
   focusedRegionId: string;
   onFocusRegion: (regionId: string) => void;
+  onNavigateToRegion: (regionId: string) => void;
   colorBlindMode: boolean;
 }
 
@@ -79,6 +80,7 @@ export function ClimateMatrix({
   onPinnedMetricToggle,
   focusedRegionId,
   onFocusRegion,
+  onNavigateToRegion,
   colorBlindMode,
 }: ClimateMatrixProps) {
   const [selected, setSelected] = useState<SelectedCellState | null>(null);
@@ -314,7 +316,21 @@ export function ClimateMatrix({
                       }}
                       className={column.regionId === focusedRegionId ? "focused-column" : ""}
                     >
-                      <div>{column.title}</div>
+                      <div>
+                        <button
+                          type="button"
+                          className={`matrix-column-link ${
+                            column.regionId === focusedRegionId ? "matrix-column-link-active" : ""
+                          }`}
+                          onClick={() => {
+                            onFocusRegion(column.regionId);
+                            onNavigateToRegion(column.regionId);
+                          }}
+                          title={`Show ${column.title} on map`}
+                        >
+                          {column.title}
+                        </button>
+                      </div>
                       <div className="metric-meta">{column.subtitle}</div>
                     </th>
                   ))}
