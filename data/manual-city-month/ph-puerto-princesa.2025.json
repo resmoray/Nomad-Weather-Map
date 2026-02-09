@@ -17,9 +17,9 @@
       "last_updated": "2026-02-08T16:24:55Z"
     },
     "air": {
-      "source_name": "No verified monthly city air source yet",
-      "source_url": "",
-      "last_updated": "2026-02-08T15:38:17.871Z"
+      "source_name": "No verified monthly city air source yet | Open-Meteo Air Quality API monthly aggregate (pm2_5/us_aqi/uv_index)",
+      "source_url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=9.7392&longitude=118.7353&start_date=2025-01-01&end_date=2025-12-31&timezone=UTC&hourly=pm2_5%2Cus_aqi%2Cuv_index",
+      "last_updated": "2026-02-09T02:44:10Z"
     },
     "marine": {
       "source_name": "No verified monthly city marine source yet",
@@ -38,10 +38,10 @@
         "humidity_pct": 79.9,
         "wind_avg_kph": 17.3,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 5.2,
+        "aqi_avg": 30.6,
+        "uv_index_avg": 8.3,
+        "uv_index_max": 10.2,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -68,7 +68,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 2,
@@ -80,10 +81,10 @@
         "humidity_pct": 77.4,
         "wind_avg_kph": 16.9,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 6.6,
+        "aqi_avg": 33.3,
+        "uv_index_avg": 9.8,
+        "uv_index_max": 12.3,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -110,7 +111,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 3,
@@ -122,10 +124,10 @@
         "humidity_pct": 75.7,
         "wind_avg_kph": 14.8,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 7.0,
+        "aqi_avg": 33.5,
+        "uv_index_avg": 11.5,
+        "uv_index_max": 14.8,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -152,7 +154,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 4,
@@ -164,10 +167,10 @@
         "humidity_pct": 74.8,
         "wind_avg_kph": 12.2,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 9.0,
+        "aqi_avg": 38.9,
+        "uv_index_avg": 10.9,
+        "uv_index_max": 13.1,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -194,7 +197,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 5,
@@ -206,10 +210,10 @@
         "humidity_pct": 79.1,
         "wind_avg_kph": 10.5,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 5.6,
+        "aqi_avg": 29.3,
+        "uv_index_avg": 9.7,
+        "uv_index_max": 12.2,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -236,7 +240,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 6,
@@ -248,10 +253,10 @@
         "humidity_pct": 83.0,
         "wind_avg_kph": 10.2,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 6.8,
+        "aqi_avg": 31.2,
+        "uv_index_avg": 8.4,
+        "uv_index_max": 12.3,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -278,7 +283,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 7,
@@ -290,10 +296,10 @@
         "humidity_pct": 84.0,
         "wind_avg_kph": 11.1,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 9.6,
+        "aqi_avg": 39.8,
+        "uv_index_avg": 9.1,
+        "uv_index_max": 11.3,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -320,7 +326,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 8,
@@ -332,10 +339,10 @@
         "humidity_pct": 81.9,
         "wind_avg_kph": 11.0,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 6.1,
+        "aqi_avg": 28.6,
+        "uv_index_avg": 9.4,
+        "uv_index_max": 13.0,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -362,7 +369,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 9,
@@ -374,10 +382,10 @@
         "humidity_pct": 84.2,
         "wind_avg_kph": 10.9,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 5.8,
+        "aqi_avg": 27.6,
+        "uv_index_avg": 9.7,
+        "uv_index_max": 12.8,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -404,7 +412,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 10,
@@ -416,10 +425,10 @@
         "humidity_pct": 83.2,
         "wind_avg_kph": 10.6,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 3.8,
+        "aqi_avg": 24.7,
+        "uv_index_avg": 8.8,
+        "uv_index_max": 12.7,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -446,7 +455,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 11,
@@ -458,10 +468,10 @@
         "humidity_pct": 82.3,
         "wind_avg_kph": 13.2,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 4.9,
+        "aqi_avg": 27.7,
+        "uv_index_avg": 7.6,
+        "uv_index_max": 10.9,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -488,7 +498,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     },
     {
       "month": 12,
@@ -500,10 +511,10 @@
         "humidity_pct": 82.3,
         "wind_avg_kph": 14.1,
         "sunshine_hours": null,
-        "pm25_ug_m3": null,
-        "aqi_avg": null,
-        "uv_index_avg": null,
-        "uv_index_max": null,
+        "pm25_ug_m3": 5.9,
+        "aqi_avg": 30.6,
+        "uv_index_avg": 8.4,
+        "uv_index_max": 10.1,
         "fixed_internet_down_mbps": null,
         "fixed_internet_up_mbps": null,
         "mobile_internet_down_mbps": null,
@@ -530,7 +541,8 @@
         "best_months_flag": null,
         "avoid_months_flag": null
       },
-      "climate_last_updated": "2026-02-08T16:24:55Z"
+      "climate_last_updated": "2026-02-08T16:24:55Z",
+      "air_last_updated": "2026-02-09T02:44:10Z"
     }
   ]
 }

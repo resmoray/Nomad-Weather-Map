@@ -19,6 +19,8 @@
     "nomad:tables:report": "node --env-file-if-exists=.env --experimental-strip-types scripts/reportNomadTables.ts",
     "nomad:manual:import": "node --env-file-if-exists=.env --experimental-strip-types scripts/importManualCityData.ts",
     "nomad:manual:fill-climate": "METEOSTAT_CACHE_DIR=.cache/meteostat .venv-meteostat/bin/python scripts/fillManualClimateFromMeteostat.py",
+    "nomad:manual:fill-climate-fallback": ".venv-meteostat/bin/python scripts/fillManualClimateFromNasaPower.py",
+    "nomad:manual:fill-air": ".venv-meteostat/bin/python scripts/fillManualAirFromOpenMeteo.py",
     "nomad:manual:templates": "node --env-file-if-exists=.env --experimental-strip-types scripts/generateManualCityTemplates.ts",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
