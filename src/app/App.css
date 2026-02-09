@@ -1084,6 +1084,23 @@ button:disabled {
   width: 100%;
 }
 
+.map-popup-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: var(--primary);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.map-popup-link:hover {
+  color: var(--primary-strong);
+}
+
 .export-row {
   margin-top: 0.8rem;
   display: flex;

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
 import type { UserPreferenceProfile } from "../../types/presentation";
 import type { SeasonSignalByMonth } from "../../types/season";
@@ -15,6 +16,7 @@ interface WeatherMapProps {
   onMinScoreChange: (score: number) => void;
   focusedRegionId: string;
   onFocusRegion: (regionId: string) => void;
+  onNavigateToRegion: (regionId: string) => void;
 }
 
 const DEFAULT_CENTER: [number, number] = [12.5, 107.2];
@@ -26,7 +28,10 @@ interface ClusterMarker {
   lon: number;
   score: number;
   count: number;
-  labels: string[];
+  regions: Array<{
+    regionId: string;
+    label: string;
+  }>;
 }
 
 interface PersonalRecordEntry {
@@ -77,7 +82,11 @@ function clusterRecords(entries: PersonalRecordEntry[]): ClusterMarker[] {
     const lat = grouped.reduce((sum, entry) => sum + entry.record.region.lat, 0) / grouped.length;
     const lon = grouped.reduce((sum, entry) => sum + entry.record.region.lon, 0) / grouped.length;
     const score = grouped.reduce((sum, entry) => sum + entry.personalScore, 0) / grouped.length;
-    const labels = grouped.slice(0, 5).map((entry) => formatRegionLabel(entry.record.region));
+    const sorted = [...grouped].sort((left, right) => right.personalScore - left.personalScore);
+    const regions = sorted.slice(0, 5).map((entry) => ({
+      regionId: entry.record.region.id,
+      label: formatRegionLabel(entry.record.region),
+    }));
 
     return {
       key,
@@ -85,7 +94,7 @@ function clusterRecords(entries: PersonalRecordEntry[]): ClusterMarker[] {
       lon,
       score,
       count: grouped.length,
-      labels,
+      regions,
     };
   });
 }
@@ -98,6 +107,7 @@ export function WeatherMap({
   onMinScoreChange,
   focusedRegionId,
   onFocusRegion,
+  onNavigateToRegion,
 }: WeatherMapProps) {
   const recordsWithPersonal = records.map((record) => {
     const climateSeasonLabel = classifyClimateSeason(record).label;
@@ -169,7 +179,13 @@ export function WeatherMap({
                   }}
                 >
                   <Popup>
-                    <strong>{formatRegionLabel(record.region)}</strong>
+                    <button
+                      type="button"
+                      className="map-popup-link"
+                      onClick={() => onNavigateToRegion(record.region.id)}
+                    >
+                      {formatRegionLabel(record.region)}
+                    </button>
                     <br />
                     {record.region.countryName}
                     <br />
@@ -191,7 +207,19 @@ export function WeatherMap({
                     <br />
                     Avg score: <strong>{Math.round(cluster.score)}</strong>
                     <br />
-                    {cluster.labels.join(", ")}
+                    {cluster.regions.map((region) => (
+                      <Fragment key={`${cluster.key}-${region.regionId}`}>
+                        <button
+                          type="button"
+                          className="map-popup-link"
+                          onClick={() => onNavigateToRegion(region.regionId)}
+                        >
+                          {region.label}
+                        </button>
+                        <br />
+                      </Fragment>
+                    ))}
+                    {cluster.count > cluster.regions.length ? `+${cluster.count - cluster.regions.length} more` : null}
                   </Popup>
                 </CircleMarker>
               ))}
