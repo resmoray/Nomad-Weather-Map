@@ -8,6 +8,7 @@ export type HumidityPreference = "dry" | "balanced" | "humid" | "noPreference";
 export type RainTolerance = "avoidRain" | "okayRain" | "rainFlexible" | "noPreference";
 export type AirSensitivity = "sensitive" | "normal" | "tolerant" | "noPreference";
 export type UvSensitivity = "sensitive" | "normal" | "tolerant" | "noPreference";
+export type SeasonPreference = "low" | "shoulder" | "high" | "noPreference";
 
 export interface DealbreakerSettings {
   avoidHeavyRain: boolean;
@@ -23,6 +24,8 @@ export interface UserPreferenceProfile {
   rainTolerance: RainTolerance;
   airSensitivity: AirSensitivity;
   uvSensitivity: UvSensitivity;
+  preferredMarketSeason: SeasonPreference;
+  preferredClimateSeason: SeasonPreference;
   surfEnabled: boolean;
   dealbreakers: DealbreakerSettings;
 }

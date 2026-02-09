@@ -92,6 +92,12 @@ const UV_VALUES: UserPreferenceProfile["uvSensitivity"][] = [
   "tolerant",
   "noPreference",
 ];
+const SEASON_PREFERENCE_VALUES: UserPreferenceProfile["preferredMarketSeason"][] = [
+  "low",
+  "shoulder",
+  "high",
+  "noPreference",
+];
 
 function parseMonth(raw: string | null): Month | null {
   const month = Number(raw);
@@ -201,6 +207,16 @@ export function parseAppUrlState(search: string): Partial<AppUrlState> {
     rainTolerance: parseEnumValue(params.get("rain"), RAIN_VALUES, DEFAULT_PROFILE.rainTolerance),
     airSensitivity: parseEnumValue(params.get("air"), AIR_VALUES, DEFAULT_PROFILE.airSensitivity),
     uvSensitivity: parseEnumValue(params.get("uv"), UV_VALUES, DEFAULT_PROFILE.uvSensitivity),
+    preferredMarketSeason: parseEnumValue(
+      params.get("marketSeason"),
+      SEASON_PREFERENCE_VALUES,
+      DEFAULT_PROFILE.preferredMarketSeason,
+    ),
+    preferredClimateSeason: parseEnumValue(
+      params.get("climateSeason"),
+      SEASON_PREFERENCE_VALUES,
+      DEFAULT_PROFILE.preferredClimateSeason,
+    ),
     surfEnabled: (params.get("surf") ?? "0") === "1",
     dealbreakers: {
       avoidHeavyRain: (params.get("dbRain") ?? "0") === "1",
@@ -239,6 +255,8 @@ export function buildAppUrlState(state: AppUrlState): string {
   params.set("rain", state.profile.rainTolerance);
   params.set("air", state.profile.airSensitivity);
   params.set("uv", state.profile.uvSensitivity);
+  params.set("marketSeason", state.profile.preferredMarketSeason);
+  params.set("climateSeason", state.profile.preferredClimateSeason);
   params.set("surf", state.profile.surfEnabled ? "1" : "0");
   params.set("dbRain", state.profile.dealbreakers.avoidHeavyRain ? "1" : "0");
   params.set("dbAir", state.profile.dealbreakers.avoidUnhealthyAir ? "1" : "0");

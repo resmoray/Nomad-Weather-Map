@@ -12,6 +12,8 @@ describe("MatrixToolbar", () => {
       rainTolerance: "okayRain",
       airSensitivity: "normal",
       uvSensitivity: "normal",
+      preferredMarketSeason: "noPreference",
+      preferredClimateSeason: "noPreference",
       surfEnabled: false,
       dealbreakers: {
         avoidHeavyRain: false,

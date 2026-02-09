@@ -2,6 +2,7 @@ import type { UserPreferenceProfile } from "../../types/presentation";
 import type { SeasonSignalByMonth } from "../../types/season";
 import type { RegionMonthRecord } from "../../types/weather";
 import { evaluateDealbreakers } from "../matrix/dealbreakers";
+import { classifyClimateSeason } from "../matrix/classifyClimateSeason";
 import { calculatePersonalScore } from "../matrix/presets";
 
 export interface TopPick {
@@ -37,8 +38,11 @@ export function buildTopPicks(input: {
   const picks = input.records
     .filter((record) => evaluateDealbreakers(record, input.profile).passed)
     .map((record) => {
-      const personal = calculatePersonalScore(record, input.profile);
       const seasonSignal = input.seasonByRegion[record.region.id]?.[record.month];
+      const personal = calculatePersonalScore(record, input.profile, {
+        marketSeasonLabel: seasonSignal?.seasonLabel ?? null,
+        climateSeasonLabel: classifyClimateSeason(record).label,
+      });
 
       const displayName = `${record.region.cityName}, ${record.region.countryName}`;
       const reasons = pickReasons(

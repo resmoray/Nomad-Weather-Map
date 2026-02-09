@@ -166,4 +166,23 @@ describe("calculatePersonalScore", () => {
     const surf = calculatePersonalScore(record, { ...DEFAULT_PROFILE, surfEnabled: true });
     expect(surf.confidence).toBe("low");
   });
+
+  it("applies preferred market and climate season to the personal score", () => {
+    const profile = {
+      ...DEFAULT_PROFILE,
+      preferredMarketSeason: "high" as const,
+      preferredClimateSeason: "high" as const,
+    };
+
+    const preferred = calculatePersonalScore(record, profile, {
+      marketSeasonLabel: "high",
+      climateSeasonLabel: "high",
+    }).score;
+    const mismatch = calculatePersonalScore(record, profile, {
+      marketSeasonLabel: "off",
+      climateSeasonLabel: "off",
+    }).score;
+
+    expect(preferred).toBeGreaterThan(mismatch);
+  });
 });

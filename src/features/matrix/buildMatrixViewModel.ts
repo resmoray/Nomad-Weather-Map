@@ -119,8 +119,14 @@ function climateSeasonCell(record: RegionMonthRecord): MatrixRowViewModel["cells
 function personalCell(
   record: RegionMonthRecord,
   profile: UserPreferenceProfile,
+  seasonByRegion: Record<string, SeasonSignalByMonth>,
 ): MatrixRowViewModel["cells"][number] {
-  const personal = calculatePersonalScore(record, profile);
+  const marketSeasonLabel = seasonByRegion[record.region.id]?.[record.month]?.seasonLabel ?? null;
+  const climateSeasonLabel = classifyClimateSeason(record).label;
+  const personal = calculatePersonalScore(record, profile, {
+    marketSeasonLabel,
+    climateSeasonLabel,
+  });
   const missingMetrics = personal.confidenceDetails.missingMetrics;
   const missingDetails =
     missingMetrics.length > 0 ? ` • missing: ${missingMetrics.map((metric) => METRIC_ROW_LABELS[metric]).join(", ")}` : "";
@@ -198,12 +204,10 @@ function toRows(
     key: "personal",
     label: "Personal",
     group: "seasons",
-    cells: records.map((record) => personalCell(record, profile)),
+    cells: records.map((record) => personalCell(record, profile, seasonByRegion)),
   };
 
-  const allowedMetrics = METRIC_ROW_ORDER.filter((metric) =>
-    profile.surfEnabled ? true : metricToRowGroup(metric) !== "surf",
-  );
+  const allowedMetrics = METRIC_ROW_ORDER;
 
   const metricRows = allowedMetrics.map<MatrixRowViewModel>((metric) => ({
     key: metric,

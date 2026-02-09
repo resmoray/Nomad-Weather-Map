@@ -293,7 +293,7 @@ export default function App() {
           (region) =>
             withTimeout(
               weatherProvider.getRegionMonthRecord(region, selectedMonth, {
-                includeMarine: profile.surfEnabled,
+                includeMarine: true,
               }),
               REGION_REQUEST_TIMEOUT_MS,
               `Weather request timeout for ${region.cityName}`,
@@ -327,7 +327,7 @@ export default function App() {
             (region) =>
               withTimeout(
                 weatherProvider.getRegionMonthRecord(region, selectedMonth, {
-                  includeMarine: profile.surfEnabled,
+                  includeMarine: true,
                 }),
                 REGION_REQUEST_TIMEOUT_MS,
                 `Weather request timeout for ${region.cityName}`,
@@ -366,7 +366,7 @@ export default function App() {
             (region) =>
               withTimeout(
                 weatherProvider.getRegionMonthRecord(region, selectedMonth, {
-                  includeMarine: profile.surfEnabled,
+                  includeMarine: true,
                 }),
                 REGION_REQUEST_TIMEOUT_MS,
                 `Weather request timeout for ${region.cityName}`,
@@ -450,7 +450,7 @@ export default function App() {
     return () => {
       isCurrent = false;
     };
-  }, [selectedMonth, selectedRegions, profile.surfEnabled, refreshCounter]);
+  }, [selectedMonth, selectedRegions, refreshCounter]);
 
   useEffect(() => {
     let isCurrent = true;
@@ -520,7 +520,7 @@ export default function App() {
 
       try {
         const timeline = await weatherProvider.getRegionTimeline(timelineRegion, {
-          includeMarine: profile.surfEnabled,
+          includeMarine: true,
         });
         const weatherByMonth = timeline.reduce<Partial<Record<Month, number>>>((acc, record) => {
           const personal = calculatePersonalScore(record, profile);
@@ -797,7 +797,7 @@ export default function App() {
             profile={profile}
             loadRegionTimeline={(region) =>
               weatherProvider.getRegionTimeline(region, {
-                includeMarine: profile.surfEnabled,
+                includeMarine: true,
               })
             }
           />
