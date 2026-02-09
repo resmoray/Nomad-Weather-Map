@@ -39,9 +39,10 @@ export function buildTopPicks(input: {
     .filter((record) => evaluateDealbreakers(record, input.profile).passed)
     .map((record) => {
       const seasonSignal = input.seasonByRegion[record.region.id]?.[record.month];
+      const climateSeasonLabel = classifyClimateSeason(record).label;
       const personal = calculatePersonalScore(record, input.profile, {
-        marketSeasonLabel: seasonSignal?.seasonLabel ?? null,
-        climateSeasonLabel: classifyClimateSeason(record).label,
+        marketSeasonLabel: seasonSignal?.seasonLabel ?? climateSeasonLabel,
+        climateSeasonLabel,
       });
 
       const displayName = `${record.region.cityName}, ${record.region.countryName}`;

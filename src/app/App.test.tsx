@@ -7,7 +7,7 @@ const getRegionTimelineMock = vi.fn();
 const fetchSeasonSummaryMock = vi.fn();
 
 vi.mock("../features/map/WeatherMap", () => ({
-  WeatherMap: ({ records }: { records: unknown[] }) => (
+  WeatherMap: ({ records }: { records: unknown[]; seasonByRegion: unknown }) => (
     <section>
       <h2>Map View</h2>
       <p data-testid="mock-map-count">{records.length}</p>
@@ -125,6 +125,37 @@ describe("App", () => {
 
     await waitFor(() => {
       expect(screen.getAllByText("Thailand, Central - Bangkok").length).toBeGreaterThan(0);
+    });
+  });
+
+  it("updates displayed scores when preference profile changes", async () => {
+    getRegionMonthRecordMock.mockImplementation(async (region: Region, month: Month) =>
+      makeRecord(
+        {
+          ...region,
+          isCoastal: true,
+        },
+        month,
+      ),
+    );
+
+    const { container } = render(<App />);
+
+    await waitFor(() => {
+      expect(getRegionMonthRecordMock).toHaveBeenCalled();
+    });
+
+    const scoreNode = container.querySelector(".top-pick-score");
+    expect(scoreNode).toBeTruthy();
+    const before = scoreNode?.textContent ?? "";
+
+    fireEvent.change(screen.getByLabelText("Temp feel"), {
+      target: { value: "hot" },
+    });
+
+    await waitFor(() => {
+      const after = container.querySelector(".top-pick-score")?.textContent ?? "";
+      expect(after).not.toBe(before);
     });
   });
 });

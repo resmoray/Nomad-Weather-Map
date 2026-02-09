@@ -1,13 +1,16 @@
 import { CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
 import type { UserPreferenceProfile } from "../../types/presentation";
+import type { SeasonSignalByMonth } from "../../types/season";
 import type { RegionMonthRecord } from "../../types/weather";
 import { formatRegionLabel } from "../../utils/regionLabel";
+import { classifyClimateSeason } from "../matrix/classifyClimateSeason";
 import { evaluateDealbreakers } from "../matrix/dealbreakers";
 import { calculatePersonalScore } from "../matrix/presets";
 
 interface WeatherMapProps {
   records: RegionMonthRecord[];
   profile: UserPreferenceProfile;
+  seasonByRegion: Record<string, SeasonSignalByMonth>;
   minScore: number;
   onMinScoreChange: (score: number) => void;
   focusedRegionId: string;
@@ -90,13 +93,19 @@ function clusterRecords(entries: PersonalRecordEntry[]): ClusterMarker[] {
 export function WeatherMap({
   records,
   profile,
+  seasonByRegion,
   minScore,
   onMinScoreChange,
   focusedRegionId,
   onFocusRegion,
 }: WeatherMapProps) {
   const recordsWithPersonal = records.map((record) => {
-    const personal = calculatePersonalScore(record, profile);
+    const climateSeasonLabel = classifyClimateSeason(record).label;
+    const marketSeasonLabel = seasonByRegion[record.region.id]?.[record.month]?.seasonLabel ?? climateSeasonLabel;
+    const personal = calculatePersonalScore(record, profile, {
+      marketSeasonLabel,
+      climateSeasonLabel,
+    });
     const dealbreaker = evaluateDealbreakers(record, profile);
     return { record, personal, personalScore: personal.score, dealbreaker };
   });

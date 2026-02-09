@@ -780,6 +780,7 @@ export default function App() {
         <WeatherMap
           records={records}
           profile={profile}
+          seasonByRegion={seasonByRegion}
           minScore={minScore}
           onMinScoreChange={setMinScore}
           focusedRegionId={focusedRegionId}
