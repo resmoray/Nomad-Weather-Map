@@ -4,6 +4,7 @@ import {
   DEALBREAKER_OPTIONS,
   HUMIDITY_OPTIONS,
   RAIN_OPTIONS,
+  SEASON_PREFERENCE_OPTIONS,
   SURF_IMPORTANCE_OPTIONS,
   TEMP_OPTIONS,
   UV_OPTIONS,
@@ -124,11 +125,51 @@ export function MatrixToolbar({
           onChange={(event) =>
             onProfileChange({
               ...profile,
-              surfEnabled: event.target.value === "on",
+              surfEnabled: event.target.value !== "off",
             })
           }
         >
           {SURF_IMPORTANCE_OPTIONS.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        <span>Preferred market season</span>
+        <select
+          aria-label="Preferred market season"
+          value={profile.preferredMarketSeason}
+          onChange={(event) =>
+            onProfileChange({
+              ...profile,
+              preferredMarketSeason: event.target.value as UserPreferenceProfile["preferredMarketSeason"],
+            })
+          }
+        >
+          {SEASON_PREFERENCE_OPTIONS.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        <span>Preferred climate season</span>
+        <select
+          aria-label="Preferred climate season"
+          value={profile.preferredClimateSeason}
+          onChange={(event) =>
+            onProfileChange({
+              ...profile,
+              preferredClimateSeason: event.target.value as UserPreferenceProfile["preferredClimateSeason"],
+            })
+          }
+        >
+          {SEASON_PREFERENCE_OPTIONS.map((option) => (
             <option key={option.id} value={option.id}>
               {option.label}
             </option>

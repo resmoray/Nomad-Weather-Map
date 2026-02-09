@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import type {
   MatrixCellViewModel,
   MatrixMode,
@@ -86,9 +86,26 @@ export function ClimateMatrix({
     seasons: false,
     comfort: false,
     air: false,
-    surf: true,
+    surf: false,
   });
   const cellRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  useEffect(() => {
+    if (!profile.surfEnabled) {
+      return;
+    }
+
+    setCollapsedGroups((previous) => {
+      if (!previous.surf) {
+        return previous;
+      }
+
+      return {
+        ...previous,
+        surf: false,
+      };
+    });
+  }, [profile.surfEnabled]);
 
   const viewModel = useMemo(
     () =>

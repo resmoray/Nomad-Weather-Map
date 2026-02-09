@@ -9,7 +9,6 @@ export const METRIC_ROW_ORDER: MetricKey[] = [
   "windKph",
   "waveHeightM",
   "wavePeriodS",
-  "waveDirectionDeg",
   "uvIndex",
   "pm25",
   "aqi",

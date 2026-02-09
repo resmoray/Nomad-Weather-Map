@@ -3,6 +3,7 @@ import type {
   DealbreakerSettings,
   HumidityPreference,
   RainTolerance,
+  SeasonPreference,
   TempPreference,
   UserPreferenceProfile,
   UvSensitivity,
@@ -91,6 +92,8 @@ export const DEFAULT_PROFILE: UserPreferenceProfile = {
   rainTolerance: "okayRain",
   airSensitivity: "normal",
   uvSensitivity: "normal",
+  preferredMarketSeason: "noPreference",
+  preferredClimateSeason: "noPreference",
   surfEnabled: false,
   dealbreakers: { ...DEFAULT_DEALBREAKERS },
 };
@@ -134,6 +137,13 @@ export const UV_OPTIONS: Array<{ id: UvSensitivity; label: string }> = [
 export const SURF_IMPORTANCE_OPTIONS: Array<{ id: "off" | "on"; label: string }> = [
   { id: "off", label: "No preference" },
   { id: "on", label: "Important" },
+];
+
+export const SEASON_PREFERENCE_OPTIONS: Array<{ id: SeasonPreference; label: string }> = [
+  { id: "noPreference", label: "No preference" },
+  { id: "low", label: "Low season" },
+  { id: "shoulder", label: "Shoulder season" },
+  { id: "high", label: "High season" },
 ];
 
 export const DEALBREAKER_OPTIONS: Array<{

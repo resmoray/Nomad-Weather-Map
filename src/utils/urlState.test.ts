@@ -17,6 +17,8 @@ describe("urlState", () => {
         rainTolerance: "rainFlexible",
         airSensitivity: "tolerant",
         uvSensitivity: "normal",
+        preferredMarketSeason: "shoulder",
+        preferredClimateSeason: "high",
         surfEnabled: true,
         dealbreakers: {
           avoidHeavyRain: true,
@@ -45,7 +47,7 @@ describe("urlState", () => {
 
   it("falls back safely for invalid profile and row values", () => {
     const parsed = parseAppUrlState(
-      "country=ZZ&month=99&temp=bad&humidity=bad&rain=bad&air=bad&uv=bad&surf=0&rows=x,y&minScore=999",
+      "country=ZZ&month=99&temp=bad&humidity=bad&rain=bad&air=bad&uv=bad&marketSeason=bad&climateSeason=bad&surf=0&rows=x,y&minScore=999",
     );
 
     expect(parsed.selectedCountryCodes).toBeUndefined();

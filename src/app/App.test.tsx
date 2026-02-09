@@ -119,7 +119,7 @@ describe("App", () => {
       expect(getRegionMonthRecordMock).toHaveBeenCalledWith(
         expect.objectContaining({ countryCode: "TH" }),
         1,
-        expect.objectContaining({ includeMarine: false }),
+        expect.objectContaining({ includeMarine: true }),
       );
     });
 

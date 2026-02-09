@@ -1,5 +1,6 @@
 import type { MetricKey, RegionMonthRecord, SuitabilityBand } from "../../types/weather";
 import type { PersonalDriver, UserPreferenceProfile, PersonalScore } from "../../types/presentation";
+import type { SeasonLabel } from "../../types/season";
 import { buildThresholdConfig } from "./customProfile";
 
 function clamp(value: number): number {
@@ -166,9 +167,48 @@ function buildMetricWeights(profile: UserPreferenceProfile): Partial<Record<Metr
   return base;
 }
 
+interface SeasonPreferenceInput {
+  marketSeasonLabel?: SeasonLabel | null;
+  climateSeasonLabel?: "high" | "shoulder" | "off" | null;
+}
+
+function normalizeSeasonLabel(
+  label: SeasonLabel | "off" | null | undefined,
+): "low" | "shoulder" | "high" | null {
+  if (!label) {
+    return null;
+  }
+
+  if (label === "off") {
+    return "low";
+  }
+
+  return label;
+}
+
+function preferenceDelta(
+  preference: UserPreferenceProfile["preferredMarketSeason"],
+  actualLabel: "low" | "shoulder" | "high" | null,
+): number {
+  if (preference === "noPreference" || actualLabel === null) {
+    return 0;
+  }
+
+  if (preference === actualLabel) {
+    return 6;
+  }
+
+  if (preference === "shoulder" || actualLabel === "shoulder") {
+    return -2;
+  }
+
+  return -4;
+}
+
 export function calculatePersonalScore(
   record: RegionMonthRecord,
   profile: UserPreferenceProfile,
+  seasonInput?: SeasonPreferenceInput,
 ): PersonalScore {
   const threshold = buildThresholdConfig(profile);
   const weights = buildMetricWeights(profile);
@@ -254,6 +294,15 @@ export function calculatePersonalScore(
   const baseScore = availableWeight > 0 ? weightedSum / availableWeight : 0;
   const coverage = configuredWeight > 0 ? availableWeight / configuredWeight : 0;
   const confidenceAdjustedScore = Math.round(baseScore * coverage);
+  const marketSeasonDelta = preferenceDelta(
+    profile.preferredMarketSeason,
+    normalizeSeasonLabel(seasonInput?.marketSeasonLabel),
+  );
+  const climateSeasonDelta = preferenceDelta(
+    profile.preferredClimateSeason,
+    normalizeSeasonLabel(seasonInput?.climateSeasonLabel),
+  );
+  const seasonAdjustedScore = clamp(confidenceAdjustedScore + marketSeasonDelta + climateSeasonDelta);
   const warnings = buildWarnings(record, metricScoreByKey);
   const sortedDrivers = [...drivers].sort((left, right) => Math.abs(right.contribution) - Math.abs(left.contribution));
 
@@ -276,9 +325,16 @@ export function calculatePersonalScore(
     confidenceReason = "Surf mode is enabled on an inland region; wave data is not representative.";
   }
 
+  if (marketSeasonDelta < 0) {
+    warnings.push("Current month does not match your preferred market season.");
+  }
+  if (climateSeasonDelta < 0) {
+    warnings.push("Current month does not match your preferred climate season.");
+  }
+
   return {
-    score: confidenceAdjustedScore,
-    band: scoreBand(confidenceAdjustedScore),
+    score: seasonAdjustedScore,
+    band: scoreBand(seasonAdjustedScore),
     confidence: confidenceLevel,
     confidenceDetails: {
       level: confidenceLevel,
