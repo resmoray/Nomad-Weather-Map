@@ -136,6 +136,7 @@ const options = parseCliOptions(process.argv.slice(2));
 const manualDir = resolve(process.cwd(), options.dir);
 const fileNames = readdirSync(manualDir).filter((name) => name.endsWith(".json")).sort();
 const db = openNomadDataStore();
+db.exec("PRAGMA busy_timeout = 5000;");
 const regions = loadRegions();
 const regionMap = new Map(regions.map((region) => [region.id, region]));
 

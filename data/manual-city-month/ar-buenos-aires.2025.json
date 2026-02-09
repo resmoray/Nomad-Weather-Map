@@ -22,9 +22,9 @@
       "last_updated": "2026-02-09T02:44:10Z"
     },
     "marine": {
-      "source_name": "No verified monthly city marine source yet",
-      "source_url": "",
-      "last_updated": "2026-02-08T15:38:17.871Z"
+      "source_name": "No verified monthly city marine source yet | Open-Meteo Marine API monthly aggregate (wave_height/wave_period/sea_surface_temperature)",
+      "source_url": "https://marine-api.open-meteo.com/v1/marine?latitude=-34.6037&longitude=-58.3816&start_date=2025-01-01&end_date=2025-12-31&timezone=UTC&hourly=wave_height%2Cwave_period%2Csea_surface_temperature",
+      "last_updated": "2026-02-09T05:46:30Z"
     }
   },
   "months": [
@@ -48,11 +48,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.04,
+        "wave_height_avg_m": 0.45,
+        "wave_height_max_m": 1.14,
+        "wave_interval_avg_s": 3.19,
+        "water_temp_c": 26.63,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -69,7 +69,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 2,
@@ -91,11 +92,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.04,
+        "wave_height_avg_m": 0.38,
+        "wave_height_max_m": 1.2,
+        "wave_interval_avg_s": 3.08,
+        "water_temp_c": 27.02,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -112,7 +113,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 3,
@@ -134,11 +136,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.06,
+        "wave_height_avg_m": 0.35,
+        "wave_height_max_m": 0.82,
+        "wave_interval_avg_s": 2.93,
+        "water_temp_c": 24.99,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -155,7 +157,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 4,
@@ -177,11 +180,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.02,
+        "wave_height_avg_m": 0.34,
+        "wave_height_max_m": 1.38,
+        "wave_interval_avg_s": 2.98,
+        "water_temp_c": 20.39,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -198,7 +201,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 5,
@@ -220,11 +224,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.04,
+        "wave_height_avg_m": 0.29,
+        "wave_height_max_m": 0.98,
+        "wave_interval_avg_s": 2.77,
+        "water_temp_c": 18.07,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -241,7 +245,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 6,
@@ -263,11 +268,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.02,
+        "wave_height_avg_m": 0.26,
+        "wave_height_max_m": 1.1,
+        "wave_interval_avg_s": 2.74,
+        "water_temp_c": 12.48,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -284,7 +289,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 7,
@@ -306,11 +312,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.02,
+        "wave_height_avg_m": 0.33,
+        "wave_height_max_m": 1.42,
+        "wave_interval_avg_s": 2.98,
+        "water_temp_c": 10.07,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -327,7 +333,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 8,
@@ -349,11 +356,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.02,
+        "wave_height_avg_m": 0.36,
+        "wave_height_max_m": 1.14,
+        "wave_interval_avg_s": 2.86,
+        "water_temp_c": 12.45,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -370,7 +377,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 9,
@@ -392,11 +400,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.02,
+        "wave_height_avg_m": 0.32,
+        "wave_height_max_m": 1.1,
+        "wave_interval_avg_s": 2.94,
+        "water_temp_c": 15.8,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -413,7 +421,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 10,
@@ -435,11 +444,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.06,
+        "wave_height_avg_m": 0.41,
+        "wave_height_max_m": 0.96,
+        "wave_interval_avg_s": 2.89,
+        "water_temp_c": 20.2,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -456,7 +465,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 11,
@@ -478,11 +488,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.02,
+        "wave_height_avg_m": 0.4,
+        "wave_height_max_m": 1.24,
+        "wave_interval_avg_s": 3.12,
+        "water_temp_c": 21.89,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -499,7 +509,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     },
     {
       "month": 12,
@@ -521,11 +532,11 @@
         "internet_stability_pct": null,
         "power_reliability_level": null,
         "cost_level": null,
-        "wave_height_min_m": null,
-        "wave_height_avg_m": null,
-        "wave_height_max_m": null,
-        "wave_interval_avg_s": null,
-        "water_temp_c": null,
+        "wave_height_min_m": 0.04,
+        "wave_height_avg_m": 0.36,
+        "wave_height_max_m": 1.04,
+        "wave_interval_avg_s": 3.06,
+        "water_temp_c": 25.73,
         "surf_level": null,
         "beginner_friendly": null,
         "thermal_comfort_score": null,
@@ -542,7 +553,8 @@
         "avoid_months_flag": null
       },
       "climate_last_updated": "2026-02-08T16:24:55Z",
-      "air_last_updated": "2026-02-09T02:44:10Z"
+      "air_last_updated": "2026-02-09T02:44:10Z",
+      "marine_last_updated": "2026-02-09T05:46:30Z"
     }
   ]
 }
