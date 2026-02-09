@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ErrorState } from "../components/ErrorState";
 import { LoadingState } from "../components/LoadingState";
 import { countries, regions } from "../data/loadRegions";
@@ -211,6 +211,7 @@ export default function App() {
   );
   const [focusedRegionId, setFocusedRegionId] = useState<string>("");
   const [isScoringGuideOpen, setIsScoringGuideOpen] = useState(false);
+  const comparisonSectionRef = useRef<HTMLElement | null>(null);
 
   const [timelineRecords, setTimelineRecords] = useState<RegionMonthRecord[]>([]);
   const [isTimelineLoading, setIsTimelineLoading] = useState(false);
@@ -604,6 +605,17 @@ export default function App() {
     );
   }
 
+  function navigateToRegionComparison(regionId: string): void {
+    setMatrixMode("monthCompare");
+    setFocusedRegionId(regionId);
+    window.requestAnimationFrame(() => {
+      comparisonSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }
+
   return (
     <div className="app-shell">
       <header className="hero">
@@ -715,7 +727,7 @@ export default function App() {
         onPickFocus={(regionId) => setFocusedRegionId(regionId)}
       />
 
-      <section className="panel comparison-panel">
+      <section ref={comparisonSectionRef} className="panel comparison-panel">
         <header className="panel-header compare-header">
           <div className="compare-header-main">
             <h2>Step 2: Compare Regions</h2>
@@ -785,6 +797,7 @@ export default function App() {
           onMinScoreChange={setMinScore}
           focusedRegionId={focusedRegionId}
           onFocusRegion={setFocusedRegionId}
+          onNavigateToRegion={navigateToRegionComparison}
         />
         <section>
           <p className="hint-text step3-hint">

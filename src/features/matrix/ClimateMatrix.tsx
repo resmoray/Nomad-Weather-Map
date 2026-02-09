@@ -89,6 +89,8 @@ export function ClimateMatrix({
     surf: false,
   });
   const cellRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const tableWrapRef = useRef<HTMLDivElement | null>(null);
+  const headerCellRefs = useRef<Record<string, HTMLTableCellElement | null>>({});
 
   useEffect(() => {
     if (!profile.surfEnabled) {
@@ -176,6 +178,38 @@ export function ClimateMatrix({
 
     return ordered;
   }, [rowsByGroup, collapsedGroups]);
+
+  useEffect(() => {
+    if (!focusedRegionId) {
+      return;
+    }
+
+    const tableWrap = tableWrapRef.current;
+    const headerCell = headerCellRefs.current[focusedRegionId];
+
+    if (!tableWrap || !headerCell) {
+      return;
+    }
+
+    const wrapRect = tableWrap.getBoundingClientRect();
+    const cellRect = headerCell.getBoundingClientRect();
+    const padding = 24;
+
+    if (cellRect.left < wrapRect.left) {
+      tableWrap.scrollBy({
+        left: cellRect.left - wrapRect.left - padding,
+        behavior: "smooth",
+      });
+      return;
+    }
+
+    if (cellRect.right > wrapRect.right) {
+      tableWrap.scrollBy({
+        left: cellRect.right - wrapRect.right + padding,
+        behavior: "smooth",
+      });
+    }
+  }, [focusedRegionId, visibleColumns]);
 
   function focusCell(rowIndex: number, columnIndex: number): void {
     const target = cellRefs.current[`${rowIndex}-${columnIndex}`];
@@ -267,13 +301,19 @@ export function ClimateMatrix({
         </p>
       ) : (
         <>
-          <div className="matrix-table-wrap">
+          <div ref={tableWrapRef} className="matrix-table-wrap">
             <table className={`matrix-table ${colorBlindMode ? "matrix-colorblind" : ""}`}>
               <thead>
                 <tr>
                   <th>Metric</th>
                   {visibleColumns.map((column) => (
-                    <th key={column.key} className={column.regionId === focusedRegionId ? "focused-column" : ""}>
+                    <th
+                      key={column.key}
+                      ref={(element) => {
+                        headerCellRefs.current[column.regionId] = element;
+                      }}
+                      className={column.regionId === focusedRegionId ? "focused-column" : ""}
+                    >
                       <div>{column.title}</div>
                       <div className="metric-meta">{column.subtitle}</div>
                     </th>
