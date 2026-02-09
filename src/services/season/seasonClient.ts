@@ -3,12 +3,36 @@ import type { Month } from "../../types/weather";
 import type { SeasonSignal, SeasonSignalByMonth, SeasonSummaryResponse } from "../../types/season";
 
 const DEFAULT_API_BASE_URL = import.meta.env.DEV ? "http://localhost:8787" : "";
+const ALL_MONTHS: Month[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 function toSignalMap(signals: SeasonSignal[]): SeasonSignalByMonth {
   return signals.reduce<SeasonSignalByMonth>((acc, signal) => {
     acc[signal.month as Month] = signal;
     return acc;
   }, {});
+}
+
+function isValidMonth(value: number): value is Month {
+  return Number.isInteger(value) && value >= 1 && value <= 12;
+}
+
+function resolveTargetMonths(input: {
+  month?: Month;
+  weatherByMonth: Partial<Record<Month, number>>;
+}): Month[] {
+  if (input.month) {
+    return [input.month];
+  }
+
+  const months = Object.keys(input.weatherByMonth)
+    .map((monthKey) => Number(monthKey))
+    .filter(isValidMonth);
+
+  if (months.length > 0) {
+    return months;
+  }
+
+  return ALL_MONTHS;
 }
 
 function buildFallbackSignal(regionId: string, month: Month, weatherIndex: number): SeasonSignal {
@@ -55,6 +79,26 @@ function buildFallbackSignal(regionId: string, month: Month, weatherIndex: numbe
   };
 }
 
+function withFallbackSignals(
+  input: {
+    regionId: string;
+    month?: Month;
+    weatherByMonth: Partial<Record<Month, number>>;
+  },
+  baseSignals: SeasonSignalByMonth,
+): SeasonSignalByMonth {
+  const targetMonths = resolveTargetMonths(input);
+  const merged: SeasonSignalByMonth = { ...baseSignals };
+
+  for (const month of targetMonths) {
+    if (!merged[month]) {
+      merged[month] = buildFallbackSignal(input.regionId, month, input.weatherByMonth[month] ?? 60);
+    }
+  }
+
+  return merged;
+}
+
 export async function fetchSeasonSummary(input: {
   regionId: string;
   presetId: string;
@@ -82,20 +126,9 @@ export async function fetchSeasonSummary(input: {
     }
 
     const payload = (await response.json()) as SeasonSummaryResponse;
-    return toSignalMap(payload.signals);
+    const signals = Array.isArray(payload.signals) ? payload.signals : [];
+    return withFallbackSignals(input, toSignalMap(signals));
   } catch {
-    if (input.month) {
-      const weatherIndex = input.weatherByMonth[input.month] ?? 60;
-      return {
-        [input.month]: buildFallbackSignal(input.regionId, input.month, weatherIndex),
-      };
-    }
-
-    const fallbackEntries = Object.entries(input.weatherByMonth).map(([monthKey, weatherIndex]) => {
-      const month = Number(monthKey) as Month;
-      return [month, buildFallbackSignal(input.regionId, month, weatherIndex ?? 60)] as const;
-    });
-
-    return Object.fromEntries(fallbackEntries);
+    return withFallbackSignals(input, {});
   }
 }

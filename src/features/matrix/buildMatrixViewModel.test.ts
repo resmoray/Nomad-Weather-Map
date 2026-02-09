@@ -117,4 +117,19 @@ describe("buildMatrixViewModel", () => {
     expect(vm.rows[1]?.cells[0]?.label).toBe("high");
     expect(vm.rows[1]?.cells[0]?.valueText).toBe("");
   });
+
+  it("uses fixed market season fallback when live season signal is missing", () => {
+    const vm = buildMatrixViewModel({
+      mode: "monthCompare",
+      month: 1,
+      monthRecords: [record],
+      timelineRecords: [],
+      seasonByRegion: {},
+      profile: DEFAULT_PROFILE,
+    });
+
+    expect(vm.rows[0]?.cells[0]?.label).toBe("high");
+    expect(vm.rows[0]?.cells[0]?.valueText).toBe("");
+    expect(vm.rows[0]?.cells[0]?.sourceName).not.toBe("Season service");
+  });
 });
