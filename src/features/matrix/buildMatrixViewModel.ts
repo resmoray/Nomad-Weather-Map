@@ -29,6 +29,20 @@ interface BuildMatrixInput {
   profile: UserPreferenceProfile;
 }
 
+function personalScoreValue(
+  record: RegionMonthRecord,
+  profile: UserPreferenceProfile,
+  seasonByRegion: Record<string, SeasonSignalByMonth>,
+): number {
+  const climateSeasonLabel = classifyClimateSeason(record).label;
+  const marketSeasonLabel = seasonByRegion[record.region.id]?.[record.month]?.seasonLabel ?? climateSeasonLabel;
+
+  return calculatePersonalScore(record, profile, {
+    marketSeasonLabel,
+    climateSeasonLabel,
+  }).score;
+}
+
 function shortSeasonLabel(label: "high" | "shoulder" | "off"): "high" | "shoulder" | "low" {
   return label === "off" ? "low" : label;
 }
@@ -121,8 +135,8 @@ function personalCell(
   profile: UserPreferenceProfile,
   seasonByRegion: Record<string, SeasonSignalByMonth>,
 ): MatrixRowViewModel["cells"][number] {
-  const marketSeasonLabel = seasonByRegion[record.region.id]?.[record.month]?.seasonLabel ?? null;
   const climateSeasonLabel = classifyClimateSeason(record).label;
+  const marketSeasonLabel = seasonByRegion[record.region.id]?.[record.month]?.seasonLabel ?? climateSeasonLabel;
   const personal = calculatePersonalScore(record, profile, {
     marketSeasonLabel,
     climateSeasonLabel,
@@ -232,7 +246,7 @@ export function buildMatrixViewModel(input: BuildMatrixInput): MatrixViewModel {
       subtitle: formatRegionLabel(record.region),
       month: record.month,
       regionId: record.region.id,
-      personalScore: calculatePersonalScore(record, input.profile).score,
+      personalScore: personalScoreValue(record, input.profile, input.seasonByRegion),
     }));
 
     return {
@@ -246,8 +260,8 @@ export function buildMatrixViewModel(input: BuildMatrixInput): MatrixViewModel {
   }
 
   const sorted = [...input.monthRecords].sort((left, right) => {
-    const leftPersonal = calculatePersonalScore(left, input.profile).score;
-    const rightPersonal = calculatePersonalScore(right, input.profile).score;
+    const leftPersonal = personalScoreValue(left, input.profile, input.seasonByRegion);
+    const rightPersonal = personalScoreValue(right, input.profile, input.seasonByRegion);
     return rightPersonal - leftPersonal;
   });
 
@@ -259,7 +273,7 @@ export function buildMatrixViewModel(input: BuildMatrixInput): MatrixViewModel {
     ).toLocaleString("en-US", { month: "short" })}`,
     month: record.month,
     regionId: record.region.id,
-    personalScore: calculatePersonalScore(record, input.profile).score,
+    personalScore: personalScoreValue(record, input.profile, input.seasonByRegion),
   }));
 
   return {
