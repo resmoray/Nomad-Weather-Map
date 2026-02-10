@@ -94,23 +94,6 @@ export function ClimateMatrix({
   const tableWrapRef = useRef<HTMLDivElement | null>(null);
   const headerCellRefs = useRef<Record<string, HTMLTableCellElement | null>>({});
 
-  useEffect(() => {
-    if (!profile.surfEnabled) {
-      return;
-    }
-
-    setCollapsedGroups((previous) => {
-      if (!previous.surf) {
-        return previous;
-      }
-
-      return {
-        ...previous,
-        surf: false,
-      };
-    });
-  }, [profile.surfEnabled]);
-
   const viewModel = useMemo(
     () =>
       buildMatrixViewModel({
