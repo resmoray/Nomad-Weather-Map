@@ -1,11 +1,24 @@
 import { z } from "zod";
 import type { Month, Region } from "../../types/weather";
 
-const DEFAULT_CLIMATE_BASE_URL = "https://climate-api.open-meteo.com/v1/climate";
+const DEFAULT_CLIMATE_FALLBACK_BASE_URL = "https://historical-forecast-api.open-meteo.com/v1/forecast";
+const DEFAULT_CLIMATE_ARCHIVE_BASE_URL = "https://archive-api.open-meteo.com/v1/archive";
 const DEFAULT_AIR_BASE_URL = "https://air-quality-api.open-meteo.com/v1/air-quality";
 const DEFAULT_MARINE_BASE_URL = "https://marine-api.open-meteo.com/v1/marine";
-const DEFAULT_BASELINE_YEARS = 5;
+const DEFAULT_BASELINE_YEARS = 3;
 const MIN_OPEN_METEO_YEAR = 2022;
+const DEFAULT_FETCH_CONCURRENCY = 6;
+const DEFAULT_FETCH_MAX_ATTEMPTS = 2;
+const DEFAULT_RETRY_BASE_DELAY_MS = 800;
+const DEFAULT_FETCH_TIMEOUT_MS = 12000;
+
+const RETRYABLE_STATUS_CODES = new Set([408, 425, 429, 500, 502, 503, 504]);
+const RETRYABLE_ERROR_NAMES = new Set(["TypeError", "AbortError"]);
+const CLIMATE_DAILY_FIELDS_PRIMARY =
+  "temperature_2m_mean,precipitation_sum,relative_humidity_2m_mean,wind_speed_10m_mean";
+const CLIMATE_DAILY_FIELDS_LEGACY =
+  "temperature_2m_mean,precipitation_sum,relativehumidity_2m_mean,windspeed_10m_mean";
+const CLIMATE_DAILY_FIELDS_MINIMAL = "temperature_2m_mean,precipitation_sum";
 
 const climateDailySchema = z.object({
   time: z.array(z.string()).optional(),
@@ -43,9 +56,62 @@ const marineResponseSchema = z.object({
   hourly: marineHourlySchema,
 });
 
+const weatherSummaryResponseSchema = z.object({
+  temperatureC: z.number().nullable(),
+  temperatureMinC: z.number().nullable(),
+  temperatureMaxC: z.number().nullable(),
+  rainfallMm: z.number().nullable(),
+  humidityPct: z.number().nullable(),
+  windKph: z.number().nullable(),
+  uvIndex: z.number().nullable(),
+  pm25: z.number().nullable(),
+  aqi: z.number().nullable(),
+  waveHeightM: z.number().nullable(),
+  wavePeriodS: z.number().nullable(),
+  waveDirectionDeg: z.number().nullable(),
+  climateLastUpdated: z.string(),
+  airQualityLastUpdated: z.string(),
+  marineLastUpdated: z.string(),
+});
+
 type ClimateDailyData = z.infer<typeof climateDailySchema>;
 type AirHourlyData = z.infer<typeof airHourlySchema>;
 type MarineHourlyData = z.infer<typeof marineHourlySchema>;
+
+function parsePositiveInt(raw: string | undefined, fallback: number): number {
+  const parsed = Number.parseInt(raw ?? "", 10);
+
+  if (Number.isNaN(parsed) || parsed < 1) {
+    return fallback;
+  }
+
+  return parsed;
+}
+
+const FETCH_CONCURRENCY_LIMIT = parsePositiveInt(
+  import.meta.env.VITE_OPEN_METEO_FETCH_CONCURRENCY,
+  DEFAULT_FETCH_CONCURRENCY,
+);
+const FETCH_MAX_ATTEMPTS = parsePositiveInt(
+  import.meta.env.VITE_OPEN_METEO_FETCH_ATTEMPTS,
+  DEFAULT_FETCH_MAX_ATTEMPTS,
+);
+const RETRY_BASE_DELAY_MS = parsePositiveInt(
+  import.meta.env.VITE_OPEN_METEO_RETRY_BASE_DELAY_MS,
+  DEFAULT_RETRY_BASE_DELAY_MS,
+);
+const FETCH_TIMEOUT_MS = parsePositiveInt(
+  import.meta.env.VITE_OPEN_METEO_FETCH_TIMEOUT_MS,
+  DEFAULT_FETCH_TIMEOUT_MS,
+);
+const WEATHER_PROXY_BASE_URL = (import.meta.env.VITE_OPEN_METEO_PROXY_BASE_URL ?? "").trim();
+const WEATHER_SUMMARY_BASE_URL = (
+  import.meta.env.VITE_WEATHER_SUMMARY_API_BASE_URL ??
+  (import.meta.env.DEV ? "http://localhost:8787" : "")
+).trim();
+
+let activeFetchCount = 0;
+const fetchWaitQueue: Array<() => void> = [];
 
 export interface OpenMeteoMonthlySummary {
   temperatureC: number | null;
@@ -63,6 +129,73 @@ export interface OpenMeteoMonthlySummary {
   climateLastUpdated: string;
   airQualityLastUpdated: string;
   marineLastUpdated: string;
+}
+
+interface FetchSummaryOptions {
+  includeMarine?: boolean;
+}
+
+type ServerSummaryResult =
+  | { status: "success"; summary: OpenMeteoMonthlySummary }
+  | { status: "skip" }
+  | { status: "hard-fail"; error: Error };
+
+async function withFetchSlot<T>(task: () => Promise<T>): Promise<T> {
+  if (activeFetchCount >= FETCH_CONCURRENCY_LIMIT) {
+    await new Promise<void>((resolve) => {
+      fetchWaitQueue.push(resolve);
+    });
+  }
+
+  activeFetchCount += 1;
+
+  try {
+    return await task();
+  } finally {
+    activeFetchCount = Math.max(0, activeFetchCount - 1);
+    const next = fetchWaitQueue.shift();
+    if (next) {
+      next();
+    }
+  }
+}
+
+function isRetryableError(error: unknown): boolean {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+
+  return RETRYABLE_ERROR_NAMES.has(error.name);
+}
+
+function parseRetryAfterMs(value: string | null): number | null {
+  if (!value) {
+    return null;
+  }
+
+  const asSeconds = Number.parseInt(value, 10);
+  if (!Number.isNaN(asSeconds) && asSeconds >= 0) {
+    return asSeconds * 1000;
+  }
+
+  const asDate = Date.parse(value);
+  if (Number.isNaN(asDate)) {
+    return null;
+  }
+
+  return Math.max(0, asDate - Date.now());
+}
+
+function getRetryDelayMs(attempt: number, retryAfterMs?: number | null): number {
+  const exponentialDelay = RETRY_BASE_DELAY_MS * 2 ** (attempt - 1);
+  const jitter = Math.floor(Math.random() * RETRY_BASE_DELAY_MS);
+  return Math.max(retryAfterMs ?? 0, exponentialDelay + jitter);
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 
 function toNumberOrNull(value: number | null | undefined): number | null {
@@ -139,8 +272,23 @@ function getBaselineYears(): number[] {
   return years;
 }
 
-function createClimateUrl(region: Region, year: number, month: Month): string {
-  const baseUrl = import.meta.env.VITE_OPEN_METEO_CLIMATE_BASE_URL ?? DEFAULT_CLIMATE_BASE_URL;
+function getClimateBaseUrls(): string[] {
+  const configuredPrimary = (import.meta.env.VITE_OPEN_METEO_CLIMATE_BASE_URL ?? "").trim();
+  const configuredFallback = (import.meta.env.VITE_OPEN_METEO_CLIMATE_FALLBACK_BASE_URL ?? "").trim();
+  const configuredArchive = (import.meta.env.VITE_OPEN_METEO_CLIMATE_ARCHIVE_BASE_URL ?? "").trim();
+
+  if (configuredPrimary || configuredFallback || configuredArchive) {
+    const configuredCandidates = [configuredPrimary, configuredFallback, configuredArchive].filter(Boolean);
+    return [...new Set(configuredCandidates)];
+  }
+
+  // Default to historical endpoints. The climate endpoint can trigger stricter throttling.
+  const candidates = [DEFAULT_CLIMATE_FALLBACK_BASE_URL, DEFAULT_CLIMATE_ARCHIVE_BASE_URL];
+
+  return [...new Set(candidates)];
+}
+
+function createClimateUrl(region: Region, year: number, month: Month, baseUrl: string, daily: string): string {
   const { startDate, endDate } = getMonthDateRange(year, month);
 
   const params = new URLSearchParams({
@@ -149,8 +297,7 @@ function createClimateUrl(region: Region, year: number, month: Month): string {
     start_date: startDate,
     end_date: endDate,
     timezone: "UTC",
-    daily:
-      "temperature_2m_mean,precipitation_sum,relative_humidity_2m_mean,wind_speed_10m_mean",
+    daily,
   });
 
   return `${baseUrl}?${params.toString()}`;
@@ -188,26 +335,197 @@ function createMarineUrl(region: Region, year: number, month: Month): string {
   return `${baseUrl}?${params.toString()}`;
 }
 
+function createWeatherSummaryUrl(region: Region, month: Month, includeMarine: boolean): string {
+  const params = new URLSearchParams({
+    regionId: region.id,
+    month: String(month),
+    includeMarine: includeMarine ? "1" : "0",
+  });
+  return `${WEATHER_SUMMARY_BASE_URL}/api/weather/summary?${params.toString()}`;
+}
+
+async function fetchServerSummary(
+  region: Region,
+  month: Month,
+  includeMarine: boolean,
+): Promise<ServerSummaryResult> {
+  if (!WEATHER_SUMMARY_BASE_URL) {
+    return { status: "skip" };
+  }
+
+  const url = createWeatherSummaryUrl(region, month, includeMarine);
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    let response: Response;
+
+    try {
+      response = await withFetchSlot(() => fetch(url, { signal: controller.signal }));
+    } finally {
+      clearTimeout(timeoutId);
+    }
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return { status: "skip" };
+      }
+
+      let responseDetails = "";
+      try {
+        responseDetails = await response.text();
+      } catch {
+        // ignore response parse errors
+      }
+      const detailsSuffix = responseDetails ? `: ${responseDetails}` : "";
+      return {
+        status: "hard-fail",
+        error: new Error(`Weather summary API failed with status ${response.status}${detailsSuffix}`),
+      };
+    }
+
+    const payload = await response.json();
+    const parsed = weatherSummaryResponseSchema.safeParse(payload);
+    if (!parsed.success) {
+      return {
+        status: "hard-fail",
+        error: new Error("Weather summary API returned unexpected data format"),
+      };
+    }
+
+    return {
+      status: "success",
+      summary: parsed.data,
+    };
+  } catch (error) {
+    if (isRetryableError(error)) {
+      // Backend likely unavailable in frontend-only mode.
+      return { status: "skip" };
+    }
+
+    return {
+      status: "hard-fail",
+      error: error instanceof Error ? error : new Error("Unknown weather summary API error"),
+    };
+  }
+}
+
+function buildRequestUrl(url: string): string {
+  if (!WEATHER_PROXY_BASE_URL) {
+    return url;
+  }
+
+  const origin = typeof window !== "undefined" ? window.location.origin : "http://localhost:5173";
+  const proxyUrl = new URL(WEATHER_PROXY_BASE_URL, origin);
+  proxyUrl.searchParams.set("url", url);
+  return proxyUrl.toString();
+}
+
 async function fetchAndParse<T>(url: string, schema: z.ZodType<T>, label: string): Promise<T> {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`${label} failed with status ${response.status}`);
+  let lastError: unknown = null;
+  const requestUrl = buildRequestUrl(url);
+
+  for (let attempt = 1; attempt <= FETCH_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+      let response: Response;
+      try {
+        response = await withFetchSlot(() => fetch(requestUrl, { signal: controller.signal }));
+      } finally {
+        clearTimeout(timeoutId);
+      }
+
+      if (!response.ok) {
+        if (RETRYABLE_STATUS_CODES.has(response.status) && attempt < FETCH_MAX_ATTEMPTS) {
+          lastError = new Error(`${label} failed with status ${response.status}`);
+          const retryAfterMs = parseRetryAfterMs(response.headers.get("retry-after"));
+          const minBackoffMs = response.status === 429 ? 1800 : 0;
+          const effectiveRetryAfterMs =
+            retryAfterMs === null ? minBackoffMs : Math.max(retryAfterMs, minBackoffMs);
+          await sleep(getRetryDelayMs(attempt, effectiveRetryAfterMs));
+          continue;
+        }
+
+        throw new Error(`${label} failed with status ${response.status}`);
+      }
+
+      const payload = await response.json();
+      const parsed = schema.safeParse(payload);
+
+      if (!parsed.success) {
+        throw new Error(`${label} returned unexpected data format`);
+      }
+
+      return parsed.data;
+    } catch (error) {
+      if (isRetryableError(error) && attempt < FETCH_MAX_ATTEMPTS) {
+        lastError = error;
+        await sleep(getRetryDelayMs(attempt));
+        continue;
+      }
+
+      throw error;
+    }
   }
 
-  const payload = await response.json();
-  const parsed = schema.safeParse(payload);
+  throw (lastError instanceof Error ? lastError : new Error(`${label} failed after retries`));
+}
 
-  if (!parsed.success) {
-    throw new Error(`${label} returned unexpected data format`);
+function isHttpStatusError(error: unknown, statusCode: number): boolean {
+  if (!(error instanceof Error)) {
+    return false;
   }
 
-  return parsed.data;
+  return error.message.includes(`status ${statusCode}`);
+}
+
+function isRateLimitError(error: unknown): boolean {
+  return isHttpStatusError(error, 429);
 }
 
 async function fetchClimateMonth(region: Region, year: number, month: Month): Promise<ClimateDailyData> {
-  const url = createClimateUrl(region, year, month);
-  const parsed = await fetchAndParse(url, climateResponseSchema, `Climate API (${year})`);
-  return parsed.daily;
+  const baseUrls = getClimateBaseUrls();
+  let lastError: unknown = null;
+
+  for (const baseUrl of baseUrls) {
+    const primaryUrl = createClimateUrl(region, year, month, baseUrl, CLIMATE_DAILY_FIELDS_PRIMARY);
+
+    try {
+      const parsed = await fetchAndParse(
+        primaryUrl,
+        climateResponseSchema,
+        `Climate API (${year})`,
+      );
+      return parsed.daily;
+    } catch (error) {
+      lastError = error;
+
+      // Variable naming changed across providers/versions; retry only for bad-request shape errors.
+      if (!isHttpStatusError(error, 400)) {
+        continue;
+      }
+    }
+
+    const fallbackFieldSets = [CLIMATE_DAILY_FIELDS_LEGACY, CLIMATE_DAILY_FIELDS_MINIMAL];
+
+    for (const daily of fallbackFieldSets) {
+      const fallbackUrl = createClimateUrl(region, year, month, baseUrl, daily);
+
+      try {
+        const parsed = await fetchAndParse(
+          fallbackUrl,
+          climateResponseSchema,
+          `Climate API (${year})`,
+        );
+        return parsed.daily;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+  }
+
+  throw (lastError instanceof Error ? lastError : new Error(`Climate API (${year}) failed`));
 }
 
 async function fetchAirMonth(region: Region, year: number, month: Month): Promise<AirHourlyData> {
@@ -319,30 +637,102 @@ export function averageDailyMaxUv(
 export async function fetchOpenMeteoMonthlySummary(
   region: Region,
   month: Month,
+  options?: FetchSummaryOptions,
 ): Promise<OpenMeteoMonthlySummary> {
+  const includeMarine = options?.includeMarine ?? true;
+  const serverResult = await fetchServerSummary(region, month, includeMarine);
+
+  if (serverResult.status === "success") {
+    return serverResult.summary;
+  }
+
+  if (serverResult.status === "hard-fail") {
+    throw serverResult.error;
+  }
+
   const baselineYears = getBaselineYears();
 
   const [climateResults, airResults, marineResults] = await Promise.all([
     Promise.allSettled(baselineYears.map((year) => fetchClimateMonth(region, year, month))),
     Promise.allSettled(baselineYears.map((year) => fetchAirMonth(region, year, month))),
-    Promise.allSettled(baselineYears.map((year) => fetchMarineMonth(region, year, month))),
+    includeMarine
+      ? Promise.allSettled(baselineYears.map((year) => fetchMarineMonth(region, year, month)))
+      : Promise.resolve([] as PromiseSettledResult<MarineHourlyData>[]),
   ]);
 
-  const climateData = climateResults
+  let climateData = climateResults
     .filter((result): result is PromiseFulfilledResult<ClimateDailyData> => result.status === "fulfilled")
     .map((result) => result.value);
 
+  let climateFailureReason: string | null = null;
+  const sawClimateRateLimit = climateResults.some(
+    (result) => result.status === "rejected" && isRateLimitError(result.reason),
+  );
   if (climateData.length === 0) {
-    throw new Error("Unable to load climate data for selected region and month.");
+    const firstFailure = climateResults.find((result) => result.status === "rejected");
+    if (firstFailure && firstFailure.status === "rejected") {
+      climateFailureReason =
+        firstFailure.reason instanceof Error ? firstFailure.reason.message : "Unknown climate API error";
+    }
+
+    // Fallback pass: when bulk year requests are fully throttled, retry with fewer calls.
+    await sleep(sawClimateRateLimit ? 2200 : 650);
+    const latestYear = baselineYears[baselineYears.length - 1];
+    const previousYear = baselineYears.length > 1 ? baselineYears[baselineYears.length - 2] : latestYear;
+    const fallbackYears = sawClimateRateLimit
+      ? [latestYear]
+      : latestYear === previousYear
+        ? [latestYear]
+        : [latestYear, previousYear];
+    const fallbackResults = await Promise.allSettled(
+      fallbackYears.map((year) => fetchClimateMonth(region, year, month)),
+    );
+
+    climateData = fallbackResults
+      .filter((result): result is PromiseFulfilledResult<ClimateDailyData> => result.status === "fulfilled")
+      .map((result) => result.value);
+
+    if (climateData.length === 0) {
+      const fallbackFailure = fallbackResults.find((result) => result.status === "rejected");
+      if (fallbackFailure && fallbackFailure.status === "rejected") {
+        climateFailureReason =
+          fallbackFailure.reason instanceof Error
+            ? fallbackFailure.reason.message
+            : (climateFailureReason ?? "Unknown climate API error");
+      }
+    }
   }
 
-  const airData = airResults
+  if (climateData.length === 0) {
+    const reasonSuffix = climateFailureReason ? ` (${climateFailureReason})` : "";
+    throw new Error(`Unable to load climate data for selected region and month${reasonSuffix}.`);
+  }
+
+  let airData = airResults
     .filter((result): result is PromiseFulfilledResult<AirHourlyData> => result.status === "fulfilled")
     .map((result) => result.value);
 
-  const marineData = marineResults
-    .filter((result): result is PromiseFulfilledResult<MarineHourlyData> => result.status === "fulfilled")
-    .map((result) => result.value);
+  if (airData.length === 0) {
+    // Fallback pass: when bulk year requests are fully throttled, retry with fewer calls.
+    await sleep(650);
+    const latestYear = baselineYears[baselineYears.length - 1];
+    const previousYear = baselineYears.length > 1 ? baselineYears[baselineYears.length - 2] : latestYear;
+    const fallbackYears = latestYear === previousYear ? [latestYear] : [latestYear, previousYear];
+    const fallbackResults = await Promise.allSettled(
+      fallbackYears.map((year) => fetchAirMonth(region, year, month)),
+    );
+
+    airData = fallbackResults
+      .filter((result): result is PromiseFulfilledResult<AirHourlyData> => result.status === "fulfilled")
+      .map((result) => result.value);
+  }
+
+  const marineData =
+    includeMarine
+      ? marineResults
+          .filter((result): result is PromiseFulfilledResult<MarineHourlyData> => result.status === "fulfilled")
+          .map((result) => result.value)
+      : [];
 
   const climateMetrics = aggregateClimate(climateData);
   const airMetrics = airData.length > 0 ? aggregateAir(airData) : { uvIndex: null, pm25: null, aqi: null };

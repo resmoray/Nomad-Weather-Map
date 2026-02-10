@@ -1,15 +1,28 @@
 import type { LLMExportRecord } from "../../types/export";
+import type { UserPreferenceProfile } from "../../types/presentation";
 import type { SeasonSignal } from "../../types/season";
 import type { RegionMonthRecord } from "../../types/weather";
 import { formatRegionLabel } from "../../utils/regionLabel";
 import { classifyClimateSeason } from "../matrix/classifyClimateSeason";
+import { calculatePersonalScore } from "../matrix/presets";
+import { SCORING_MODEL_VERSION, THRESHOLD_VERSION } from "../matrix/scoringMetadata";
 
 export function toLLMExportRecord(
   record: RegionMonthRecord,
+  profile: UserPreferenceProfile,
   seasonSignal?: SeasonSignal,
 ): LLMExportRecord {
   const exportedAt = new Date().toISOString();
   const climateSeason = classifyClimateSeason(record);
+  const personal = calculatePersonalScore(record, profile);
+  const driverSummary =
+    personal.drivers.length > 0
+      ? personal.drivers
+          .slice(0, 3)
+          .map((driver) => `${driver.direction === "positive" ? "+" : "-"}${driver.metric}`)
+          .join(", ")
+      : null;
+  const warningSummary = personal.warnings.length > 0 ? personal.warnings.join(" | ") : null;
 
   return {
     region_id: record.region.id,
@@ -21,9 +34,9 @@ export function toLLMExportRecord(
     latitude: record.region.lat,
     longitude: record.region.lon,
     month: record.month,
-    suitability_score: record.suitability.score,
-    suitability_band: record.suitability.band,
-    suitability_confidence: record.suitability.confidence,
+    suitability_score: personal.score,
+    suitability_band: personal.band,
+    suitability_confidence: Number(personal.confidenceDetails.coverage.toFixed(2)),
     temperature_min_c: record.temperatureProfile?.minC ?? null,
     temperature_avg_c: record.temperatureProfile?.avgC ?? record.metrics.temperatureC.value,
     temperature_max_c: record.temperatureProfile?.maxC ?? null,
@@ -110,6 +123,21 @@ export function toLLMExportRecord(
     climate_season_reason: climateSeason.reason,
     market_season_label: seasonSignal?.seasonLabel ?? null,
     market_confidence_source: seasonSignal?.marketConfidenceSource ?? null,
+    profile_temp_preference: profile.tempPreference,
+    profile_humidity_preference: profile.humidityPreference,
+    profile_rain_tolerance: profile.rainTolerance,
+    profile_air_sensitivity: profile.airSensitivity,
+    profile_uv_sensitivity: profile.uvSensitivity,
+    profile_surf_enabled: profile.surfEnabled,
+    profile_dealbreaker_avoid_heavy_rain: profile.dealbreakers.avoidHeavyRain,
+    profile_dealbreaker_avoid_unhealthy_air: profile.dealbreakers.avoidUnhealthyAir,
+    profile_dealbreaker_avoid_very_high_uv: profile.dealbreakers.avoidVeryHighUv,
+    profile_dealbreaker_avoid_strong_wind: profile.dealbreakers.avoidStrongWind,
+    profile_dealbreaker_coastal_only: profile.dealbreakers.coastalOnly,
+    personal_driver_summary: driverSummary,
+    personal_warning_summary: warningSummary,
+    scoring_model_version: SCORING_MODEL_VERSION,
+    threshold_version: THRESHOLD_VERSION,
     exported_at: exportedAt,
   };
 }

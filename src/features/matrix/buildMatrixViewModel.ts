@@ -1,26 +1,25 @@
 import type {
-  ComfortProfileId,
   MatrixMode,
   MatrixRowViewModel,
   MatrixViewModel,
-  TripTypeId,
+  UserPreferenceProfile,
 } from "../../types/presentation";
 import type { SeasonSignalByMonth } from "../../types/season";
 import type { MetricKey, Month, RegionMonthRecord } from "../../types/weather";
 import { formatDate, formatNumber } from "../../utils/format";
 import { formatRegionLabel } from "../../utils/regionLabel";
+import { getFixedSeasonProfile } from "../../services/season/fixedSeasonProfiles";
 import {
   METRIC_ROW_LABELS,
   METRIC_ROW_ORDER,
+  METRIC_UNIT_HINTS,
   bandToSeverity,
   classifyMetric,
+  metricToRowGroup,
   seasonToSeverity,
 } from "./classifyMetric";
 import { classifyClimateSeason } from "./classifyClimateSeason";
-import {
-  calculatePersonalScore,
-  getPersonalScoreReason,
-} from "./presets";
+import { calculatePersonalScore, getPersonalScoreReason } from "./presets";
 
 interface BuildMatrixInput {
   mode: MatrixMode;
@@ -28,8 +27,21 @@ interface BuildMatrixInput {
   monthRecords: RegionMonthRecord[];
   timelineRecords: RegionMonthRecord[];
   seasonByRegion: Record<string, SeasonSignalByMonth>;
-  comfortProfileId: ComfortProfileId;
-  tripTypeId: TripTypeId;
+  profile: UserPreferenceProfile;
+}
+
+function personalScoreValue(
+  record: RegionMonthRecord,
+  profile: UserPreferenceProfile,
+  seasonByRegion: Record<string, SeasonSignalByMonth>,
+): number {
+  const climateSeasonLabel = classifyClimateSeason(record).label;
+  const marketSeasonLabel = seasonByRegion[record.region.id]?.[record.month]?.seasonLabel ?? climateSeasonLabel;
+
+  return calculatePersonalScore(record, profile, {
+    marketSeasonLabel,
+    climateSeasonLabel,
+  }).score;
 }
 
 function shortSeasonLabel(label: "high" | "shoulder" | "off"): "high" | "shoulder" | "low" {
@@ -60,6 +72,41 @@ function seasonCell(
   const signal = seasonByRegion[regionId]?.[month];
 
   if (!signal) {
+    const fixedProfile = getFixedSeasonProfile(regionId);
+    if (fixedProfile) {
+      const seasonLabel = fixedProfile.marketByMonth[month] ?? "shoulder";
+      const sources = fixedProfile.sources.map((source) => ({
+        name: source.name,
+        url: source.url,
+        lastUpdated: `${fixedProfile.lastReviewed}T00:00:00.000Z`,
+      }));
+      const primarySource = sources[0] ?? {
+        name: "Nomad Weather Map fixed season catalog",
+        url: "",
+        lastUpdated: `${fixedProfile.lastReviewed}T00:00:00.000Z`,
+      };
+
+      return {
+        key: `season-${regionId}-${month}`,
+        label: shortSeasonLabel(seasonLabel),
+        valueText: "",
+        severity: seasonToSeverity(seasonLabel),
+        icon: seasonLabel === "high" ? "arrow-up" : seasonLabel === "off" ? "arrow-down" : "equal",
+        reason: fixedProfile.marketReason,
+        sourceName: primarySource.name,
+        sourceUrl: primarySource.url,
+        lastUpdated: primarySource.lastUpdated,
+        confidenceText: "high confidence (fixed profile)",
+        seasonLabel,
+        seasonConfidence: "high",
+        marketConfidenceSource: "fixed",
+        isPriceFallback: false,
+        isCrowdFallback: false,
+        seasonSources: sources,
+        tooltipText: `${shortSeasonLabel(seasonLabel)} season. ${fixedProfile.marketReason}`,
+      };
+    }
+
     return {
       key: `season-${regionId}-${month}`,
       label: "No data",
@@ -71,6 +118,7 @@ function seasonCell(
       sourceUrl: "",
       lastUpdated: "",
       confidenceText: "low confidence",
+      tooltipText: "No market season signal available.",
     };
   }
 
@@ -97,6 +145,7 @@ function seasonCell(
     isPriceFallback: signal.isPriceFallback,
     isCrowdFallback: signal.isCrowdFallback,
     seasonSources: signal.sources,
+    tooltipText: `${shortSeasonLabel(signal.seasonLabel)} season. ${signal.reasonText}`,
   };
 }
 
@@ -113,15 +162,24 @@ function climateSeasonCell(record: RegionMonthRecord): MatrixRowViewModel["cells
     sourceName: "Nomad Weather Map fixed season catalog",
     sourceUrl: "",
     lastUpdated: new Date().toISOString(),
+    tooltipText: `${shortSeasonLabel(climate.label)} climate season. ${climate.reason}`,
   };
 }
 
 function personalCell(
   record: RegionMonthRecord,
-  comfortProfileId: ComfortProfileId,
-  tripTypeId: TripTypeId,
+  profile: UserPreferenceProfile,
+  seasonByRegion: Record<string, SeasonSignalByMonth>,
 ): MatrixRowViewModel["cells"][number] {
-  const personal = calculatePersonalScore(record, comfortProfileId, tripTypeId);
+  const climateSeasonLabel = classifyClimateSeason(record).label;
+  const marketSeasonLabel = seasonByRegion[record.region.id]?.[record.month]?.seasonLabel ?? climateSeasonLabel;
+  const personal = calculatePersonalScore(record, profile, {
+    marketSeasonLabel,
+    climateSeasonLabel,
+  });
+  const missingMetrics = personal.confidenceDetails.missingMetrics;
+  const missingDetails =
+    missingMetrics.length > 0 ? ` • missing: ${missingMetrics.map((metric) => METRIC_ROW_LABELS[metric]).join(", ")}` : "";
 
   return {
     key: `personal-${record.region.id}-${record.month}`,
@@ -133,7 +191,11 @@ function personalCell(
     sourceName: "Nomad Weather Map persona scoring",
     sourceUrl: "",
     lastUpdated: new Date().toISOString(),
-    confidenceText: `${personal.confidence} confidence`,
+    confidenceText: `${personal.confidence} confidence${missingDetails}`,
+    personalDrivers: personal.drivers,
+    personalWarnings: personal.warnings,
+    confidenceDetails: personal.confidenceDetails,
+    tooltipText: `${personal.band} ${personal.score} (${personal.confidence} confidence)${missingDetails}`,
   };
 }
 
@@ -165,36 +227,43 @@ function metricCell(record: RegionMonthRecord, metric: MetricKey): MatrixRowView
     sourceName: metricValue.sourceName,
     sourceUrl: metricValue.sourceUrl,
     lastUpdated: formatDate(metricValue.lastUpdated),
+    tooltipText: `${assessment.label}${valueText ? ` • ${valueText}` : ""} • ${assessment.reason}`,
   };
 }
 
 function toRows(
   records: RegionMonthRecord[],
   seasonByRegion: Record<string, SeasonSignalByMonth>,
-  comfortProfileId: ComfortProfileId,
-  tripTypeId: TripTypeId,
+  profile: UserPreferenceProfile,
 ): MatrixRowViewModel[] {
   const marketSeasonRow: MatrixRowViewModel = {
     key: "marketSeason",
     label: "Market season",
+    group: "seasons",
     cells: records.map((record) => seasonCell(record.region.id, record.month, seasonByRegion)),
   };
 
   const climateSeasonRow: MatrixRowViewModel = {
     key: "climateSeason",
     label: "Climate season",
+    group: "seasons",
     cells: records.map((record) => climateSeasonCell(record)),
   };
 
   const personalRow: MatrixRowViewModel = {
     key: "personal",
     label: "Personal",
-    cells: records.map((record) => personalCell(record, comfortProfileId, tripTypeId)),
+    group: "seasons",
+    cells: records.map((record) => personalCell(record, profile, seasonByRegion)),
   };
 
-  const metricRows = METRIC_ROW_ORDER.map<MatrixRowViewModel>((metric) => ({
+  const allowedMetrics = METRIC_ROW_ORDER;
+
+  const metricRows = allowedMetrics.map<MatrixRowViewModel>((metric) => ({
     key: metric,
     label: METRIC_ROW_LABELS[metric],
+    group: metricToRowGroup(metric),
+    unitHint: METRIC_UNIT_HINTS[metric],
     cells: records.map((record) => metricCell(record, metric)),
   }));
 
@@ -213,11 +282,12 @@ export function buildMatrixViewModel(input: BuildMatrixInput): MatrixViewModel {
       subtitle: formatRegionLabel(record.region),
       month: record.month,
       regionId: record.region.id,
+      personalScore: personalScoreValue(record, input.profile, input.seasonByRegion),
     }));
 
     return {
       columns,
-      rows: toRows(input.timelineRecords, input.seasonByRegion, input.comfortProfileId, input.tripTypeId),
+      rows: toRows(input.timelineRecords, input.seasonByRegion, input.profile),
     };
   }
 
@@ -226,8 +296,8 @@ export function buildMatrixViewModel(input: BuildMatrixInput): MatrixViewModel {
   }
 
   const sorted = [...input.monthRecords].sort((left, right) => {
-    const leftPersonal = calculatePersonalScore(left, input.comfortProfileId, input.tripTypeId).score;
-    const rightPersonal = calculatePersonalScore(right, input.comfortProfileId, input.tripTypeId).score;
+    const leftPersonal = personalScoreValue(left, input.profile, input.seasonByRegion);
+    const rightPersonal = personalScoreValue(right, input.profile, input.seasonByRegion);
     return rightPersonal - leftPersonal;
   });
 
@@ -239,10 +309,11 @@ export function buildMatrixViewModel(input: BuildMatrixInput): MatrixViewModel {
     ).toLocaleString("en-US", { month: "short" })}`,
     month: record.month,
     regionId: record.region.id,
+    personalScore: personalScoreValue(record, input.profile, input.seasonByRegion),
   }));
 
   return {
     columns,
-    rows: toRows(sorted, input.seasonByRegion, input.comfortProfileId, input.tripTypeId),
+    rows: toRows(sorted, input.seasonByRegion, input.profile),
   };
 }

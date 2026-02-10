@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { SeasonSignalByMonth } from "../../types/season";
 import type { RegionMonthRecord } from "../../types/weather";
 import { buildMatrixViewModel } from "./buildMatrixViewModel";
+import { DEFAULT_PROFILE } from "./customProfile";
 
 function metric(value: number | null, unit: string) {
   return {
@@ -78,8 +79,7 @@ describe("buildMatrixViewModel", () => {
       monthRecords: [record],
       timelineRecords: [],
       seasonByRegion,
-      comfortProfileId: "perfectTemp",
-      tripTypeId: "cityTrip",
+      profile: DEFAULT_PROFILE,
     });
 
     const rowKeys = vm.rows.map((row) => row.key);
@@ -97,8 +97,7 @@ describe("buildMatrixViewModel", () => {
       monthRecords: [record],
       timelineRecords: [],
       seasonByRegion,
-      comfortProfileId: "perfectTemp",
-      tripTypeId: "cityTrip",
+      profile: DEFAULT_PROFILE,
     });
 
     expect(vm.rows[0]?.cells[0]?.label).toBe("high");
@@ -112,11 +111,25 @@ describe("buildMatrixViewModel", () => {
       monthRecords: [record],
       timelineRecords: [],
       seasonByRegion,
-      comfortProfileId: "perfectTemp",
-      tripTypeId: "cityTrip",
+      profile: DEFAULT_PROFILE,
     });
 
     expect(vm.rows[1]?.cells[0]?.label).toBe("high");
     expect(vm.rows[1]?.cells[0]?.valueText).toBe("");
+  });
+
+  it("uses fixed market season fallback when live season signal is missing", () => {
+    const vm = buildMatrixViewModel({
+      mode: "monthCompare",
+      month: 1,
+      monthRecords: [record],
+      timelineRecords: [],
+      seasonByRegion: {},
+      profile: DEFAULT_PROFILE,
+    });
+
+    expect(vm.rows[0]?.cells[0]?.label).toBe("high");
+    expect(vm.rows[0]?.cells[0]?.valueText).toBe("");
+    expect(vm.rows[0]?.cells[0]?.sourceName).not.toBe("Season service");
   });
 });

@@ -7,7 +7,7 @@ const getRegionTimelineMock = vi.fn();
 const fetchSeasonSummaryMock = vi.fn();
 
 vi.mock("../features/map/WeatherMap", () => ({
-  WeatherMap: ({ records }: { records: unknown[] }) => (
+  WeatherMap: ({ records }: { records: unknown[]; seasonByRegion: unknown }) => (
     <section>
       <h2>Map View</h2>
       <p data-testid="mock-map-count">{records.length}</p>
@@ -21,9 +21,13 @@ vi.mock("../services/season/seasonClient", () => ({
 
 vi.mock("../services/weather/provider", () => ({
   weatherProvider: {
-    getRegionMonthRecord: (region: Region, month: Month) =>
-      getRegionMonthRecordMock(region, month),
-    getRegionTimeline: (region: Region) => getRegionTimelineMock(region),
+    getRegionMonthRecord: (
+      region: Region,
+      month: Month,
+      options?: { includeMarine?: boolean },
+    ) => getRegionMonthRecordMock(region, month, options),
+    getRegionTimeline: (region: Region, options?: { includeMarine?: boolean }) =>
+      getRegionTimelineMock(region, options),
     clearCache: vi.fn(),
   },
 }));
@@ -90,7 +94,7 @@ describe("App", () => {
     render(<App />);
 
     const alert = await screen.findByRole("alert");
-    expect(alert).toHaveTextContent("API down");
+    expect(alert).toHaveTextContent("All selected regions failed to load");
   });
 
   it("refetches when country filter changes", async () => {
@@ -104,18 +108,54 @@ describe("App", () => {
       expect(getRegionMonthRecordMock).toHaveBeenCalled();
     });
 
-    const countrySelect = screen.getByLabelText("Country");
-    fireEvent.change(countrySelect, { target: { value: "TH" } });
+    const countryPicker = screen.getByLabelText("Country search and select");
+    fireEvent.focus(countryPicker);
+    fireEvent.change(countryPicker, { target: { value: "thai" } });
+
+    const thailandCheckbox = await screen.findByLabelText("Thailand (TH)");
+    fireEvent.click(thailandCheckbox);
 
     await waitFor(() => {
       expect(getRegionMonthRecordMock).toHaveBeenCalledWith(
         expect.objectContaining({ countryCode: "TH" }),
         1,
+        expect.objectContaining({ includeMarine: true }),
       );
     });
 
     await waitFor(() => {
       expect(screen.getAllByText("Thailand, Central - Bangkok").length).toBeGreaterThan(0);
+    });
+  });
+
+  it("updates displayed scores when preference profile changes", async () => {
+    getRegionMonthRecordMock.mockImplementation(async (region: Region, month: Month) =>
+      makeRecord(
+        {
+          ...region,
+          isCoastal: true,
+        },
+        month,
+      ),
+    );
+
+    const { container } = render(<App />);
+
+    await waitFor(() => {
+      expect(getRegionMonthRecordMock).toHaveBeenCalled();
+    });
+
+    const scoreNode = container.querySelector(".top-pick-score");
+    expect(scoreNode).toBeTruthy();
+    const before = scoreNode?.textContent ?? "";
+
+    fireEvent.change(screen.getByLabelText("Temp feel"), {
+      target: { value: "hot" },
+    });
+
+    await waitFor(() => {
+      const after = container.querySelector(".top-pick-score")?.textContent ?? "";
+      expect(after).not.toBe(before);
     });
   });
 });

@@ -1,23 +1,32 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ErrorState } from "../components/ErrorState";
 import { LoadingState } from "../components/LoadingState";
 import { countries, regions } from "../data/loadRegions";
 import { ExportButtons } from "../features/export/ExportButtons";
 import { FilterBar } from "../features/filters/FilterBar";
+import { TopPicksPanel } from "../features/insights/TopPicksPanel";
+import { buildTopPicks } from "../features/insights/buildTopPicks";
+import { WeatherMap } from "../features/map/WeatherMap";
 import { ClimateMatrix } from "../features/matrix/ClimateMatrix";
+import { DEFAULT_PROFILE } from "../features/matrix/customProfile";
 import { MatrixToolbar } from "../features/matrix/MatrixToolbar";
 import { calculatePersonalScore } from "../features/matrix/presets";
-import { WeatherMap } from "../features/map/WeatherMap";
+import { ScoringGuideModal } from "../features/matrix/ScoringGuideModal";
 import { fetchSeasonSummary } from "../services/season/seasonClient";
 import { weatherProvider } from "../services/weather/provider";
-import type { ComfortProfileId, MatrixMode, TripTypeId } from "../types/presentation";
+import type { MatrixMode, UserPreferenceProfile } from "../types/presentation";
 import type { SeasonSignalByMonth } from "../types/season";
-import type { CountryCode, Month, Region, RegionMonthRecord } from "../types/weather";
-import { MONTH_LABELS } from "../utils/months";
+import type { CountryCode, MetricKey, Month, Region, RegionMonthRecord } from "../types/weather";
+import { formatRegionLabel } from "../utils/regionLabel";
+import { buildAppUrlState, getDefaultPinnedRows, parseAppUrlState } from "../utils/urlState";
 import "./App.css";
 
-type CountryFilter = CountryCode | "ALL";
 const THEME_STORAGE_KEY = "nomad-weather-theme";
+const ACCESSIBILITY_STORAGE_KEY = "nomad-weather-accessibility";
+const REGION_LOAD_CONCURRENCY = 3;
+const REGION_RETRY_CONCURRENCY = 1;
+const REGION_RATE_LIMIT_COOLDOWN_MS = 2600;
+const REGION_REQUEST_TIMEOUT_MS = 35000;
 type ThemeMode = "light" | "dark";
 
 const defaultSelectedRegionIds = regions
@@ -48,8 +57,88 @@ function getErrorMessage(error: unknown): string {
   return "Something went wrong while loading weather data.";
 }
 
+function isRateLimitedMessage(message: string | null): boolean {
+  return typeof message === "string" && message.includes("status 429");
+}
+
+function isMissingVerifiedSnapshotMessage(message: string | null): boolean {
+  if (typeof message !== "string") {
+    return false;
+  }
+
+  return message.includes("No verified weather snapshot") || message.includes("weather:snapshot:update");
+}
+
+function firstRejectedReason(results: Array<PromiseSettledResult<unknown>>): string | null {
+  for (const result of results) {
+    if (result.status === "rejected") {
+      return getErrorMessage(result.reason);
+    }
+  }
+
+  return null;
+}
+
 function getCurrentYear(): number {
   return new Date().getUTCFullYear();
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number, timeoutMessage: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timeoutId = setTimeout(() => reject(new Error(timeoutMessage)), timeoutMs);
+
+    promise.then(
+      (value) => {
+        clearTimeout(timeoutId);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timeoutId);
+        reject(error);
+      },
+    );
+  });
+}
+
+async function mapWithConcurrencyLimit<TItem, TResult>(
+  items: TItem[],
+  concurrency: number,
+  mapper: (item: TItem, index: number) => Promise<TResult>,
+): Promise<Array<PromiseSettledResult<TResult>>> {
+  if (items.length === 0) {
+    return [];
+  }
+
+  const safeConcurrency = Math.max(1, Math.min(concurrency, items.length));
+  const settledResults: Array<PromiseSettledResult<TResult>> = new Array(items.length);
+  let nextIndex = 0;
+
+  async function runWorker(): Promise<void> {
+    while (true) {
+      const currentIndex = nextIndex;
+      nextIndex += 1;
+
+      if (currentIndex >= items.length) {
+        return;
+      }
+
+      try {
+        const value = await mapper(items[currentIndex], currentIndex);
+        settledResults[currentIndex] = { status: "fulfilled", value };
+      } catch (error) {
+        settledResults[currentIndex] = { status: "rejected", reason: error };
+      }
+    }
+  }
+
+  await Promise.all(Array.from({ length: safeConcurrency }, () => runWorker()));
+  return settledResults;
 }
 
 function getInitialTheme(): ThemeMode {
@@ -69,20 +158,61 @@ function getInitialTheme(): ThemeMode {
   return "light";
 }
 
+function getInitialAccessibilityMode(): boolean {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "1";
+}
+
+function latestMetricUpdate(records: RegionMonthRecord[]): string {
+  const timestamps = records.flatMap((record) =>
+    Object.values(record.metrics)
+      .map((metric) => metric.lastUpdated)
+      .filter(Boolean),
+  );
+
+  if (timestamps.length === 0) {
+    return "Unknown";
+  }
+
+  const latest = timestamps.reduce((acc, value) => (value > acc ? value : acc), timestamps[0]);
+  return latest;
+}
+
 export default function App() {
+  const initialUrl = useMemo(
+    () => (typeof window === "undefined" ? {} : parseAppUrlState(window.location.search)),
+    [],
+  );
+
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => getInitialTheme());
-  const [selectedCountry, setSelectedCountry] = useState<CountryFilter>("ALL");
-  const [selectedMonth, setSelectedMonth] = useState<Month>(1);
-  const [selectedRegionIds, setSelectedRegionIds] = useState<string[]>(defaultSelectedRegionIds);
+  const [colorBlindMode, setColorBlindMode] = useState<boolean>(() => getInitialAccessibilityMode());
+  const [selectedCountryCodes, setSelectedCountryCodes] = useState<CountryCode[]>(
+    () => initialUrl.selectedCountryCodes ?? [],
+  );
+  const [selectedMonth, setSelectedMonth] = useState<Month>(() => initialUrl.selectedMonth ?? 1);
+  const [selectedRegionIds, setSelectedRegionIds] = useState<string[]>(
+    () => initialUrl.selectedRegionIds ?? defaultSelectedRegionIds,
+  );
   const [records, setRecords] = useState<RegionMonthRecord[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [partialWarning, setPartialWarning] = useState<string>("");
   const [refreshCounter, setRefreshCounter] = useState(0);
 
-  const [matrixMode, setMatrixMode] = useState<MatrixMode>("monthCompare");
-  const [comfortProfileId, setComfortProfileId] = useState<ComfortProfileId>("perfectTemp");
-  const [tripTypeId, setTripTypeId] = useState<TripTypeId>("cityTrip");
-  const [timelineRegionId, setTimelineRegionId] = useState<string>("");
+  const [matrixMode, setMatrixMode] = useState<MatrixMode>(() => initialUrl.matrixMode ?? "monthCompare");
+  const [profile, setProfile] = useState<UserPreferenceProfile>(() => initialUrl.profile ?? DEFAULT_PROFILE);
+  const [timelineRegionId, setTimelineRegionId] = useState<string>(() => initialUrl.timelineRegionId ?? "");
+  const [minScore, setMinScore] = useState<number>(() => initialUrl.minScore ?? 0);
+  const [pinnedMetricKeys, setPinnedMetricKeys] = useState<MetricKey[]>(
+    () => initialUrl.pinnedRows ?? getDefaultPinnedRows(),
+  );
+  const [focusedRegionId, setFocusedRegionId] = useState<string>("");
+  const [isScoringGuideOpen, setIsScoringGuideOpen] = useState(false);
+  const comparisonSectionRef = useRef<HTMLElement | null>(null);
+  const supportSectionRef = useRef<HTMLElement | null>(null);
 
   const [timelineRecords, setTimelineRecords] = useState<RegionMonthRecord[]>([]);
   const [isTimelineLoading, setIsTimelineLoading] = useState(false);
@@ -95,13 +225,18 @@ export default function App() {
     window.localStorage.setItem(THEME_STORAGE_KEY, themeMode);
   }, [themeMode]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-accessibility", colorBlindMode ? "colorblind" : "default");
+    window.localStorage.setItem(ACCESSIBILITY_STORAGE_KEY, colorBlindMode ? "1" : "0");
+  }, [colorBlindMode]);
+
   const visibleRegions = useMemo(() => {
-    if (selectedCountry === "ALL") {
+    if (selectedCountryCodes.length === 0) {
       return regions;
     }
 
-    return regions.filter((region) => region.countryCode === selectedCountry);
-  }, [selectedCountry]);
+    return regions.filter((region) => selectedCountryCodes.includes(region.countryCode));
+  }, [selectedCountryCodes]);
 
   useEffect(() => {
     const nextAvailableIds = visibleRegions.map((region) => region.id);
@@ -117,18 +252,10 @@ export default function App() {
     [selectedRegionIds, visibleRegions],
   );
 
-  const selectedCountryLabel = useMemo(() => {
-    if (selectedCountry === "ALL") {
-      return "All countries";
-    }
-
-    const match = countries.find((country) => country.code === selectedCountry);
-    return match?.name ?? selectedCountry;
-  }, [selectedCountry]);
-
   useEffect(() => {
     if (selectedRegions.length === 0) {
       setTimelineRegionId("");
+      setFocusedRegionId("");
       return;
     }
 
@@ -136,7 +263,12 @@ export default function App() {
     if (!stillSelected) {
       setTimelineRegionId(selectedRegions[0].id);
     }
-  }, [selectedRegions, timelineRegionId]);
+
+    const stillFocused = selectedRegions.some((region) => region.id === focusedRegionId);
+    if (!stillFocused) {
+      setFocusedRegionId(selectedRegions[0].id);
+    }
+  }, [selectedRegions, timelineRegionId, focusedRegionId]);
 
   useEffect(() => {
     let isCurrent = true;
@@ -145,6 +277,7 @@ export default function App() {
       if (selectedRegions.length === 0) {
         if (isCurrent) {
           setRecords([]);
+          setPartialWarning("");
           setErrorMessage("");
           setIsLoading(false);
         }
@@ -153,17 +286,158 @@ export default function App() {
 
       setIsLoading(true);
       setErrorMessage("");
+      setPartialWarning("");
 
       try {
-        const nextRecords = await Promise.all(
-          selectedRegions.map((region) => weatherProvider.getRegionMonthRecord(region, selectedMonth)),
+        const settled = await mapWithConcurrencyLimit(
+          selectedRegions,
+          REGION_LOAD_CONCURRENCY,
+          (region) =>
+            withTimeout(
+              weatherProvider.getRegionMonthRecord(region, selectedMonth, {
+                includeMarine: true,
+              }),
+              REGION_REQUEST_TIMEOUT_MS,
+              `Weather request timeout for ${region.cityName}`,
+            ),
         );
 
-        if (isCurrent) {
-          setRecords(nextRecords);
+        if (!isCurrent) {
+          return;
+        }
+
+        const firstPassFulfilled = settled
+          .filter((result): result is PromiseFulfilledResult<RegionMonthRecord> => result.status === "fulfilled")
+          .map((result) => result.value);
+
+        const failedRegions = settled.flatMap((result, index) =>
+          result.status === "rejected" ? [selectedRegions[index]] : [],
+        );
+
+        let recoveredRecords: RegionMonthRecord[] = [];
+        let stillFailedRegions = failedRegions;
+        let finalFailedCount = failedRegions.length;
+        let finalFailedPreview = "";
+        let finalFailureReason = firstRejectedReason(settled);
+
+        if (failedRegions.length > 0) {
+          await sleep(500);
+
+          const retrySettled = await mapWithConcurrencyLimit(
+            failedRegions,
+            REGION_RETRY_CONCURRENCY,
+            (region) =>
+              withTimeout(
+                weatherProvider.getRegionMonthRecord(region, selectedMonth, {
+                  includeMarine: true,
+                }),
+                REGION_REQUEST_TIMEOUT_MS,
+                `Weather request timeout for ${region.cityName}`,
+              ),
+          );
+
+          if (!isCurrent) {
+            return;
+          }
+
+          recoveredRecords = retrySettled
+            .filter((result): result is PromiseFulfilledResult<RegionMonthRecord> => result.status === "fulfilled")
+            .map((result) => result.value);
+          finalFailedCount = retrySettled.length - recoveredRecords.length;
+          finalFailureReason = firstRejectedReason(retrySettled) ?? finalFailureReason;
+
+          stillFailedRegions = retrySettled.flatMap((result, index) =>
+            result.status === "rejected" ? [failedRegions[index]] : [],
+          );
+          finalFailedPreview = stillFailedRegions
+            .slice(0, 3)
+            .map((region) => region.cityName)
+            .join(", ");
+        }
+
+        if (
+          stillFailedRegions.length > 0 &&
+          firstPassFulfilled.length + recoveredRecords.length === 0 &&
+          isRateLimitedMessage(finalFailureReason)
+        ) {
+          await sleep(REGION_RATE_LIMIT_COOLDOWN_MS);
+
+          const cooldownSettled = await mapWithConcurrencyLimit(
+            stillFailedRegions,
+            1,
+            (region) =>
+              withTimeout(
+                weatherProvider.getRegionMonthRecord(region, selectedMonth, {
+                  includeMarine: true,
+                }),
+                REGION_REQUEST_TIMEOUT_MS,
+                `Weather request timeout for ${region.cityName}`,
+              ),
+          );
+
+          if (!isCurrent) {
+            return;
+          }
+
+          const cooldownRecovered = cooldownSettled
+            .filter((result): result is PromiseFulfilledResult<RegionMonthRecord> => result.status === "fulfilled")
+            .map((result) => result.value);
+          recoveredRecords = [...recoveredRecords, ...cooldownRecovered];
+          const retryInputRegions = stillFailedRegions;
+          stillFailedRegions = cooldownSettled.flatMap((result, index) =>
+            result.status === "rejected" ? [retryInputRegions[index]] : [],
+          );
+          finalFailedCount = stillFailedRegions.length;
+          finalFailureReason = firstRejectedReason(cooldownSettled) ?? finalFailureReason;
+          finalFailedPreview = stillFailedRegions
+            .slice(0, 3)
+            .map((region) => region.cityName)
+            .join(", ");
+        }
+
+        const byRegionId = new Map(
+          [...firstPassFulfilled, ...recoveredRecords].map((record) => [record.region.id, record]),
+        );
+        const resolvedRecords = selectedRegions
+          .map((region) => byRegionId.get(region.id))
+          .filter((record): record is RegionMonthRecord => Boolean(record));
+
+        setRecords(resolvedRecords);
+
+        const missingAirCount = resolvedRecords.filter(
+          (record) =>
+            record.metrics.pm25.value === null &&
+            record.metrics.aqi.value === null &&
+            record.metrics.uvIndex.value === null,
+        ).length;
+
+        if (resolvedRecords.length === 0 && finalFailedCount > 0) {
+          if (isRateLimitedMessage(finalFailureReason)) {
+            setErrorMessage(
+              "Open-Meteo throttled requests (429). To keep data truthful, no estimated fallback is used. Try again later or reduce selected regions.",
+            );
+          } else if (isMissingVerifiedSnapshotMessage(finalFailureReason)) {
+            setErrorMessage(
+              "No verified weather snapshot is stored yet. Run: npm run weather:snapshot:update -- --limit=200",
+            );
+          } else {
+            const reasonSuffix = finalFailureReason ? ` Last error: ${finalFailureReason}` : "";
+            setErrorMessage(`All selected regions failed to load.${reasonSuffix}`);
+          }
+        } else if (finalFailedCount > 0 || missingAirCount > 0) {
+          const warningParts: string[] = [];
+          if (finalFailedCount > 0) {
+            const previewSuffix = finalFailedPreview ? ` (${finalFailedPreview}${finalFailedCount > 3 ? ", ..." : ""})` : "";
+            warningParts.push(`${finalFailedCount} region(s) failed to load after retry${previewSuffix}.`);
+          }
+          if (missingAirCount > 0) {
+            warningParts.push(`${missingAirCount} region(s) missing air/UV data.`);
+          }
+          setPartialWarning(`${warningParts.join(" ")} Showing available results only.`);
         }
       } catch (error) {
         if (isCurrent) {
+          setRecords([]);
           setErrorMessage(getErrorMessage(error));
         }
       } finally {
@@ -192,10 +466,10 @@ export default function App() {
 
       const seasonResults = await Promise.all(
         records.map(async (record) => {
-          const personal = calculatePersonalScore(record, comfortProfileId, tripTypeId);
+          const personal = calculatePersonalScore(record, profile);
           const season = await fetchSeasonSummary({
             regionId: record.region.id,
-            presetId: `${comfortProfileId}:${tripTypeId}`,
+            presetId: "custom-profile",
             year,
             month: record.month,
             weatherByMonth: {
@@ -208,10 +482,16 @@ export default function App() {
       );
 
       if (isCurrent) {
-        setSeasonByRegion((previous) => ({
-          ...previous,
-          ...Object.fromEntries(seasonResults),
-        }));
+        setSeasonByRegion((previous) => {
+          const merged: Record<string, SeasonSignalByMonth> = { ...previous };
+          for (const [regionId, seasonSignals] of seasonResults) {
+            merged[regionId] = {
+              ...(previous[regionId] ?? {}),
+              ...seasonSignals,
+            };
+          }
+          return merged;
+        });
       }
     }
 
@@ -220,7 +500,7 @@ export default function App() {
     return () => {
       isCurrent = false;
     };
-  }, [records, comfortProfileId, tripTypeId]);
+  }, [records, profile]);
 
   const timelineRegion: Region | null = useMemo(() => {
     if (!timelineRegionId) {
@@ -247,17 +527,18 @@ export default function App() {
       setTimelineError("");
 
       try {
-        const timeline = await weatherProvider.getRegionTimeline(timelineRegion);
-
+        const timeline = await weatherProvider.getRegionTimeline(timelineRegion, {
+          includeMarine: true,
+        });
         const weatherByMonth = timeline.reduce<Partial<Record<Month, number>>>((acc, record) => {
-          const personal = calculatePersonalScore(record, comfortProfileId, tripTypeId);
+          const personal = calculatePersonalScore(record, profile);
           acc[record.month] = personal.score;
           return acc;
         }, {});
 
         const seasonSignals = await fetchSeasonSummary({
           regionId: timelineRegion.id,
-          presetId: `${comfortProfileId}:${tripTypeId}`,
+          presetId: "custom-profile",
           year: getCurrentYear(),
           weatherByMonth,
         });
@@ -288,7 +569,69 @@ export default function App() {
     return () => {
       isCurrent = false;
     };
-  }, [matrixMode, timelineRegion, comfortProfileId, tripTypeId, refreshCounter]);
+  }, [matrixMode, timelineRegion, profile, refreshCounter]);
+
+  const topPicks = useMemo(
+    () => buildTopPicks({ records, profile, seasonByRegion, maxPicks: 3 }),
+    [records, profile, seasonByRegion],
+  );
+
+  const lastUpdated = useMemo(() => latestMetricUpdate(records), [records]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const search = buildAppUrlState({
+        selectedCountryCodes,
+        selectedMonth,
+        selectedRegionIds,
+        matrixMode,
+        timelineRegionId,
+        profile,
+        minScore,
+        pinnedRows: pinnedMetricKeys,
+      });
+      const next = `${window.location.pathname}?${search}`;
+      window.history.replaceState(null, "", next);
+    }, 250);
+
+    return () => window.clearTimeout(timer);
+  }, [
+    selectedCountryCodes,
+    selectedMonth,
+    selectedRegionIds,
+    matrixMode,
+    timelineRegionId,
+    profile,
+    minScore,
+    pinnedMetricKeys,
+  ]);
+
+  function togglePinnedMetric(metric: MetricKey): void {
+    setPinnedMetricKeys((previous) =>
+      previous.includes(metric) ? previous.filter((item) => item !== metric) : [...previous, metric],
+    );
+  }
+
+  function navigateToRegionComparison(regionId: string): void {
+    setMatrixMode("monthCompare");
+    setFocusedRegionId(regionId);
+    window.requestAnimationFrame(() => {
+      comparisonSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }
+
+  function navigateToRegionMap(regionId: string): void {
+    setFocusedRegionId(regionId);
+    window.requestAnimationFrame(() => {
+      supportSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }
 
   return (
     <div className="app-shell">
@@ -305,6 +648,14 @@ export default function App() {
               }}
             >
               {themeMode === "dark" ? "Light mode" : "Dark mode"}
+            </button>
+            <button
+              type="button"
+              className="theme-toggle-button"
+              aria-pressed={colorBlindMode}
+              onClick={() => setColorBlindMode((previous) => !previous)}
+            >
+              {colorBlindMode ? "Colorblind mode: On" : "Colorblind mode: Off"}
             </button>
           </div>
         </div>
@@ -325,14 +676,15 @@ export default function App() {
         </header>
         <ol className="workflow-list">
           <li>
-            <strong>Setup:</strong> choose country, month, regions, mode, comfort profile and trip
-            type.
+            <strong>Setup:</strong> choose country, month, regions and your custom preference
+            profile.
           </li>
           <li>
-            <strong>Compare:</strong> read fixed market/climate seasons first, then live weather rows.
+            <strong>Compare:</strong> choose mode/timeline region, then review top picks, matrix
+            groups, confidence and warnings.
           </li>
           <li>
-            <strong>Export:</strong> download CSV or JSON when the selection looks good.
+            <strong>Export:</strong> download shortlist, monthly plan, CSV or JSON.
           </li>
         </ol>
       </section>
@@ -341,10 +693,10 @@ export default function App() {
         <FilterBar
           countries={countries}
           regions={visibleRegions}
-          selectedCountry={selectedCountry}
+          selectedCountryCodes={selectedCountryCodes}
           selectedMonth={selectedMonth}
           selectedRegionIds={selectedRegionIds}
-          onCountryChange={(nextCountry) => setSelectedCountry(nextCountry)}
+          onCountryCodesChange={(nextCountries) => setSelectedCountryCodes(nextCountries)}
           onMonthChange={(nextMonth) => setSelectedMonth(nextMonth)}
           onRegionToggle={(regionId) => {
             setSelectedRegionIds((previous) =>
@@ -361,36 +713,15 @@ export default function App() {
 
         <section className="panel setup-panel">
           <header className="panel-header">
-            <h2>Trip Profile</h2>
+            <h2>Preference Profile</h2>
             <p>These settings control personal ranking and matrix interpretation.</p>
           </header>
 
           <MatrixToolbar
-            matrixMode={matrixMode}
-            onMatrixModeChange={setMatrixMode}
-            comfortProfileId={comfortProfileId}
-            onComfortProfileChange={setComfortProfileId}
-            tripTypeId={tripTypeId}
-            onTripTypeChange={setTripTypeId}
-            timelineRegionId={timelineRegionId}
-            timelineRegions={selectedRegions}
-            onTimelineRegionChange={setTimelineRegionId}
+            profile={profile}
+            onProfileChange={setProfile}
+            onOpenScoringGuide={() => setIsScoringGuideOpen(true)}
           />
-
-          <div className="setup-stats" aria-label="Current selection summary">
-            <div className="setup-stat">
-              <span>Country</span>
-              <strong>{selectedCountryLabel}</strong>
-            </div>
-            <div className="setup-stat">
-              <span>Month</span>
-              <strong>{MONTH_LABELS[selectedMonth]}</strong>
-            </div>
-            <div className="setup-stat">
-              <span>Selected regions</span>
-              <strong>{selectedRegions.length}</strong>
-            </div>
-          </div>
         </section>
       </section>
 
@@ -405,14 +736,53 @@ export default function App() {
           }}
         />
       ) : null}
+      {partialWarning ? <p className="hint-text warning-text">{partialWarning}</p> : null}
 
-      <section className="panel comparison-panel">
-        <header className="panel-header">
-          <h2>Step 2: Compare Regions</h2>
-          <p>
-            Read top rows first: Market season (demand/price) and Climate season (comfort). Personal
-            combines your comfort profile and trip type. Metric rows stay live from APIs.
-          </p>
+      <TopPicksPanel
+        picks={topPicks}
+        isLoading={isLoading}
+        onPickFocus={(regionId) => setFocusedRegionId(regionId)}
+      />
+
+      <section ref={comparisonSectionRef} className="panel comparison-panel">
+        <header className="panel-header compare-header">
+          <div className="compare-header-main">
+            <h2>Step 2: Compare Regions</h2>
+            <p>
+              Data last updated: {lastUpdated}. Read top rows first (market, climate, personal), then
+              inspect grouped metric rows.
+            </p>
+          </div>
+          <div className="compare-mode-controls" aria-label="Compare mode controls">
+            <label>
+              <span>Mode</span>
+              <select
+                aria-label="Matrix mode"
+                value={matrixMode}
+                onChange={(event) => setMatrixMode(event.target.value as MatrixMode)}
+              >
+                <option value="monthCompare">Month Compare</option>
+                <option value="timeline">Region Timeline</option>
+              </select>
+            </label>
+
+            {matrixMode === "timeline" ? (
+              <label>
+                <span>Timeline region</span>
+                <select
+                  aria-label="Timeline region"
+                  value={timelineRegionId}
+                  onChange={(event) => setTimelineRegionId(event.target.value)}
+                >
+                  {selectedRegions.map((region) => (
+                    <option key={region.id} value={region.id}>
+                      {formatRegionLabel(region)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : null}
+          </div>
         </header>
 
         <ClimateMatrix
@@ -421,23 +791,52 @@ export default function App() {
           monthRecords={records}
           timelineRecords={timelineRecords}
           seasonByRegion={seasonByRegion}
-          comfortProfileId={comfortProfileId}
-          tripTypeId={tripTypeId}
+          profile={profile}
           isLoading={isLoading || isTimelineLoading}
+          minScore={minScore}
+          onMinScoreChange={setMinScore}
+          pinnedMetricKeys={pinnedMetricKeys}
+          onPinnedMetricToggle={togglePinnedMetric}
+          focusedRegionId={focusedRegionId}
+          onFocusRegion={setFocusedRegionId}
+          onNavigateToRegion={navigateToRegionMap}
+          colorBlindMode={colorBlindMode}
         />
 
         {timelineError ? <ErrorState message={timelineError} /> : null}
       </section>
 
-      <section className="support-grid">
-        <WeatherMap records={records} />
+      <section ref={supportSectionRef} className="support-grid">
+        <WeatherMap
+          records={records}
+          profile={profile}
+          seasonByRegion={seasonByRegion}
+          minScore={minScore}
+          onMinScoreChange={setMinScore}
+          focusedRegionId={focusedRegionId}
+          onFocusRegion={setFocusedRegionId}
+          onNavigateToRegion={navigateToRegionComparison}
+        />
         <section>
           <p className="hint-text step3-hint">
-            Step 3: Export your current selection after checking matrix + map.
+            Step 3: Export your current selection after checking top picks, matrix and map.
           </p>
-          <ExportButtons records={records} month={selectedMonth} seasonByRegion={seasonByRegion} />
+          <ExportButtons
+            records={records}
+            regions={selectedRegions}
+            month={selectedMonth}
+            seasonByRegion={seasonByRegion}
+            profile={profile}
+            loadRegionTimeline={(region) =>
+              weatherProvider.getRegionTimeline(region, {
+                includeMarine: true,
+              })
+            }
+          />
         </section>
       </section>
+
+      <ScoringGuideModal open={isScoringGuideOpen} onClose={() => setIsScoringGuideOpen(false)} />
     </div>
   );
 }

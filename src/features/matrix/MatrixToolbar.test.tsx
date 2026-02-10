@@ -1,50 +1,59 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { Region } from "../../types/weather";
+import type { UserPreferenceProfile } from "../../types/presentation";
 import { MatrixToolbar } from "./MatrixToolbar";
 
-const regions: Region[] = [
-  {
-    id: "vn-da-nang",
-    countryCode: "VN",
-    countryName: "Vietnam",
-    regionName: "Central",
-    cityName: "Da Nang",
-    lat: 16.0544,
-    lon: 108.2022,
-    cityIata: "DAD",
-    destinationIata: "DAD",
-    isCoastal: true,
-  },
-];
-
 describe("MatrixToolbar", () => {
-  it("renders comfort and trip selectors and triggers callbacks", () => {
-    const onComfortProfileChange = vi.fn();
-    const onTripTypeChange = vi.fn();
+  it("renders custom profile controls and triggers profile updates", () => {
+    const onProfileChange = vi.fn();
+    const profile: UserPreferenceProfile = {
+      tempPreference: "mild",
+      humidityPreference: "balanced",
+      rainTolerance: "okayRain",
+      airSensitivity: "normal",
+      uvSensitivity: "normal",
+      preferredMarketSeason: "noPreference",
+      preferredClimateSeason: "noPreference",
+      surfEnabled: false,
+      dealbreakers: {
+        avoidHeavyRain: false,
+        avoidUnhealthyAir: false,
+        avoidVeryHighUv: false,
+        avoidStrongWind: false,
+        coastalOnly: false,
+      },
+    };
 
     render(
       <MatrixToolbar
-        matrixMode="monthCompare"
-        onMatrixModeChange={vi.fn()}
-        comfortProfileId="perfectTemp"
-        onComfortProfileChange={onComfortProfileChange}
-        tripTypeId="cityTrip"
-        onTripTypeChange={onTripTypeChange}
-        timelineRegionId="vn-da-nang"
-        timelineRegions={regions}
-        onTimelineRegionChange={vi.fn()}
-      />, 
+        profile={profile}
+        onProfileChange={onProfileChange}
+        onOpenScoringGuide={vi.fn()}
+      />,
     );
 
-    fireEvent.change(screen.getByLabelText("Comfort profile"), {
-      target: { value: "warmTraveler" },
+    fireEvent.change(screen.getByLabelText("Temp feel"), {
+      target: { value: "warm" },
     });
-    fireEvent.change(screen.getByLabelText("Trip type"), {
-      target: { value: "surfVacation" },
+    fireEvent.change(screen.getByLabelText("Surf interest"), {
+      target: { value: "on" },
     });
+    fireEvent.click(screen.getByLabelText("No heavy rain"));
 
-    expect(onComfortProfileChange).toHaveBeenCalledWith("warmTraveler");
-    expect(onTripTypeChange).toHaveBeenCalledWith("surfVacation");
+    expect(onProfileChange).toHaveBeenCalledWith({
+      ...profile,
+      tempPreference: "warm",
+    });
+    expect(onProfileChange).toHaveBeenCalledWith({
+      ...profile,
+      surfEnabled: true,
+    });
+    expect(onProfileChange).toHaveBeenCalledWith({
+      ...profile,
+      dealbreakers: {
+        ...profile.dealbreakers,
+        avoidHeavyRain: true,
+      },
+    });
   });
 });

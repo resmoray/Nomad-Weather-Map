@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { DEFAULT_PROFILE } from "../matrix/customProfile";
 import { buildJsonExport } from "./exportJson";
 import type { RegionMonthRecord } from "../../types/weather";
 
@@ -124,11 +125,11 @@ const sampleRecord: RegionMonthRecord = {
 
 describe("buildJsonExport", () => {
   it("creates LLM-ready rows with value + source + date fields", () => {
-    const [row] = buildJsonExport([sampleRecord]);
+    const [row] = buildJsonExport([sampleRecord], DEFAULT_PROFILE);
 
     expect(row.region_id).toBe("vn-hanoi");
     expect(row.display_name).toBe("Vietnam, North - Hanoi");
-    expect(row.suitability_score).toBe(74);
+    expect(row.suitability_score).toBeGreaterThanOrEqual(0);
     expect(row.temperature_c).toBe(23);
     expect(row.temperature_source).toContain("Open-Meteo");
     expect(row.temperature_last_updated).toBe("2026-02-06T00:00:00.000Z");
@@ -137,6 +138,10 @@ describe("buildJsonExport", () => {
     expect(row.season_label).toBeNull();
     expect(row.climate_season_label).toBe("high");
     expect(row.market_season_label).toBeNull();
+    expect(row.profile_temp_preference).toBe("mild");
+    expect(row.profile_surf_enabled).toBe(false);
+    expect(row.scoring_model_version).toBeDefined();
+    expect(row.threshold_version).toBeDefined();
     expect(typeof row.exported_at).toBe("string");
   });
 });

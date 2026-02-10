@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { RegionMonthRecord } from "../../types/weather";
+import { DEFAULT_PROFILE } from "./customProfile";
 import { calculatePersonalScore } from "./presets";
 
 const record: RegionMonthRecord = {
@@ -124,7 +125,7 @@ const record: RegionMonthRecord = {
 
 describe("calculatePersonalScore", () => {
   it("returns bounded score, band and confidence", () => {
-    const result = calculatePersonalScore(record, "perfectTemp", "cityTrip");
+    const result = calculatePersonalScore(record, DEFAULT_PROFILE);
 
     expect(result.score).toBeGreaterThanOrEqual(0);
     expect(result.score).toBeLessThanOrEqual(100);
@@ -132,7 +133,7 @@ describe("calculatePersonalScore", () => {
     expect(["high", "medium", "low"]).toContain(result.confidence);
   });
 
-  it("changes score across different trip types", () => {
+  it("changes score across different custom profiles", () => {
     const scenarioRecord: RegionMonthRecord = {
       ...record,
       metrics: {
@@ -143,16 +144,45 @@ describe("calculatePersonalScore", () => {
       },
     };
 
-    const city = calculatePersonalScore(scenarioRecord, "perfectTemp", "cityTrip").score;
-    const beach = calculatePersonalScore(scenarioRecord, "perfectTemp", "beachVacation").score;
+    const airSensitive = calculatePersonalScore(scenarioRecord, {
+      ...DEFAULT_PROFILE,
+      airSensitivity: "sensitive",
+      uvSensitivity: "sensitive",
+      rainTolerance: "avoidRain",
+    }).score;
+    const airTolerant = calculatePersonalScore(scenarioRecord, {
+      ...DEFAULT_PROFILE,
+      airSensitivity: "tolerant",
+      uvSensitivity: "tolerant",
+      rainTolerance: "rainFlexible",
+    }).score;
 
-    expect(city).not.toBeNaN();
-    expect(beach).not.toBeNaN();
-    expect(city).not.toBe(beach);
+    expect(airSensitive).not.toBeNaN();
+    expect(airTolerant).not.toBeNaN();
+    expect(airSensitive).not.toBe(airTolerant);
   });
 
-  it("forces low confidence for surf persona on inland regions", () => {
-    const surf = calculatePersonalScore(record, "perfectTemp", "surfVacation");
+  it("forces low confidence for surf-enabled profile on inland regions", () => {
+    const surf = calculatePersonalScore(record, { ...DEFAULT_PROFILE, surfEnabled: true });
     expect(surf.confidence).toBe("low");
+  });
+
+  it("applies preferred market and climate season to the personal score", () => {
+    const profile = {
+      ...DEFAULT_PROFILE,
+      preferredMarketSeason: "high" as const,
+      preferredClimateSeason: "high" as const,
+    };
+
+    const preferred = calculatePersonalScore(record, profile, {
+      marketSeasonLabel: "high",
+      climateSeasonLabel: "high",
+    }).score;
+    const mismatch = calculatePersonalScore(record, profile, {
+      marketSeasonLabel: "off",
+      climateSeasonLabel: "off",
+    }).score;
+
+    expect(preferred).toBeGreaterThan(mismatch);
   });
 });
