@@ -46,6 +46,7 @@ You only need a `.env` file if you want to override defaults.
 - `npm run test:run`: run tests once
 - `npm run build`: typecheck + production build
 - `npm run check`: lint + tests + build
+- `npm run security:secrets`: scan workspace files for common leaked-secret patterns
 - `npm run preview`: preview production build
 
 ## Verified Snapshot Workflow

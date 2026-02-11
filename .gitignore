@@ -15,6 +15,17 @@ dist-ssr
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+*.crt
+*.cer
+*.der
+*.jks
+*.keystore
 
 # Editor directories and files
 .vscode/*
