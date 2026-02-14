@@ -3,7 +3,7 @@ import type { Month, Region } from "../../types/weather";
 import type { OpenMeteoMonthlySummary } from "./openMeteoClient";
 
 const STATIC_SCHEMA_VERSION = "nomad-static-weather-v1";
-const DEFAULT_STATIC_BASE_PATH = `${import.meta.env.BASE_URL}static-weather/v1`;
+const DEFAULT_STATIC_BASE_PATH = "static-weather/v1";
 const STATIC_BASE_PATH = (import.meta.env.VITE_STATIC_WEATHER_BASE_PATH ?? DEFAULT_STATIC_BASE_PATH).trim();
 
 const staticSummarySchema = z.object({
@@ -75,9 +75,36 @@ function trimSlashes(value: string): string {
   return value.replace(/^\/+/, "").replace(/\/+$/, "");
 }
 
+function trimTrailingSlashes(value: string): string {
+  return value.replace(/\/+$/, "");
+}
+
 function buildBasePath(): string {
-  const normalized = trimSlashes(STATIC_BASE_PATH);
-  return `${import.meta.env.BASE_URL}${normalized}`.replace(/\/{2,}/g, "/");
+  const rawPath = STATIC_BASE_PATH.trim();
+  if (!rawPath) {
+    return trimTrailingSlashes(import.meta.env.BASE_URL);
+  }
+
+  // Absolute URL override, useful for custom CDN hosting.
+  if (/^https?:\/\//i.test(rawPath)) {
+    return trimTrailingSlashes(rawPath);
+  }
+
+  // Absolute root path should not get BASE_URL prefixed again.
+  if (rawPath.startsWith("/")) {
+    return trimTrailingSlashes(rawPath);
+  }
+
+  const normalized = trimSlashes(rawPath);
+  const appBase = trimSlashes(import.meta.env.BASE_URL);
+  if (appBase && normalized === appBase) {
+    return trimTrailingSlashes(import.meta.env.BASE_URL);
+  }
+  if (appBase && normalized.startsWith(`${appBase}/`)) {
+    return trimTrailingSlashes(`/${normalized}`);
+  }
+
+  return trimTrailingSlashes(`${import.meta.env.BASE_URL}${normalized}`.replace(/\/{2,}/g, "/"));
 }
 
 function asMonthFileName(month: Month): string {
@@ -119,7 +146,12 @@ async function fetchJson(url: string): Promise<unknown> {
 async function loadManifest(): Promise<StaticManifest> {
   if (!manifestPromise) {
     const manifestUrl = `${buildBasePath()}/manifest.json`;
-    manifestPromise = fetchJson(manifestUrl).then((payload) => manifestSchema.parse(payload));
+    manifestPromise = fetchJson(manifestUrl)
+      .then((payload) => manifestSchema.parse(payload))
+      .catch((error) => {
+        manifestPromise = null;
+        throw error;
+      });
   }
 
   return manifestPromise;
@@ -128,7 +160,12 @@ async function loadManifest(): Promise<StaticManifest> {
 async function loadShardIndex(): Promise<ShardIndex> {
   if (!shardIndexPromise) {
     const indexUrl = `${buildBasePath()}/shards/region-index.json`;
-    shardIndexPromise = fetchJson(indexUrl).then((payload) => shardIndexSchema.parse(payload));
+    shardIndexPromise = fetchJson(indexUrl)
+      .then((payload) => shardIndexSchema.parse(payload))
+      .catch((error) => {
+        shardIndexPromise = null;
+        throw error;
+      });
   }
 
   return shardIndexPromise;
@@ -141,7 +178,12 @@ async function loadShard(shardId: string): Promise<ShardFile> {
   }
 
   const shardUrl = `${buildBasePath()}/shards/${shardId}.json`;
-  const loadPromise = fetchJson(shardUrl).then((payload) => shardFileSchema.parse(payload));
+  const loadPromise = fetchJson(shardUrl)
+    .then((payload) => shardFileSchema.parse(payload))
+    .catch((error) => {
+      shardCache.delete(shardId);
+      throw error;
+    });
   shardCache.set(shardId, loadPromise);
   return loadPromise;
 }
