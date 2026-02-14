@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pe-lima",
+  "month": 3,
+  "summary": {
+    "temperatureC": 23.9,
+    "temperatureMinC": 21.5,
+    "temperatureMaxC": 26.4,
+    "rainfallMm": 10.6,
+    "humidityPct": 76.8,
+    "windKph": 15,
+    "uvIndex": 11.8,
+    "uvIndexMax": 13.6,
+    "pm25": 15.9,
+    "aqi": 58.1,
+    "waveHeightMinM": 1.04,
+    "waveHeightM": 1.59,
+    "waveHeightMaxM": 2.36,
+    "wavePeriodS": 11.53,
+    "waveDirectionDeg": null,
+    "waterTempC": 20.29,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

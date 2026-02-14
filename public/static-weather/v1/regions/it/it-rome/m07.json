@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "it-rome",
+  "month": 7,
+  "summary": {
+    "temperatureC": 27.3,
+    "temperatureMinC": 21.7,
+    "temperatureMaxC": 31.5,
+    "rainfallMm": 8.2,
+    "humidityPct": 57.1,
+    "windKph": 10.4,
+    "uvIndex": 8.1,
+    "uvIndexMax": 9.2,
+    "pm25": 8,
+    "aqi": 45.2,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

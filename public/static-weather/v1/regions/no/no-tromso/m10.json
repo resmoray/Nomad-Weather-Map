@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "no-tromso",
+  "month": 10,
+  "summary": {
+    "temperatureC": 3.7,
+    "temperatureMinC": -3.1,
+    "temperatureMaxC": 11.4,
+    "rainfallMm": 120.6,
+    "humidityPct": 81,
+    "windKph": 13.7,
+    "uvIndex": 0.3,
+    "uvIndexMax": 0.8,
+    "pm25": 2.3,
+    "aqi": 23,
+    "waveHeightMinM": 0.5,
+    "waveHeightM": 1.41,
+    "waveHeightMaxM": 3.98,
+    "wavePeriodS": 8.53,
+    "waveDirectionDeg": null,
+    "waterTempC": 8.03,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

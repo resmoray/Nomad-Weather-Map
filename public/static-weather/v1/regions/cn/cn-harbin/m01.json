@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cn-harbin",
+  "month": 1,
+  "summary": {
+    "temperatureC": -16.9,
+    "temperatureMinC": -28.9,
+    "temperatureMaxC": 1.6,
+    "rainfallMm": 2.4,
+    "humidityPct": 71.1,
+    "windKph": 8,
+    "uvIndex": 1,
+    "uvIndexMax": 1.4,
+    "pm25": 54.4,
+    "aqi": 131.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

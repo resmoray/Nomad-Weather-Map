@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "nz-wellington",
+  "month": 12,
+  "summary": {
+    "temperatureC": 16.9,
+    "temperatureMinC": 12.2,
+    "temperatureMaxC": 20.2,
+    "rainfallMm": 67.2,
+    "humidityPct": 76.7,
+    "windKph": 28.9,
+    "uvIndex": 9.6,
+    "uvIndexMax": 12.1,
+    "pm25": 5.1,
+    "aqi": 23.2,
+    "waveHeightMinM": 0.42,
+    "waveHeightM": 1.34,
+    "waveHeightMaxM": 3.16,
+    "wavePeriodS": 6.82,
+    "waveDirectionDeg": null,
+    "waterTempC": 17.39,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

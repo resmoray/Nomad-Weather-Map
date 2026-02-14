@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "es-malaga",
+  "month": 3,
+  "summary": {
+    "temperatureC": 15.2,
+    "temperatureMinC": 9.7,
+    "temperatureMaxC": 24.2,
+    "rainfallMm": 126.1,
+    "humidityPct": 66.3,
+    "windKph": 14.2,
+    "uvIndex": 4,
+    "uvIndexMax": 7.2,
+    "pm25": 6.1,
+    "aqi": 36,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.58,
+    "waveHeightMaxM": 1.76,
+    "wavePeriodS": 4.47,
+    "waveDirectionDeg": null,
+    "waterTempC": 15.89,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

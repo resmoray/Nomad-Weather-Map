@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "mm-mandalay",
+  "month": 9,
+  "summary": {
+    "temperatureC": 30.2,
+    "temperatureMinC": 27,
+    "temperatureMaxC": 33.7,
+    "rainfallMm": 242.1,
+    "humidityPct": 79,
+    "windKph": 1.8,
+    "uvIndex": 8.5,
+    "uvIndexMax": 11,
+    "pm25": 15,
+    "aqi": 56.1,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

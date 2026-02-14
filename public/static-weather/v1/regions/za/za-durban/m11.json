@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "za-durban",
+  "month": 11,
+  "summary": {
+    "temperatureC": 21.9,
+    "temperatureMinC": 16.5,
+    "temperatureMaxC": 27.1,
+    "rainfallMm": 75.6,
+    "humidityPct": 76.3,
+    "windKph": 14.6,
+    "uvIndex": 9,
+    "uvIndexMax": 11.8,
+    "pm25": 10.2,
+    "aqi": 42.2,
+    "waveHeightMinM": 0.84,
+    "waveHeightM": 1.62,
+    "waveHeightMaxM": 2.8,
+    "wavePeriodS": 8.52,
+    "waveDirectionDeg": null,
+    "waterTempC": 22.82,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

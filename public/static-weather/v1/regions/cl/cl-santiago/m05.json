@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cl-santiago",
+  "month": 5,
+  "summary": {
+    "temperatureC": 11.3,
+    "temperatureMinC": 6.6,
+    "temperatureMaxC": 16.9,
+    "rainfallMm": 71.9,
+    "humidityPct": 72.1,
+    "windKph": 15.2,
+    "uvIndex": 3.2,
+    "uvIndexMax": 4.5,
+    "pm25": 64.1,
+    "aqi": 146.7,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

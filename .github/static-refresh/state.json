@@ -1,0 +1,9 @@
+{
+  "cursor": 0,
+  "lastRunAt": "2026-02-14T07:31:24.687Z",
+  "regionsHash": "b8f4fd0cdfa9f46420f0d4cd173c83f224a42164",
+  "targetCycleDays": 180,
+  "dailyBudget": 3000,
+  "baselineYears": 5,
+  "layoutMode": "region-month"
+}

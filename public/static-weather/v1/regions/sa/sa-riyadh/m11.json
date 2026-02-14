@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "sa-riyadh",
+  "month": 11,
+  "summary": {
+    "temperatureC": 22.2,
+    "temperatureMinC": 14.4,
+    "temperatureMaxC": 27,
+    "rainfallMm": 2.7,
+    "humidityPct": 32.7,
+    "windKph": 9.8,
+    "uvIndex": 5.7,
+    "uvIndexMax": 7.2,
+    "pm25": 103.8,
+    "aqi": 175.9,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:54:40.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "us-anchorage",
+  "month": 1,
+  "summary": {
+    "temperatureC": -5.7,
+    "temperatureMinC": -18.8,
+    "temperatureMaxC": 5.1,
+    "rainfallMm": 30.5,
+    "humidityPct": 77.9,
+    "windKph": 10.9,
+    "uvIndex": 0.1,
+    "uvIndexMax": 0.3,
+    "pm25": 3.8,
+    "aqi": 32.3,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.34,
+    "waveHeightMaxM": 1.28,
+    "wavePeriodS": 2.79,
+    "waveDirectionDeg": null,
+    "waterTempC": -0.85,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

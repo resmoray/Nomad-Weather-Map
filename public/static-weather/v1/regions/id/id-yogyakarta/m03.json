@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-yogyakarta",
+  "month": 3,
+  "summary": {
+    "temperatureC": 28,
+    "temperatureMinC": 25.9,
+    "temperatureMaxC": 29.4,
+    "rainfallMm": 222,
+    "humidityPct": 81.5,
+    "windKph": 6.6,
+    "uvIndex": 9,
+    "uvIndexMax": 14.2,
+    "pm25": 63.5,
+    "aqi": 144.6,
+    "waveHeightMinM": 0.98,
+    "waveHeightM": 1.65,
+    "waveHeightMaxM": 2.6,
+    "wavePeriodS": 11.3,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.25,
+    "climateLastUpdated": "2026-02-09T02:06:13.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

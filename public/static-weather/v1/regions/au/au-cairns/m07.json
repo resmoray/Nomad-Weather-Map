@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-cairns",
+  "month": 7,
+  "summary": {
+    "temperatureC": 18.9,
+    "temperatureMinC": 13.1,
+    "temperatureMaxC": 22.5,
+    "rainfallMm": 17.7,
+    "humidityPct": 76.3,
+    "windKph": 16,
+    "uvIndex": 5.3,
+    "uvIndexMax": 7.7,
+    "pm25": 5.2,
+    "aqi": 26.3,
+    "waveHeightMinM": 0.3,
+    "waveHeightM": 0.57,
+    "waveHeightMaxM": 1.24,
+    "wavePeriodS": 5.35,
+    "waveDirectionDeg": null,
+    "waterTempC": 23.79,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

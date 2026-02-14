@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cn-shenzhen",
+  "month": 6,
+  "summary": {
+    "temperatureC": 28.8,
+    "temperatureMinC": 24.9,
+    "temperatureMaxC": 31.1,
+    "rainfallMm": 252.7,
+    "humidityPct": 82.5,
+    "windKph": 12.6,
+    "uvIndex": 7.5,
+    "uvIndexMax": 11,
+    "pm25": 19,
+    "aqi": 64.8,
+    "waveHeightMinM": 0.06,
+    "waveHeightM": 0.22,
+    "waveHeightMaxM": 0.7,
+    "wavePeriodS": 4.4,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.47,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

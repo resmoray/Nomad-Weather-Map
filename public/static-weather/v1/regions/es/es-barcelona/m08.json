@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "es-barcelona",
+  "month": 8,
+  "summary": {
+    "temperatureC": 26.1,
+    "temperatureMinC": 20.7,
+    "temperatureMaxC": 30.2,
+    "rainfallMm": 52.6,
+    "humidityPct": 69.5,
+    "windKph": 13.9,
+    "uvIndex": 6.9,
+    "uvIndexMax": 8.3,
+    "pm25": 12.4,
+    "aqi": 50.1,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.36,
+    "waveHeightMaxM": 1.52,
+    "wavePeriodS": 4.08,
+    "waveDirectionDeg": null,
+    "waterTempC": 27.23,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

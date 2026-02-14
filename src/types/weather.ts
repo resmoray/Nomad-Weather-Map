@@ -2,52 +2,7 @@ export const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
 
 export type Month = (typeof MONTHS)[number];
 
-export type CountryCode =
-  | "AE"
-  | "AR"
-  | "AT"
-  | "AU"
-  | "BN"
-  | "BR"
-  | "CA"
-  | "CL"
-  | "CN"
-  | "CO"
-  | "DE"
-  | "EG"
-  | "ES"
-  | "FR"
-  | "FI"
-  | "GB"
-  | "GR"
-  | "IS"
-  | "IN"
-  | "IT"
-  | "KH"
-  | "ID"
-  | "JP"
-  | "KE"
-  | "KR"
-  | "LK"
-  | "LA"
-  | "MA"
-  | "MX"
-  | "MY"
-  | "MM"
-  | "NZ"
-  | "NO"
-  | "PE"
-  | "PH"
-  | "PT"
-  | "SA"
-  | "SG"
-  | "TH"
-  | "TL"
-  | "TR"
-  | "TW"
-  | "US"
-  | "VN"
-  | "ZA";
+export type CountryCode = string;
 
 export interface Region {
   id: string;

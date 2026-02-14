@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "nz-dunedin",
+  "month": 6,
+  "summary": {
+    "temperatureC": 5.8,
+    "temperatureMinC": -2.3,
+    "temperatureMaxC": 16.4,
+    "rainfallMm": 72,
+    "humidityPct": 84.7,
+    "windKph": 9.7,
+    "uvIndex": 0.7,
+    "uvIndexMax": 1,
+    "pm25": 3.2,
+    "aqi": 21.9,
+    "waveHeightMinM": 0.54,
+    "waveHeightM": 1.47,
+    "waveHeightMaxM": 3.22,
+    "wavePeriodS": 9,
+    "waveDirectionDeg": null,
+    "waterTempC": 11.31,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

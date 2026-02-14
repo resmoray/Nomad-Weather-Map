@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ke-nairobi",
+  "month": 1,
+  "summary": {
+    "temperatureC": 20.5,
+    "temperatureMinC": 17.9,
+    "temperatureMaxC": 23.1,
+    "rainfallMm": 45.6,
+    "humidityPct": 65.5,
+    "windKph": 15,
+    "uvIndex": 11.2,
+    "uvIndexMax": 13.3,
+    "pm25": 14.2,
+    "aqi": 53.2,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

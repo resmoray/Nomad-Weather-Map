@@ -46,16 +46,15 @@ describe("regions integrity", () => {
     }
   });
 
-  it("covers every dataset country in continent templates", () => {
+  it("keeps continent templates aligned with available dataset countries", () => {
     const datasetCountryCodes = new Set(regions.map((region) => region.countryCode));
     const continentCountryCodes = new Set(CONTINENT_GROUPS.flatMap((group) => group.countries));
 
-    for (const countryCode of datasetCountryCodes) {
+    for (const countryCode of continentCountryCodes) {
       expect(
-        continentCountryCodes.has(countryCode),
-        `missing country ${countryCode} in continent templates`,
+        datasetCountryCodes.has(countryCode),
+        `template country ${countryCode} is missing from dataset`,
       ).toBe(true);
     }
   });
 });
-

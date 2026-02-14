@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "vn-haiphong",
+  "month": 11,
+  "summary": {
+    "temperatureC": 21.8,
+    "temperatureMinC": 13.6,
+    "temperatureMaxC": 27.4,
+    "rainfallMm": 29.8,
+    "humidityPct": 73.1,
+    "windKph": 11.3,
+    "uvIndex": 4.5,
+    "uvIndexMax": 7.2,
+    "pm25": 23.9,
+    "aqi": 75.1,
+    "waveHeightMinM": 0.1,
+    "waveHeightM": 0.22,
+    "waveHeightMaxM": 0.9,
+    "wavePeriodS": 3.54,
+    "waveDirectionDeg": null,
+    "waterTempC": 24.04,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

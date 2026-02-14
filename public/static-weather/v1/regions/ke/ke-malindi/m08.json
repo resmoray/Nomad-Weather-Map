@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ke-malindi",
+  "month": 8,
+  "summary": {
+    "temperatureC": 25.8,
+    "temperatureMinC": 23.6,
+    "temperatureMaxC": 27.2,
+    "rainfallMm": 44,
+    "humidityPct": 74.7,
+    "windKph": 20.9,
+    "uvIndex": 9.4,
+    "uvIndexMax": 11.2,
+    "pm25": 7.7,
+    "aqi": 32.8,
+    "waveHeightMinM": 1.28,
+    "waveHeightM": 1.76,
+    "waveHeightMaxM": 2.58,
+    "wavePeriodS": 7.35,
+    "waveDirectionDeg": null,
+    "waterTempC": 25.84,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

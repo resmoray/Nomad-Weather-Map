@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ph-iloilo",
+  "month": 1,
+  "summary": {
+    "temperatureC": 26.3,
+    "temperatureMinC": 21.6,
+    "temperatureMaxC": 31.2,
+    "rainfallMm": 95.5,
+    "humidityPct": 84.5,
+    "windKph": 18,
+    "uvIndex": 7.4,
+    "uvIndexMax": 10.2,
+    "pm25": 5.7,
+    "aqi": 26.6,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.26,
+    "waveHeightMaxM": 0.48,
+    "wavePeriodS": 2.53,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.28,
+    "climateLastUpdated": "2026-02-09T02:06:13.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

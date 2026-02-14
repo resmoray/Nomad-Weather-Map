@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "mx-mexico-city",
+  "month": 3,
+  "summary": {
+    "temperatureC": 20,
+    "temperatureMinC": 14.8,
+    "temperatureMaxC": 23.2,
+    "rainfallMm": 24,
+    "humidityPct": 35.8,
+    "windKph": 10.8,
+    "uvIndex": 12,
+    "uvIndexMax": 13.8,
+    "pm25": 26.9,
+    "aqi": 96.5,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

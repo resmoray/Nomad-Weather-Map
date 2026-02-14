@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "kh-sihanoukville",
+  "month": 9,
+  "summary": {
+    "temperatureC": 27.2,
+    "temperatureMinC": 25.4,
+    "temperatureMaxC": 29,
+    "rainfallMm": 588.4,
+    "humidityPct": 87.5,
+    "windKph": 10.8,
+    "uvIndex": 7.5,
+    "uvIndexMax": 11.1,
+    "pm25": 5.3,
+    "aqi": 24,
+    "waveHeightMinM": 0.08,
+    "waveHeightM": 0.57,
+    "waveHeightMaxM": 1.18,
+    "wavePeriodS": 4.17,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.31,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

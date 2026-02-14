@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "th-bangkok",
+  "month": 1,
+  "summary": {
+    "temperatureC": 27.8,
+    "temperatureMinC": 22.6,
+    "temperatureMaxC": 30.5,
+    "rainfallMm": 6.9,
+    "humidityPct": 60.7,
+    "windKph": 2.8,
+    "uvIndex": 7.9,
+    "uvIndexMax": 8.7,
+    "pm25": 40.8,
+    "aqi": 120.5,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "za-cape-town",
+  "month": 12,
+  "summary": {
+    "temperatureC": 20.9,
+    "temperatureMinC": 16.9,
+    "temperatureMaxC": 25,
+    "rainfallMm": 8.4,
+    "humidityPct": 65.3,
+    "windKph": 24.2,
+    "uvIndex": 11.3,
+    "uvIndexMax": 12.8,
+    "pm25": 15,
+    "aqi": 57.5,
+    "waveHeightMinM": 0.78,
+    "waveHeightM": 1.93,
+    "waveHeightMaxM": 3.72,
+    "wavePeriodS": 8.57,
+    "waveDirectionDeg": null,
+    "waterTempC": 12.82,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

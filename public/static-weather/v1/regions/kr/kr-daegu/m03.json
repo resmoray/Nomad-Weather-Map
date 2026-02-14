@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "kr-daegu",
+  "month": 3,
+  "summary": {
+    "temperatureC": 9.5,
+    "temperatureMinC": -0.3,
+    "temperatureMaxC": 20.1,
+    "rainfallMm": 54.2,
+    "humidityPct": 51.1,
+    "windKph": 9.4,
+    "uvIndex": 3.9,
+    "uvIndexMax": 6.5,
+    "pm25": 26.6,
+    "aqi": 81.3,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

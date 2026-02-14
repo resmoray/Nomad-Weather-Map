@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pt-ponta-delgada",
+  "month": 9,
+  "summary": {
+    "temperatureC": 21.7,
+    "temperatureMinC": 18.8,
+    "temperatureMaxC": 24.2,
+    "rainfallMm": 70.7,
+    "humidityPct": 76.4,
+    "windKph": 16.2,
+    "uvIndex": 6.2,
+    "uvIndexMax": 8.1,
+    "pm25": 7,
+    "aqi": 35.4,
+    "waveHeightMinM": 0.82,
+    "waveHeightM": 1.3,
+    "waveHeightMaxM": 4.72,
+    "wavePeriodS": 8.83,
+    "waveDirectionDeg": null,
+    "waterTempC": 23.08,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

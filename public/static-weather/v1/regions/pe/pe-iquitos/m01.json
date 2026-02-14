@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pe-iquitos",
+  "month": 1,
+  "summary": {
+    "temperatureC": 26.2,
+    "temperatureMinC": 23.8,
+    "temperatureMaxC": 28.3,
+    "rainfallMm": 264.2,
+    "humidityPct": 86.7,
+    "windKph": 5.7,
+    "uvIndex": 9,
+    "uvIndexMax": 12.8,
+    "pm25": 8.8,
+    "aqi": 36.2,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

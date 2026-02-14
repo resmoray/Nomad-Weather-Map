@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tw-hualien",
+  "month": 11,
+  "summary": {
+    "temperatureC": 22.3,
+    "temperatureMinC": 17.8,
+    "temperatureMaxC": 25.5,
+    "rainfallMm": 261.2,
+    "humidityPct": 80.6,
+    "windKph": 25.4,
+    "uvIndex": 4.4,
+    "uvIndexMax": 7.2,
+    "pm25": 10.3,
+    "aqi": 43.7,
+    "waveHeightMinM": 0.98,
+    "waveHeightM": 1.98,
+    "waveHeightMaxM": 4.48,
+    "wavePeriodS": 8.09,
+    "waveDirectionDeg": null,
+    "waterTempC": 27.14,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

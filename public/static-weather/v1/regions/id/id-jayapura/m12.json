@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-jayapura",
+  "month": 12,
+  "summary": {
+    "temperatureC": 27.6,
+    "temperatureMinC": 24.9,
+    "temperatureMaxC": 29.6,
+    "rainfallMm": 239.2,
+    "humidityPct": 80.8,
+    "windKph": 7.3,
+    "uvIndex": 10.3,
+    "uvIndexMax": 13.3,
+    "pm25": 6.9,
+    "aqi": 28.8,
+    "waveHeightMinM": 0.52,
+    "waveHeightM": 0.77,
+    "waveHeightMaxM": 1.18,
+    "wavePeriodS": 10.45,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.82,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

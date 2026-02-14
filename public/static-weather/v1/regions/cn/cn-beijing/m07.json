@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cn-beijing",
+  "month": 7,
+  "summary": {
+    "temperatureC": 28,
+    "temperatureMinC": 21.2,
+    "temperatureMaxC": 32.8,
+    "rainfallMm": 323.9,
+    "humidityPct": 71.5,
+    "windKph": 7.9,
+    "uvIndex": 6.1,
+    "uvIndexMax": 9.4,
+    "pm25": 60.7,
+    "aqi": 142.2,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

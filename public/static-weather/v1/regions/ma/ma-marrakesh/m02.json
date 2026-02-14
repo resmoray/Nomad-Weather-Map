@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ma-marrakesh",
+  "month": 2,
+  "summary": {
+    "temperatureC": 15.4,
+    "temperatureMinC": 10.2,
+    "temperatureMaxC": 23.1,
+    "rainfallMm": 27.6,
+    "humidityPct": 55.7,
+    "windKph": 8.9,
+    "uvIndex": 4.8,
+    "uvIndexMax": 6,
+    "pm25": 9.7,
+    "aqi": 42,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

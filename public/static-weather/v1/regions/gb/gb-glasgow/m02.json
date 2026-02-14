@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "gb-glasgow",
+  "month": 2,
+  "summary": {
+    "temperatureC": 6.6,
+    "temperatureMinC": 0.9,
+    "temperatureMaxC": 10.9,
+    "rainfallMm": 64.8,
+    "humidityPct": 82.1,
+    "windKph": 18.4,
+    "uvIndex": 0.5,
+    "uvIndexMax": 1.3,
+    "pm25": 7.9,
+    "aqi": 39.1,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

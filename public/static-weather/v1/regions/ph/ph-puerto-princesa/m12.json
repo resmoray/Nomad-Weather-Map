@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ph-puerto-princesa",
+  "month": 12,
+  "summary": {
+    "temperatureC": 28.2,
+    "temperatureMinC": 25.3,
+    "temperatureMaxC": 29.3,
+    "rainfallMm": 155,
+    "humidityPct": 82.3,
+    "windKph": 14.1,
+    "uvIndex": 8.4,
+    "uvIndexMax": 10.1,
+    "pm25": 5.9,
+    "aqi": 30.6,
+    "waveHeightMinM": 0.06,
+    "waveHeightM": 0.52,
+    "waveHeightMaxM": 1.2,
+    "wavePeriodS": 4.35,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.17,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

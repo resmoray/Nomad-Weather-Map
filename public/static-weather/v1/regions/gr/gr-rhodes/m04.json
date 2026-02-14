@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "gr-rhodes",
+  "month": 4,
+  "summary": {
+    "temperatureC": 18,
+    "temperatureMinC": 12.6,
+    "temperatureMaxC": 24.1,
+    "rainfallMm": 46.9,
+    "humidityPct": 71.2,
+    "windKph": 16,
+    "uvIndex": 6.2,
+    "uvIndexMax": 8.6,
+    "pm25": 8.6,
+    "aqi": 48.4,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.45,
+    "waveHeightMaxM": 3.18,
+    "wavePeriodS": 4.24,
+    "waveDirectionDeg": null,
+    "waterTempC": 17.95,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

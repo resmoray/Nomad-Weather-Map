@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "eg-sharm-el-sheikh",
+  "month": 8,
+  "summary": {
+    "temperatureC": 34.7,
+    "temperatureMinC": 31.8,
+    "temperatureMaxC": 40.5,
+    "rainfallMm": 0,
+    "humidityPct": 40.5,
+    "windKph": 19.4,
+    "uvIndex": 9.9,
+    "uvIndexMax": 11.2,
+    "pm25": 13.7,
+    "aqi": 65.8,
+    "waveHeightMinM": 0.22,
+    "waveHeightM": 0.57,
+    "waveHeightMaxM": 1.04,
+    "wavePeriodS": 3.83,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.05,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

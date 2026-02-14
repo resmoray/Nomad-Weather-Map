@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pt-faro",
+  "month": 4,
+  "summary": {
+    "temperatureC": 18,
+    "temperatureMinC": 13.3,
+    "temperatureMaxC": 24.1,
+    "rainfallMm": 26.2,
+    "humidityPct": 66.9,
+    "windKph": 15.7,
+    "uvIndex": 5.7,
+    "uvIndexMax": 9,
+    "pm25": 6.3,
+    "aqi": 39.3,
+    "waveHeightMinM": 0.4,
+    "waveHeightM": 1.22,
+    "waveHeightMaxM": 3.8,
+    "wavePeriodS": 7.29,
+    "waveDirectionDeg": null,
+    "waterTempC": 16.85,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

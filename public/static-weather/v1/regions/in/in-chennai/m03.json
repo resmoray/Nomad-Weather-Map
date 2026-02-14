@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "in-chennai",
+  "month": 3,
+  "summary": {
+    "temperatureC": 29.1,
+    "temperatureMinC": 27.2,
+    "temperatureMaxC": 31.5,
+    "rainfallMm": 33.5,
+    "humidityPct": 73.8,
+    "windKph": 10,
+    "uvIndex": 11,
+    "uvIndexMax": 12.6,
+    "pm25": 18.7,
+    "aqi": 65.1,
+    "waveHeightMinM": 0.32,
+    "waveHeightM": 0.56,
+    "waveHeightMaxM": 1.18,
+    "wavePeriodS": 7.72,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.71,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

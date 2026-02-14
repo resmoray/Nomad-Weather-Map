@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "lk-trincomalee",
+  "month": 8,
+  "summary": {
+    "temperatureC": 29.2,
+    "temperatureMinC": 26.6,
+    "temperatureMaxC": 31.8,
+    "rainfallMm": 65.9,
+    "humidityPct": 72.8,
+    "windKph": 19.6,
+    "uvIndex": 10.3,
+    "uvIndexMax": 12.6,
+    "pm25": 7.9,
+    "aqi": 34.3,
+    "waveHeightMinM": 0.18,
+    "waveHeightM": 0.38,
+    "waveHeightMaxM": 0.72,
+    "wavePeriodS": 5.38,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.89,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

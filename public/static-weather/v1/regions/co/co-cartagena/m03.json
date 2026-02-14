@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "co-cartagena",
+  "month": 3,
+  "summary": {
+    "temperatureC": 28.3,
+    "temperatureMinC": 26.3,
+    "temperatureMaxC": 29.8,
+    "rainfallMm": 19.4,
+    "humidityPct": 75.9,
+    "windKph": 14.3,
+    "uvIndex": 11,
+    "uvIndexMax": 12.9,
+    "pm25": 11.3,
+    "aqi": 52.5,
+    "waveHeightMinM": 0.4,
+    "waveHeightM": 0.59,
+    "waveHeightMaxM": 0.86,
+    "wavePeriodS": 4.91,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.46,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

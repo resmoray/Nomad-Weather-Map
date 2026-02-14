@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pt-porto",
+  "month": 7,
+  "summary": {
+    "temperatureC": 20.3,
+    "temperatureMinC": 16.3,
+    "temperatureMaxC": 27.6,
+    "rainfallMm": 12.6,
+    "humidityPct": 78.5,
+    "windKph": 10.4,
+    "uvIndex": 8.5,
+    "uvIndexMax": 10.2,
+    "pm25": 9.4,
+    "aqi": 40.1,
+    "waveHeightMinM": 0.32,
+    "waveHeightM": 1.15,
+    "waveHeightMaxM": 2.02,
+    "wavePeriodS": 7.2,
+    "waveDirectionDeg": null,
+    "waterTempC": 17.98,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

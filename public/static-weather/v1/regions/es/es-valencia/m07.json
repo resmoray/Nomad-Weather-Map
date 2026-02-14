@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "es-valencia",
+  "month": 7,
+  "summary": {
+    "temperatureC": 27.7,
+    "temperatureMinC": 23.2,
+    "temperatureMaxC": 30.8,
+    "rainfallMm": 14.3,
+    "humidityPct": 65.8,
+    "windKph": 12.1,
+    "uvIndex": 8.4,
+    "uvIndexMax": 9.7,
+    "pm25": 8,
+    "aqi": 39.7,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.49,
+    "waveHeightMaxM": 1.74,
+    "wavePeriodS": 4.3,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.51,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

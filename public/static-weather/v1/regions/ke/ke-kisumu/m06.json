@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ke-kisumu",
+  "month": 6,
+  "summary": {
+    "temperatureC": 22.7,
+    "temperatureMinC": 21.1,
+    "temperatureMaxC": 24.6,
+    "rainfallMm": 44.8,
+    "humidityPct": 71.3,
+    "windKph": 9,
+    "uvIndex": 9.1,
+    "uvIndexMax": 10.4,
+    "pm25": 25.6,
+    "aqi": 78.7,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

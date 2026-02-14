@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-surabaya",
+  "month": 3,
+  "summary": {
+    "temperatureC": 28.7,
+    "temperatureMinC": 26.3,
+    "temperatureMaxC": 30.8,
+    "rainfallMm": 249.5,
+    "humidityPct": 80,
+    "windKph": 5,
+    "uvIndex": 8.4,
+    "uvIndexMax": 11,
+    "pm25": 49.5,
+    "aqi": 130.1,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.05,
+    "waveHeightMaxM": 0.26,
+    "wavePeriodS": 2.59,
+    "waveDirectionDeg": null,
+    "waterTempC": 31.88,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

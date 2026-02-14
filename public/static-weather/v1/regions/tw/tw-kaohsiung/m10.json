@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tw-kaohsiung",
+  "month": 10,
+  "summary": {
+    "temperatureC": 28,
+    "temperatureMinC": 24.1,
+    "temperatureMaxC": 30.3,
+    "rainfallMm": 257.2,
+    "humidityPct": 76.3,
+    "windKph": 10.6,
+    "uvIndex": 6.9,
+    "uvIndexMax": 8.8,
+    "pm25": 36.6,
+    "aqi": 103.8,
+    "waveHeightMinM": 0.2,
+    "waveHeightM": 0.69,
+    "waveHeightMaxM": 1.7,
+    "wavePeriodS": 6.04,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.87,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

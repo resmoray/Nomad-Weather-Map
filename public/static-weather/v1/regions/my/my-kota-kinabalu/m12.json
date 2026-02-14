@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "my-kota-kinabalu",
+  "month": 12,
+  "summary": {
+    "temperatureC": 27.8,
+    "temperatureMinC": 25.2,
+    "temperatureMaxC": 29.1,
+    "rainfallMm": 159.7,
+    "humidityPct": 84.2,
+    "windKph": 6.6,
+    "uvIndex": 8.4,
+    "uvIndexMax": 11.2,
+    "pm25": 8.4,
+    "aqi": 37,
+    "waveHeightMinM": 0.42,
+    "waveHeightM": 0.77,
+    "waveHeightMaxM": 1.16,
+    "wavePeriodS": 7.3,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.8,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

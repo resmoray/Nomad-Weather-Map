@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-adelaide",
+  "month": 5,
+  "summary": {
+    "temperatureC": 13.5,
+    "temperatureMinC": 8.1,
+    "temperatureMaxC": 21.7,
+    "rainfallMm": 34.6,
+    "humidityPct": 68.8,
+    "windKph": 10.8,
+    "uvIndex": 3.1,
+    "uvIndexMax": 4.4,
+    "pm25": 4.2,
+    "aqi": 24.3,
+    "waveHeightMinM": 0.16,
+    "waveHeightM": 0.54,
+    "waveHeightMaxM": 2.76,
+    "wavePeriodS": 9.8,
+    "waveDirectionDeg": null,
+    "waterTempC": 17.24,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

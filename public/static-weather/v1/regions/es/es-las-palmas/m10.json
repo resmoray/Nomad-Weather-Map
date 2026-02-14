@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "es-las-palmas",
+  "month": 10,
+  "summary": {
+    "temperatureC": 24.1,
+    "temperatureMinC": 20.3,
+    "temperatureMaxC": 30.8,
+    "rainfallMm": 6.4,
+    "humidityPct": 67.7,
+    "windKph": 20.9,
+    "uvIndex": 6.5,
+    "uvIndexMax": 8.3,
+    "pm25": 7.5,
+    "aqi": 36.5,
+    "waveHeightMinM": 0.46,
+    "waveHeightM": 1.1,
+    "waveHeightMaxM": 2.22,
+    "wavePeriodS": 8.25,
+    "waveDirectionDeg": null,
+    "waterTempC": 23,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

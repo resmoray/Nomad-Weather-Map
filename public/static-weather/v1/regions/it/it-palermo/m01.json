@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "it-palermo",
+  "month": 1,
+  "summary": {
+    "temperatureC": 13.6,
+    "temperatureMinC": 8.9,
+    "temperatureMaxC": 19.2,
+    "rainfallMm": 105.6,
+    "humidityPct": 69.6,
+    "windKph": 19.4,
+    "uvIndex": 1.8,
+    "uvIndexMax": 2.6,
+    "pm25": 7.7,
+    "aqi": 36.8,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.83,
+    "waveHeightMaxM": 3.24,
+    "wavePeriodS": 5.23,
+    "waveDirectionDeg": null,
+    "waterTempC": 16.11,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,77 @@
+name: Refresh Static Weather Data
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: static-weather-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      WEATHER_BASELINE_YEARS: "5"
+      VITE_WEATHER_BASELINE_YEARS: "5"
+      TARGET_CYCLE_DAYS: "180"
+      DAILY_CALL_BUDGET: "3000"
+      RUNS_PER_DAY: "1"
+      WEATHER_UPSTREAM_REQUEST_SPACING_MS: "500"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Bootstrap missing static entries
+        run: npm run regions:bootstrap -- --missingOnly=1 --mode=verified_only --allowStale=1 --export=0
+
+      - name: Refresh static batch
+        run: npm run static:refresh:batch
+
+      - name: Export static dataset
+        run: npm run static:export
+
+      - name: Validate static dataset
+        run: npm run static:validate
+
+      - name: Create or update refresh PR
+        id: create_pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(data): refresh static weather dataset"
+          branch: chore/static-weather-refresh
+          delete-branch: true
+          title: "chore(data): refresh static weather dataset"
+          body: |
+            Automated static weather refresh.
+
+            - baseline years: 5
+            - target cycle days: 180
+            - daily call budget: 3000
+            - runs per day: 1
+          labels: |
+            automated
+            static-weather
+
+      - name: Enable auto-merge
+        if: ${{ steps.create_pr.outputs.pull-request-number != '' }}
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
+          merge-method: squash

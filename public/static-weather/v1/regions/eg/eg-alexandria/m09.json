@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "eg-alexandria",
+  "month": 9,
+  "summary": {
+    "temperatureC": 27.4,
+    "temperatureMinC": 23.6,
+    "temperatureMaxC": 31.7,
+    "rainfallMm": 0.3,
+    "humidityPct": 65.8,
+    "windKph": 13.3,
+    "uvIndex": 7.8,
+    "uvIndexMax": 9.3,
+    "pm25": 13.9,
+    "aqi": 54,
+    "waveHeightMinM": 0.14,
+    "waveHeightM": 0.59,
+    "waveHeightMaxM": 1.54,
+    "wavePeriodS": 5.42,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.17,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pt-funchal",
+  "month": 1,
+  "summary": {
+    "temperatureC": 17.9,
+    "temperatureMinC": 14.4,
+    "temperatureMaxC": 21.2,
+    "rainfallMm": 67.4,
+    "humidityPct": 70.6,
+    "windKph": 18.1,
+    "uvIndex": 2.8,
+    "uvIndexMax": 3.8,
+    "pm25": 6.6,
+    "aqi": 38.1,
+    "waveHeightMinM": 0.4,
+    "waveHeightM": 1.38,
+    "waveHeightMaxM": 3.48,
+    "wavePeriodS": 10.67,
+    "waveDirectionDeg": null,
+    "waterTempC": 19.65,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

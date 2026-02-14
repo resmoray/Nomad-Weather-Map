@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "br-salvador",
+  "month": 12,
+  "summary": {
+    "temperatureC": 27.2,
+    "temperatureMinC": 24.5,
+    "temperatureMaxC": 28.4,
+    "rainfallMm": 27.5,
+    "humidityPct": 75.3,
+    "windKph": 11.3,
+    "uvIndex": 9.9,
+    "uvIndexMax": 12.6,
+    "pm25": 8,
+    "aqi": 33.8,
+    "waveHeightMinM": 0.62,
+    "waveHeightM": 0.83,
+    "waveHeightMaxM": 1.22,
+    "wavePeriodS": 6.41,
+    "waveDirectionDeg": null,
+    "waterTempC": 26.37,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

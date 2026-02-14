@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "gr-heraklion",
+  "month": 1,
+  "summary": {
+    "temperatureC": 13.9,
+    "temperatureMinC": 8.8,
+    "temperatureMaxC": 18.4,
+    "rainfallMm": 46.7,
+    "humidityPct": 75.3,
+    "windKph": 17,
+    "uvIndex": 2.3,
+    "uvIndexMax": 3,
+    "pm25": 7.7,
+    "aqi": 34.7,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.46,
+    "waveHeightMaxM": 1.3,
+    "wavePeriodS": 4.88,
+    "waveDirectionDeg": null,
+    "waterTempC": 17.65,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

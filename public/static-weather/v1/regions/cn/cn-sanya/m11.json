@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cn-sanya",
+  "month": 11,
+  "summary": {
+    "temperatureC": 21.8,
+    "temperatureMinC": 17.6,
+    "temperatureMaxC": 24.7,
+    "rainfallMm": 89.1,
+    "humidityPct": 84.2,
+    "windKph": 23.1,
+    "uvIndex": 6.2,
+    "uvIndexMax": 7.8,
+    "pm25": 15.8,
+    "aqi": 58,
+    "waveHeightMinM": 0.26,
+    "waveHeightM": 0.83,
+    "waveHeightMaxM": 1.8,
+    "wavePeriodS": 6.51,
+    "waveDirectionDeg": null,
+    "waterTempC": 26.33,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

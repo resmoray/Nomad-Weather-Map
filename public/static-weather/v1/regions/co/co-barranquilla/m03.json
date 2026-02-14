@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "co-barranquilla",
+  "month": 3,
+  "summary": {
+    "temperatureC": 27.8,
+    "temperatureMinC": 26.4,
+    "temperatureMaxC": 29.8,
+    "rainfallMm": 4.2,
+    "humidityPct": 76.5,
+    "windKph": 15.6,
+    "uvIndex": 10.4,
+    "uvIndexMax": 13.2,
+    "pm25": 12.1,
+    "aqi": 48.9,
+    "waveHeightMinM": 0.56,
+    "waveHeightM": 0.95,
+    "waveHeightMaxM": 1.66,
+    "wavePeriodS": 5.5,
+    "waveDirectionDeg": null,
+    "waterTempC": 26.78,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

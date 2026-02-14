@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "lk-galle",
+  "month": 2,
+  "summary": {
+    "temperatureC": 28.4,
+    "temperatureMinC": 26.4,
+    "temperatureMaxC": 29.8,
+    "rainfallMm": 48.7,
+    "humidityPct": 74.3,
+    "windKph": 6.3,
+    "uvIndex": 10.4,
+    "uvIndexMax": 12,
+    "pm25": 24.6,
+    "aqi": 77.5,
+    "waveHeightMinM": 0.8,
+    "waveHeightM": 1.19,
+    "waveHeightMaxM": 1.58,
+    "wavePeriodS": 10.64,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.92,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

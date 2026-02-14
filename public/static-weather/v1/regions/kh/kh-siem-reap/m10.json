@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "kh-siem-reap",
+  "month": 10,
+  "summary": {
+    "temperatureC": 28.3,
+    "temperatureMinC": 25.3,
+    "temperatureMaxC": 30.1,
+    "rainfallMm": 187.9,
+    "humidityPct": 82.4,
+    "windKph": 6.5,
+    "uvIndex": 8.1,
+    "uvIndexMax": 10.5,
+    "pm25": 7.7,
+    "aqi": 35.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

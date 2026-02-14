@@ -1,8 +1,6 @@
 # Nomad Weather Map
 
-Nomad Weather Map helps you compare destinations by month using weather metrics, fixed season context, and custom plain-language preference scoring.
-
-It is designed to run immediately after clone with no API keys and no manual config.
+Nomad Weather Map compares destinations by month using climate, air-quality, marine signals, and season context.
 
 ## Quick Start
 
@@ -19,193 +17,126 @@ npm run dev
 
 Then open [http://localhost:5173](http://localhost:5173).
 
-`npm run dev` starts:
-- frontend (Vite) on `5173`
-- local season backend on `8787`
+## Runtime Modes
 
-## Zero-Config Behavior
+- `dynamic` (default): frontend + local backend (`server/index.ts`) with cached weather snapshots.
+- `static`: frontend reads prebuilt files from `public/static-weather/v1` and makes no direct Open-Meteo calls in browser.
 
-- Weather data uses keyless Open-Meteo APIs by default.
-- Backend weather summaries are cached on disk (`.cache/weather-summary`) to reduce repeat upstream requests.
-- Verified region/month snapshots are stored in `.cache/weather-snapshot` and used first by the API.
-- Season signals fall back to fixed profiles when backend/live sources are unavailable.
-- Amadeus live mode is optional and off by default.
+Set with:
 
-You only need a `.env` file if you want to override defaults.
+```bash
+VITE_RUNTIME_MODE=dynamic
+VITE_RUNTIME_MODE=static
+```
+
+Both modes use a 5-year weather baseline by default.
+
+## Key Paths
+
+- Static manifest: `public/static-weather/v1/manifest.json`
+- Static refresh state: `.github/static-refresh/state.json`
+- Canonical static store: `.github/static-refresh/canonical.json`
+- Backend snapshot cache: `.cache/weather-snapshot`
+- Weather request cache: `.cache/weather-summary`
 
 ## Scripts
 
-- `npm run dev`: run backend + frontend together (recommended)
-- `npm run dev:web`: run frontend only
-- `npm run server:dev`: run backend only
-- `npm run weather:snapshot:update -- --limit=200`: refresh stale/ missing stored weather rows
-- `npm run nomad:tables:sync -- --mode=refresh_if_stale --limit=200`: validate + store city/month raw and derived table rows
-- `npm run nomad:tables:report`: show table counts and monthly coverage from local SQLite store
-- `npm run nomad:manual:import -- --dir=data/manual-city-month`: import manually researched city files into SQLite
-- `npm run lint`: lint source
-- `npm run test:run`: run tests once
-- `npm run build`: typecheck + production build
+- `npm run dev`: backend + frontend
+- `npm run dev:web`: frontend only
+- `npm run server:dev`: backend only
+- `npm run weather:snapshot:update -- --limit=200`: refresh backend snapshots
+- `npm run static:refresh:batch`: refresh rolling static batch (cursor-based)
+- `npm run static:export`: write static files + manifest to `public/static-weather/v1`
+- `npm run static:validate`: validate static manifest/layout/content
+- `npm run regions:bootstrap -- --missingOnly=1 --mode=verified_only`: fill missing canonical entries (manual/snapshot-first)
+- `npm run regions:expand:plan -- --countries=VN,TH --maxPerCountry=8`: generate deterministic expansion plan
+- `npm run nomad:tables:sync -- --mode=refresh_if_stale --limit=200`: sync SQLite tables
+- `npm run nomad:tables:report`: show SQLite coverage
+- `npm run nomad:manual:import -- --dir=data/manual-city-month`: import manual city files
 - `npm run check`: lint + tests + build
-- `npm run security:secrets`: scan workspace files for common leaked-secret patterns
-- `npm run preview`: preview production build
 
-## Verified Snapshot Workflow
+## Static Refresh Model (180-Day Target)
 
-- API default mode is `verified_only`: no live weather pull per page load.
-- Per city a stored month table is used (`12` months per region).
-- Background auto-update runs in small batches on the backend (default every 6h).
-- Use the update script to fill or refresh snapshots:
+Configured defaults:
+- `TARGET_CYCLE_DAYS=180`
+- `DAILY_CALL_BUDGET=3000`
+- `RUNS_PER_DAY=1`
+- `WEATHER_BASELINE_YEARS=5`
+- `WEATHER_UPSTREAM_REQUEST_SPACING_MS=500`
 
-```bash
-npm run weather:snapshot:update -- --limit=200
-```
+Budget logic:
+- `calls_per_region = baselineYears * 3` (climate + air + marine yearly series reuse across 12 months)
+- `max_regions_per_day = floor(dailyBudget / calls_per_region)`
+- `desired_regions_per_day = ceil(total_regions / targetCycleDays)`
+- `effective_regions_per_day = min(desired_regions_per_day, max_regions_per_day)`
 
-```bash
-npm run weather:snapshot:update -- --force=1 --regionIds=vn-da-nang,th-bangkok
-```
+If dataset size grows above budget capacity, cycle length extends automatically.
 
-```bash
-npm run weather:snapshot:update -- --offset=400 --limit=200 --pauseMs=600
-```
+## GitHub Automation
 
-- Recommended cadence:
-1. Run update weekly (safe default).
-2. Air data naturally refreshes every ~90 days (quarterly freshness window).
-3. Climate/marine refresh every ~365 days (yearly freshness window).
-4. For first full bootstrap (193 x 12), run in batches with `offset` + `limit`:
+- `refresh-static-data.yml` (daily schedule): bootstrap missing entries, refresh batch, export, validate, create/update PR, enable auto-merge.
+- `deploy-static-pages.yml` (on `main`): validate static data, build `VITE_RUNTIME_MODE=static`, deploy to GitHub Pages.
 
-```bash
-npm run weather:snapshot:update -- --offset=0 --limit=200 --pauseMs=600 --allowStale=1
-npm run weather:snapshot:update -- --offset=200 --limit=200 --pauseMs=600 --allowStale=1
-```
+Safety behavior:
+- failed checks => no merge, no deploy
+- last successful Pages deployment remains live
 
-If you still hit `429`, wait 10-20 minutes and continue with the next offset batch.
-Use `--all=1` only if you intentionally want one long full-catalog run.
+## Initial Bootstrap (One-Time Recommended)
 
-## Nomad Tables Workflow
-
-- Local SQLite database path defaults to `.cache/nomad-hub/nomad-data.sqlite`.
-- Tables are:
-1. `city` (fixed city metadata)
-2. `city_month_raw` (validated stored weather/air/marine raw values)
-3. `city_month_derived` (deterministic computed scores and flags)
-
-Populate tables:
+Before relying on scheduled refresh, seed all region-month entries once:
 
 ```bash
-npm run nomad:tables:sync -- --mode=refresh_if_stale --allowStale=1 --pauseMs=250
+npm run regions:bootstrap -- --missingOnly=0 --mode=verified_only --allowStale=1 --export=1
+npm run static:validate
 ```
 
-```bash
-npm run nomad:tables:sync -- --mode=refresh_if_stale --offset=400 --limit=200 --pauseMs=600
-```
-
-Snapshot-only ingest (no live pull):
-
-```bash
-npm run nomad:tables:sync -- --mode=verified_only
-```
-
-Report coverage:
-
-```bash
-npm run nomad:tables:report
-```
-
-Notes:
-- `uv_index_max`, `wave_height_min_m`, `wave_height_max_m`, and `water_temp_c` are currently stored as `null` until dedicated upstream series are added.
-- This avoids fake precision while keeping table schema stable for phase-2 expansion.
-
-## Manual Data Fallback (No API)
-
-If Open-Meteo is rate-limiting your network, you can still progress by manually researched files:
-
-1. Add files to `data/manual-city-month` using `<region_id>.<year>.json`.
-2. Use `data/manual-city-month/vn-da-nang.2025.json` as the reference format.
-3. Import:
-
-```bash
-npm run nomad:manual:import -- --dir=data/manual-city-month
-```
-
-4. Optional: auto-fill/correct climate core fields from Meteostat (3-year average):
-
-```bash
-python3 -m venv .venv-meteostat
-.venv-meteostat/bin/pip install meteostat pandas
-```
-
-```bash
-npm run nomad:manual:fill-climate
-```
+This uses stored/manual sources first and avoids unnecessary upstream load.
 
 ## Environment Variables (Optional)
 
-Copy `.env.example` to `.env` only if you need overrides.
+Copy `.env.example` to `.env` only when overriding defaults.
 
-Frontend:
-- `VITE_OPEN_METEO_CLIMATE_BASE_URL`
-- `VITE_OPEN_METEO_AIR_BASE_URL`
+Important frontend vars:
+- `VITE_RUNTIME_MODE`
+- `VITE_STATIC_WEATHER_BASE_PATH`
 - `VITE_WEATHER_BASELINE_YEARS`
 - `VITE_WEATHER_SUMMARY_API_BASE_URL`
 - `VITE_SEASON_API_BASE_URL`
 
-Note:
-- By default the app uses Open-Meteo historical endpoints (`historical-forecast` + `archive`) for monthly climate aggregation.
-- Default baseline is 3 full past years for more stable monthly climatology.
-- Set `VITE_OPEN_METEO_CLIMATE_BASE_URL` only if you explicitly want the climate endpoint.
-- If Open-Meteo keeps throttling (`429`), the backend first serves manual JSON data from `data/manual-city-month` (if available), then stale snapshots (if available), and otherwise returns an error.
-
-Backend:
-- `SEASON_SERVER_PORT`
+Important backend/refresh vars:
 - `WEATHER_BASELINE_YEARS`
-- `WEATHER_SUMMARY_TIMEOUT_MS`
-- `WEATHER_SUMMARY_ATTEMPTS`
-- `WEATHER_SUMMARY_RETRY_BASE_DELAY_MS`
 - `WEATHER_UPSTREAM_REQUEST_SPACING_MS`
-- `WEATHER_RATE_LIMIT_MIN_BACKOFF_MS`
-- `WEATHER_YEAR_CACHE_MAX_ENTRIES`
-- `WEATHER_SNAPSHOT_CLIMATE_MAX_AGE_DAYS`
-- `WEATHER_SNAPSHOT_AIR_MAX_AGE_DAYS`
-- `WEATHER_SNAPSHOT_MARINE_MAX_AGE_DAYS`
-- `WEATHER_SNAPSHOT_AUTO_UPDATE_ENABLED`
-- `WEATHER_SNAPSHOT_AUTO_INTERVAL_MINUTES`
-- `WEATHER_SNAPSHOT_AUTO_BATCH_SIZE`
+- `TARGET_CYCLE_DAYS`
+- `DAILY_CALL_BUDGET`
+- `RUNS_PER_DAY`
+- `STATIC_LAYOUT_SHARD_THRESHOLD`
 - `WEATHER_MANUAL_DATA_DIR`
-- `NOMAD_DATA_DB_PATH`
-- `SEASON_ENABLE_LIVE_AMADEUS`
-- `AMADEUS_CLIENT_ID`
-- `AMADEUS_CLIENT_SECRET`
-- `AMADEUS_BASE_URL`
 
 ## Project Structure
 
 ```text
 src/
-  app/          # top-level app shell and page orchestration
+  app/          # app shell and page orchestration
   features/     # map, matrix, filters, export UI + logic
   services/     # weather + season clients, scoring logic
   data/         # regions and static catalogs
-  types/        # shared TypeScript domain types
+  types/        # shared TypeScript types
 server/
-  index.ts      # lightweight season API server
+  index.ts
   seasonService.ts
-  nomadDataStore.ts # schema + validation + derived score logic for nomad tables
+  weatherSummaryService.ts
 scripts/
-  launch-dev.sh # macOS-friendly launcher wrapper
-  stop-dev.sh
-  updateWeatherSnapshot.ts # bulk refresh for verified weather snapshots
-  syncNomadTables.ts # persist validated city/month raw + derived rows into SQLite
-  reportNomadTables.ts # show SQLite table coverage summary
+  refreshStaticWeatherBatch.ts
+  exportStaticWeatherData.ts
+  validateStaticWeatherData.ts
+  bootstrapRegions.ts
+  planRegionExpansion.ts
+  updateWeatherSnapshot.ts
 ```
-
-## macOS Launcher (Optional)
-
-See `/docs/launcher.md` for a one-click local launcher app flow.
 
 ## CI
 
-GitHub Actions runs lint, tests, and build on every push and pull request.
+`ci.yml` runs lint, tests, and build on push + pull request.
 
 ## License
 

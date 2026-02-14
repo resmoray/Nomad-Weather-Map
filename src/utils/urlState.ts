@@ -1,6 +1,7 @@
 import type { CountryCode, MetricKey, Month } from "../types/weather";
 import type { MatrixMode, UserPreferenceProfile } from "../types/presentation";
 import { DEFAULT_PROFILE } from "../features/matrix/customProfile";
+import { countries as regionCountries } from "../data/loadRegions";
 
 export interface AppUrlState {
   selectedCountryCodes: CountryCode[];
@@ -14,53 +15,8 @@ export interface AppUrlState {
 }
 
 const PINNED_DEFAULT: MetricKey[] = ["temperatureC", "rainfallMm", "pm25", "aqi"];
-const ALLOWED_COUNTRY_CODES: CountryCode[] = [
-  "AE",
-  "AR",
-  "AT",
-  "AU",
-  "BN",
-  "BR",
-  "CA",
-  "CL",
-  "CN",
-  "CO",
-  "DE",
-  "EG",
-  "ES",
-  "FR",
-  "FI",
-  "GB",
-  "GR",
-  "KH",
-  "ID",
-  "IS",
-  "IN",
-  "IT",
-  "JP",
-  "KE",
-  "KR",
-  "LK",
-  "LA",
-  "MA",
-  "MX",
-  "MY",
-  "MM",
-  "NZ",
-  "NO",
-  "PE",
-  "PH",
-  "PT",
-  "SA",
-  "SG",
-  "TH",
-  "TL",
-  "TR",
-  "TW",
-  "US",
-  "VN",
-  "ZA",
-];
+const ALLOWED_COUNTRY_CODES: CountryCode[] = regionCountries.map((country) => country.code);
+const ALLOWED_COUNTRY_CODE_SET = new Set(ALLOWED_COUNTRY_CODES);
 const TEMP_VALUES: UserPreferenceProfile["tempPreference"][] = [
   "cool",
   "mild",
@@ -118,7 +74,7 @@ function parseCountry(raw: string | null): CountryCode | "ALL" | null {
   }
 
   const upper = raw.toUpperCase();
-  return ALLOWED_COUNTRY_CODES.includes(upper as CountryCode) ? (upper as CountryCode) : null;
+  return ALLOWED_COUNTRY_CODE_SET.has(upper as CountryCode) ? (upper as CountryCode) : null;
 }
 
 function parseCountryCodes(raw: string | null): CountryCode[] | null {
@@ -133,7 +89,7 @@ function parseCountryCodes(raw: string | null): CountryCode[] | null {
   const parsed = raw
     .split(",")
     .map((value) => value.trim().toUpperCase())
-    .filter((value): value is CountryCode => ALLOWED_COUNTRY_CODES.includes(value as CountryCode));
+    .filter((value): value is CountryCode => ALLOWED_COUNTRY_CODE_SET.has(value as CountryCode));
 
   return Array.from(new Set(parsed));
 }

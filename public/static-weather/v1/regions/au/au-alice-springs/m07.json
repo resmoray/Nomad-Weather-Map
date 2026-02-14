@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-alice-springs",
+  "month": 7,
+  "summary": {
+    "temperatureC": 11.8,
+    "temperatureMinC": 3.9,
+    "temperatureMaxC": 21.3,
+    "rainfallMm": 8.1,
+    "humidityPct": 58,
+    "windKph": 11.5,
+    "uvIndex": 5.6,
+    "uvIndexMax": 6.8,
+    "pm25": 0.8,
+    "aqi": 23.3,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

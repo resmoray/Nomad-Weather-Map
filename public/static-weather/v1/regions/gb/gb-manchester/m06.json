@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "gb-manchester",
+  "month": 6,
+  "summary": {
+    "temperatureC": 16,
+    "temperatureMinC": 10.3,
+    "temperatureMaxC": 23.5,
+    "rainfallMm": 61.7,
+    "humidityPct": 71.3,
+    "windKph": 11.6,
+    "uvIndex": 4.5,
+    "uvIndexMax": 7,
+    "pm25": 6.4,
+    "aqi": 32.7,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

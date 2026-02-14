@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tr-istanbul",
+  "month": 6,
+  "summary": {
+    "temperatureC": 23.1,
+    "temperatureMinC": 18.3,
+    "temperatureMaxC": 29.4,
+    "rainfallMm": 20.4,
+    "humidityPct": 66.1,
+    "windKph": 18.3,
+    "uvIndex": 8.1,
+    "uvIndexMax": 9.3,
+    "pm25": 13.4,
+    "aqi": 51.8,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.13,
+    "waveHeightMaxM": 0.52,
+    "wavePeriodS": 2.05,
+    "waveDirectionDeg": null,
+    "waterTempC": 21.57,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

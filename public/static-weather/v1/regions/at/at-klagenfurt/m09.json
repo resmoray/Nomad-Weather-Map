@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "at-klagenfurt",
+  "month": 9,
+  "summary": {
+    "temperatureC": 16.3,
+    "temperatureMinC": 8.9,
+    "temperatureMaxC": 23.3,
+    "rainfallMm": 136.3,
+    "humidityPct": 78.2,
+    "windKph": 6.6,
+    "uvIndex": 4,
+    "uvIndexMax": 5.9,
+    "pm25": 7,
+    "aqi": 31.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

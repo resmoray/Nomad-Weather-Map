@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pt-lisbon",
+  "month": 12,
+  "summary": {
+    "temperatureC": 11.6,
+    "temperatureMinC": 6.5,
+    "temperatureMaxC": 17.4,
+    "rainfallMm": 51,
+    "humidityPct": 85.8,
+    "windKph": 11.1,
+    "uvIndex": 1.4,
+    "uvIndexMax": 2.1,
+    "pm25": 10.1,
+    "aqi": 40.6,
+    "waveHeightMinM": 0.52,
+    "waveHeightM": 1.64,
+    "waveHeightMaxM": 3.1,
+    "wavePeriodS": 11.53,
+    "waveDirectionDeg": null,
+    "waterTempC": 15.24,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

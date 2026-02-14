@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ph-manila",
+  "month": 2,
+  "summary": {
+    "temperatureC": 27,
+    "temperatureMinC": 24.7,
+    "temperatureMaxC": 29.3,
+    "rainfallMm": 43.3,
+    "humidityPct": 71.8,
+    "windKph": 18.1,
+    "uvIndex": 8.7,
+    "uvIndexMax": 11.4,
+    "pm25": 11.9,
+    "aqi": 50.3,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.09,
+    "waveHeightMaxM": 0.4,
+    "wavePeriodS": 2.57,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.4,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "la-luang-prabang",
+  "month": 6,
+  "summary": {
+    "temperatureC": 29.8,
+    "temperatureMinC": 26.6,
+    "temperatureMaxC": 33.8,
+    "rainfallMm": 240.2,
+    "humidityPct": 78.7,
+    "windKph": 3.6,
+    "uvIndex": 7.8,
+    "uvIndexMax": 11.6,
+    "pm25": 10.6,
+    "aqi": 42.1,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

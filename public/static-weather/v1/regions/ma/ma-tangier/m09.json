@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ma-tangier",
+  "month": 9,
+  "summary": {
+    "temperatureC": 23.2,
+    "temperatureMinC": 19.9,
+    "temperatureMaxC": 27.2,
+    "rainfallMm": 29.6,
+    "humidityPct": 77.8,
+    "windKph": 15.6,
+    "uvIndex": 7,
+    "uvIndexMax": 8.7,
+    "pm25": 7.7,
+    "aqi": 36.5,
+    "waveHeightMinM": 0.38,
+    "waveHeightM": 0.95,
+    "waveHeightMaxM": 2.52,
+    "wavePeriodS": 6.96,
+    "waveDirectionDeg": null,
+    "waterTempC": 21.26,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

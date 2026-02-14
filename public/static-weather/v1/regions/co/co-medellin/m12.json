@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "co-medellin",
+  "month": 12,
+  "summary": {
+    "temperatureC": 16.9,
+    "temperatureMinC": 14.9,
+    "temperatureMaxC": 19.1,
+    "rainfallMm": 108.8,
+    "humidityPct": 84.1,
+    "windKph": 7.5,
+    "uvIndex": 8.2,
+    "uvIndexMax": 12.2,
+    "pm25": 16.1,
+    "aqi": 57.7,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

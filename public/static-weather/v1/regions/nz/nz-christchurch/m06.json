@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "nz-christchurch",
+  "month": 6,
+  "summary": {
+    "temperatureC": 7.2,
+    "temperatureMinC": 1.5,
+    "temperatureMaxC": 15.2,
+    "rainfallMm": 64.8,
+    "humidityPct": 86.7,
+    "windKph": 11.8,
+    "uvIndex": 0.9,
+    "uvIndexMax": 1.6,
+    "pm25": 4.3,
+    "aqi": 22.7,
+    "waveHeightMinM": 0.68,
+    "waveHeightM": 1.85,
+    "waveHeightMaxM": 4.4,
+    "wavePeriodS": 9.52,
+    "waveDirectionDeg": null,
+    "waterTempC": 10.85,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

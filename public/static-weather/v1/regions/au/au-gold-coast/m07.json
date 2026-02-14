@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-gold-coast",
+  "month": 7,
+  "summary": {
+    "temperatureC": 15.1,
+    "temperatureMinC": 10.6,
+    "temperatureMaxC": 19.3,
+    "rainfallMm": 84.3,
+    "humidityPct": 74.7,
+    "windKph": 11.6,
+    "uvIndex": 3.8,
+    "uvIndexMax": 4.9,
+    "pm25": 6.4,
+    "aqi": 31.2,
+    "waveHeightMinM": 0.38,
+    "waveHeightM": 0.74,
+    "waveHeightMaxM": 1.6,
+    "wavePeriodS": 8.55,
+    "waveDirectionDeg": null,
+    "waterTempC": 20.41,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

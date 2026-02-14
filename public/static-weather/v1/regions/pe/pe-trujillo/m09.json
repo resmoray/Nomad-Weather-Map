@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pe-trujillo",
+  "month": 9,
+  "summary": {
+    "temperatureC": 17.9,
+    "temperatureMinC": 16.2,
+    "temperatureMaxC": 21.5,
+    "rainfallMm": 1.4,
+    "humidityPct": 86.2,
+    "windKph": 14.2,
+    "uvIndex": 11.4,
+    "uvIndexMax": 12.6,
+    "pm25": 13.1,
+    "aqi": 52.1,
+    "waveHeightMinM": 1.08,
+    "waveHeightM": 1.67,
+    "waveHeightMaxM": 2.54,
+    "wavePeriodS": 11.06,
+    "waveDirectionDeg": null,
+    "waterTempC": 17.18,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

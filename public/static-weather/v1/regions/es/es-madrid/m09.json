@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "es-madrid",
+  "month": 9,
+  "summary": {
+    "temperatureC": 20.4,
+    "temperatureMinC": 14.3,
+    "temperatureMaxC": 27,
+    "rainfallMm": 51.3,
+    "humidityPct": 52.4,
+    "windKph": 8.9,
+    "uvIndex": 6.2,
+    "uvIndexMax": 8.1,
+    "pm25": 6,
+    "aqi": 30.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

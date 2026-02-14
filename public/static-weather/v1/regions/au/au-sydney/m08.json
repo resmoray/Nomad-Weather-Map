@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-sydney",
+  "month": 8,
+  "summary": {
+    "temperatureC": 15.2,
+    "temperatureMinC": 10.6,
+    "temperatureMaxC": 23.5,
+    "rainfallMm": 141.6,
+    "humidityPct": 70.2,
+    "windKph": 17.4,
+    "uvIndex": 2.8,
+    "uvIndexMax": 5,
+    "pm25": 7.6,
+    "aqi": 33.4,
+    "waveHeightMinM": 0.76,
+    "waveHeightM": 1.54,
+    "waveHeightMaxM": 3.7,
+    "wavePeriodS": 9.3,
+    "waveDirectionDeg": null,
+    "waterTempC": 18.61,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}
