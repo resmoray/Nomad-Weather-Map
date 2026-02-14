@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "in-delhi",
+  "month": 2,
+  "summary": {
+    "temperatureC": 18.4,
+    "temperatureMinC": 12.2,
+    "temperatureMaxC": 23.8,
+    "rainfallMm": 17.3,
+    "humidityPct": 63.8,
+    "windKph": 7.7,
+    "uvIndex": 4.8,
+    "uvIndexMax": 5.8,
+    "pm25": 68.3,
+    "aqi": 153,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

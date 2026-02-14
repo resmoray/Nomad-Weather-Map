@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "at-graz",
+  "month": 1,
+  "summary": {
+    "temperatureC": 1.7,
+    "temperatureMinC": -4.1,
+    "temperatureMaxC": 10.9,
+    "rainfallMm": 37.5,
+    "humidityPct": 79.6,
+    "windKph": 10.2,
+    "uvIndex": 0.8,
+    "uvIndexMax": 1.3,
+    "pm25": 23.2,
+    "aqi": 74.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

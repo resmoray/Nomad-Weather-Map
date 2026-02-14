@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "in-mumbai",
+  "month": 8,
+  "summary": {
+    "temperatureC": 28.1,
+    "temperatureMinC": 25.6,
+    "temperatureMaxC": 29.9,
+    "rainfallMm": 558.6,
+    "humidityPct": 83.4,
+    "windKph": 13.5,
+    "uvIndex": 7,
+    "uvIndexMax": 10.1,
+    "pm25": 19.1,
+    "aqi": 65.1,
+    "waveHeightMinM": 0.86,
+    "waveHeightM": 1.47,
+    "waveHeightMaxM": 2.8,
+    "wavePeriodS": 8.22,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.4,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

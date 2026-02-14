@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "at-vienna",
+  "month": 7,
+  "summary": {
+    "temperatureC": 22.8,
+    "temperatureMinC": 15.1,
+    "temperatureMaxC": 28.8,
+    "rainfallMm": 50.5,
+    "humidityPct": 60.8,
+    "windKph": 12.6,
+    "uvIndex": 5.6,
+    "uvIndexMax": 8.4,
+    "pm25": 5.3,
+    "aqi": 38.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

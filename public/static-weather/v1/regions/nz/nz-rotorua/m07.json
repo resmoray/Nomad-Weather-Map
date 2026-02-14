@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "nz-rotorua",
+  "month": 7,
+  "summary": {
+    "temperatureC": 11.3,
+    "temperatureMinC": 7.7,
+    "temperatureMaxC": 16.2,
+    "rainfallMm": 142.6,
+    "humidityPct": 80.7,
+    "windKph": 14.9,
+    "uvIndex": 1.5,
+    "uvIndexMax": 2.1,
+    "pm25": 3.3,
+    "aqi": 24.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cn-guangzhou",
+  "month": 8,
+  "summary": {
+    "temperatureC": 29.6,
+    "temperatureMinC": 25.8,
+    "temperatureMaxC": 33.4,
+    "rainfallMm": 429.5,
+    "humidityPct": 80.2,
+    "windKph": 8.2,
+    "uvIndex": 7.3,
+    "uvIndexMax": 11.9,
+    "pm25": 45.1,
+    "aqi": 120.8,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.22,
+    "waveHeightMaxM": 0.48,
+    "wavePeriodS": 3.81,
+    "waveDirectionDeg": null,
+    "waterTempC": 31.45,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

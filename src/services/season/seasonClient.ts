@@ -4,6 +4,7 @@ import type { SeasonSignal, SeasonSignalByMonth, SeasonSummaryResponse } from ".
 
 const DEFAULT_API_BASE_URL = import.meta.env.DEV ? "http://localhost:8787" : "";
 const ALL_MONTHS: Month[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const RUNTIME_MODE = (import.meta.env.VITE_RUNTIME_MODE ?? "dynamic").trim().toLowerCase();
 
 function toSignalMap(signals: SeasonSignal[]): SeasonSignalByMonth {
   return signals.reduce<SeasonSignalByMonth>((acc, signal) => {
@@ -106,6 +107,10 @@ export async function fetchSeasonSummary(input: {
   month?: Month;
   weatherByMonth: Partial<Record<Month, number>>;
 }): Promise<SeasonSignalByMonth> {
+  if (RUNTIME_MODE === "static") {
+    return withFallbackSignals(input, {});
+  }
+
   const baseUrl = import.meta.env.VITE_SEASON_API_BASE_URL ?? DEFAULT_API_BASE_URL;
 
   const params = new URLSearchParams({

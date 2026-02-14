@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tr-antalya",
+  "month": 5,
+  "summary": {
+    "temperatureC": 21.3,
+    "temperatureMinC": 16.4,
+    "temperatureMaxC": 27.8,
+    "rainfallMm": 85.5,
+    "humidityPct": 67.5,
+    "windKph": 12.6,
+    "uvIndex": 7.3,
+    "uvIndexMax": 9.1,
+    "pm25": 10.7,
+    "aqi": 46,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.22,
+    "waveHeightMaxM": 0.58,
+    "wavePeriodS": 3.87,
+    "waveDirectionDeg": null,
+    "waterTempC": 22.38,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

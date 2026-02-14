@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-perth",
+  "month": 7,
+  "summary": {
+    "temperatureC": 12.9,
+    "temperatureMinC": 7.7,
+    "temperatureMaxC": 17.7,
+    "rainfallMm": 157.9,
+    "humidityPct": 78.3,
+    "windKph": 7.6,
+    "uvIndex": 2.5,
+    "uvIndexMax": 3.8,
+    "pm25": 6.1,
+    "aqi": 29.6,
+    "waveHeightMinM": 0.66,
+    "waveHeightM": 1.34,
+    "waveHeightMaxM": 2.46,
+    "wavePeriodS": 10.06,
+    "waveDirectionDeg": null,
+    "waterTempC": 16.96,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

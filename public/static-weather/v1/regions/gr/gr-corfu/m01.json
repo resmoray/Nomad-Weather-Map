@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "gr-corfu",
+  "month": 1,
+  "summary": {
+    "temperatureC": 11.7,
+    "temperatureMinC": 6.9,
+    "temperatureMaxC": 16.9,
+    "rainfallMm": 160.3,
+    "humidityPct": 80.4,
+    "windKph": 8.5,
+    "uvIndex": 1.4,
+    "uvIndexMax": 2.3,
+    "pm25": 6.1,
+    "aqi": 33.6,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.78,
+    "waveHeightMaxM": 2.46,
+    "wavePeriodS": 5.06,
+    "waveDirectionDeg": null,
+    "waterTempC": 16.7,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "de-cologne",
+  "month": 11,
+  "summary": {
+    "temperatureC": 7.2,
+    "temperatureMinC": -1.2,
+    "temperatureMaxC": 15.3,
+    "rainfallMm": 74,
+    "humidityPct": 82.6,
+    "windKph": 12.6,
+    "uvIndex": 0.8,
+    "uvIndexMax": 1.4,
+    "pm25": 11.1,
+    "aqi": 42.7,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ca-calgary",
+  "month": 9,
+  "summary": {
+    "temperatureC": 14.3,
+    "temperatureMinC": 5,
+    "temperatureMaxC": 22,
+    "rainfallMm": 26.8,
+    "humidityPct": 58.5,
+    "windKph": 11.6,
+    "uvIndex": 4.2,
+    "uvIndexMax": 5.3,
+    "pm25": 14.9,
+    "aqi": 54.2,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

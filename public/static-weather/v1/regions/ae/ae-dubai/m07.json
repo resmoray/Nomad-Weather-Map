@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ae-dubai",
+  "month": 7,
+  "summary": {
+    "temperatureC": 37.4,
+    "temperatureMinC": 33.2,
+    "temperatureMaxC": 40.6,
+    "rainfallMm": 0,
+    "humidityPct": 48.5,
+    "windKph": 14,
+    "uvIndex": 8.6,
+    "uvIndexMax": 9.9,
+    "pm25": 58.8,
+    "aqi": 148.7,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.32,
+    "waveHeightMaxM": 1.26,
+    "wavePeriodS": 3.92,
+    "waveDirectionDeg": null,
+    "waterTempC": 34.17,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

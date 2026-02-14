@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "lk-colombo",
+  "month": 12,
+  "summary": {
+    "temperatureC": 27.4,
+    "temperatureMinC": 26,
+    "temperatureMaxC": 29,
+    "rainfallMm": 183.4,
+    "humidityPct": 78.6,
+    "windKph": 4.2,
+    "uvIndex": 8.1,
+    "uvIndexMax": 9.8,
+    "pm25": 25.7,
+    "aqi": 82.5,
+    "waveHeightMinM": 0.58,
+    "waveHeightM": 0.87,
+    "waveHeightMaxM": 1.32,
+    "wavePeriodS": 9.09,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.47,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

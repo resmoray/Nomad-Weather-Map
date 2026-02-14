@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "gb-belfast",
+  "month": 1,
+  "summary": {
+    "temperatureC": 4.5,
+    "temperatureMinC": -2.7,
+    "temperatureMaxC": 11.2,
+    "rainfallMm": 61.4,
+    "humidityPct": 89.5,
+    "windKph": 16,
+    "uvIndex": 0.4,
+    "uvIndexMax": 0.8,
+    "pm25": 5,
+    "aqi": 30.3,
+    "waveHeightMinM": 0.08,
+    "waveHeightM": 0.6,
+    "waveHeightMaxM": 2.54,
+    "wavePeriodS": 4.1,
+    "waveDirectionDeg": null,
+    "waterTempC": 9.32,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

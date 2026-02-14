@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ma-agadir",
+  "month": 7,
+  "summary": {
+    "temperatureC": 23.9,
+    "temperatureMinC": 21.7,
+    "temperatureMaxC": 28.5,
+    "rainfallMm": 0,
+    "humidityPct": 71.3,
+    "windKph": 9.6,
+    "uvIndex": 10,
+    "uvIndexMax": 10.8,
+    "pm25": 13.5,
+    "aqi": 52.7,
+    "waveHeightMinM": 0.48,
+    "waveHeightM": 0.9,
+    "waveHeightMaxM": 1.52,
+    "wavePeriodS": 6.84,
+    "waveDirectionDeg": null,
+    "waterTempC": 20.52,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

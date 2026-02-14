@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tl-dili",
+  "month": 8,
+  "summary": {
+    "temperatureC": 22.8,
+    "temperatureMinC": 20.8,
+    "temperatureMaxC": 24.6,
+    "rainfallMm": 7.4,
+    "humidityPct": 69.4,
+    "windKph": 14.4,
+    "uvIndex": 10.7,
+    "uvIndexMax": 12.2,
+    "pm25": 7.6,
+    "aqi": 33.8,
+    "waveHeightMinM": 0.22,
+    "waveHeightM": 0.48,
+    "waveHeightMaxM": 1.22,
+    "wavePeriodS": 6.85,
+    "waveDirectionDeg": null,
+    "waterTempC": 27.83,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

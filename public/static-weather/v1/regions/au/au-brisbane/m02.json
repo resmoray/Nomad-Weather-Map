@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-brisbane",
+  "month": 2,
+  "summary": {
+    "temperatureC": 25.2,
+    "temperatureMinC": 22,
+    "temperatureMaxC": 28.6,
+    "rainfallMm": 85.9,
+    "humidityPct": 72.4,
+    "windKph": 13.1,
+    "uvIndex": 10.4,
+    "uvIndexMax": 12.7,
+    "pm25": 7.3,
+    "aqi": 31.2,
+    "waveHeightMinM": 0.32,
+    "waveHeightM": 0.67,
+    "waveHeightMaxM": 1.1,
+    "wavePeriodS": 5.42,
+    "waveDirectionDeg": null,
+    "waterTempC": 27.62,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

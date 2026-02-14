@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tw-taipei",
+  "month": 3,
+  "summary": {
+    "temperatureC": 19.2,
+    "temperatureMinC": 11.6,
+    "temperatureMaxC": 27.3,
+    "rainfallMm": 93.7,
+    "humidityPct": 74.5,
+    "windKph": 13.1,
+    "uvIndex": 5.4,
+    "uvIndexMax": 9.8,
+    "pm25": 26.4,
+    "aqi": 82.5,
+    "waveHeightMinM": 0.26,
+    "waveHeightM": 1.5,
+    "waveHeightMaxM": 4.3,
+    "wavePeriodS": 6.83,
+    "waveDirectionDeg": null,
+    "waterTempC": 17.8,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

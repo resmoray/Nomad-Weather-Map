@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "vn-da-nang",
+  "month": 11,
+  "summary": {
+    "temperatureC": 25,
+    "temperatureMinC": 19.8,
+    "temperatureMaxC": 28.2,
+    "rainfallMm": 608.8,
+    "humidityPct": 82.7,
+    "windKph": 9.1,
+    "uvIndex": 5,
+    "uvIndexMax": 8.8,
+    "pm25": 16,
+    "aqi": 63,
+    "waveHeightMinM": 0.44,
+    "waveHeightM": 1.45,
+    "waveHeightMaxM": 2.76,
+    "wavePeriodS": 7.38,
+    "waveDirectionDeg": null,
+    "waterTempC": 26.45,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:41:55.000Z"
+  }
+}

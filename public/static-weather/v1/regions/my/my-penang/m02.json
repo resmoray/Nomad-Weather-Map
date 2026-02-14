@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "my-penang",
+  "month": 2,
+  "summary": {
+    "temperatureC": 29.1,
+    "temperatureMinC": 25.3,
+    "temperatureMaxC": 30.8,
+    "rainfallMm": 96.2,
+    "humidityPct": 70.3,
+    "windKph": 8.4,
+    "uvIndex": 9.9,
+    "uvIndexMax": 12.4,
+    "pm25": 22.6,
+    "aqi": 79.3,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.14,
+    "waveHeightMaxM": 0.46,
+    "wavePeriodS": 3.69,
+    "waveDirectionDeg": null,
+    "waterTempC": 31.4,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

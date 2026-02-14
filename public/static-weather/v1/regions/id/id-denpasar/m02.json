@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-denpasar",
+  "month": 2,
+  "summary": {
+    "temperatureC": 28.3,
+    "temperatureMinC": 25.1,
+    "temperatureMaxC": 30.3,
+    "rainfallMm": 266.5,
+    "humidityPct": 81.6,
+    "windKph": 13.7,
+    "uvIndex": 10,
+    "uvIndexMax": 13.3,
+    "pm25": 14.2,
+    "aqi": 54.1,
+    "waveHeightMinM": 0.82,
+    "waveHeightM": 1.52,
+    "waveHeightMaxM": 2.4,
+    "wavePeriodS": 10.79,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.67,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

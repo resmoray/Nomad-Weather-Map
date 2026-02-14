@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "mm-yangon",
+  "month": 5,
+  "summary": {
+    "temperatureC": 29.8,
+    "temperatureMinC": 25.7,
+    "temperatureMaxC": 33.8,
+    "rainfallMm": 285.1,
+    "humidityPct": 79.3,
+    "windKph": 7.5,
+    "uvIndex": 8.5,
+    "uvIndexMax": 11.6,
+    "pm25": 22.9,
+    "aqi": 73.7,
+    "waveHeightMinM": 0.36,
+    "waveHeightM": 0.68,
+    "waveHeightMaxM": 1.62,
+    "wavePeriodS": 9.84,
+    "waveDirectionDeg": null,
+    "waterTempC": 31.45,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

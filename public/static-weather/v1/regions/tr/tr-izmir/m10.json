@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tr-izmir",
+  "month": 10,
+  "summary": {
+    "temperatureC": 19.1,
+    "temperatureMinC": 13.6,
+    "temperatureMaxC": 25.6,
+    "rainfallMm": 45,
+    "humidityPct": 63.4,
+    "windKph": 10.5,
+    "uvIndex": 3.7,
+    "uvIndexMax": 5.9,
+    "pm25": 16.1,
+    "aqi": 55.9,
+    "waveHeightMinM": 0,
+    "waveHeightM": 0.08,
+    "waveHeightMaxM": 0.38,
+    "wavePeriodS": 2.89,
+    "waveDirectionDeg": null,
+    "waterTempC": 21.3,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

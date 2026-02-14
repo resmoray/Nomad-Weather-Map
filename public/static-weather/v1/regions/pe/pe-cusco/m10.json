@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "pe-cusco",
+  "month": 10,
+  "summary": {
+    "temperatureC": 14.1,
+    "temperatureMinC": 10.8,
+    "temperatureMaxC": 16.7,
+    "rainfallMm": 141.9,
+    "humidityPct": 56.8,
+    "windKph": 8.8,
+    "uvIndex": 11.6,
+    "uvIndexMax": 15.7,
+    "pm25": 6.2,
+    "aqi": 32,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

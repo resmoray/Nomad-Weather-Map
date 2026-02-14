@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cn-lhasa",
+  "month": 2,
+  "summary": {
+    "temperatureC": 4.1,
+    "temperatureMinC": -2.2,
+    "temperatureMaxC": 11.9,
+    "rainfallMm": 1.7,
+    "humidityPct": 20.6,
+    "windKph": 7.8,
+    "uvIndex": 8.4,
+    "uvIndexMax": 10.8,
+    "pm25": 11.6,
+    "aqi": 73,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

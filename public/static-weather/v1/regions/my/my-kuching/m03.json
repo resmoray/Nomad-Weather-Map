@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "my-kuching",
+  "month": 3,
+  "summary": {
+    "temperatureC": 26.7,
+    "temperatureMinC": 23.8,
+    "temperatureMaxC": 29.9,
+    "rainfallMm": 262,
+    "humidityPct": 87.6,
+    "windKph": 5.3,
+    "uvIndex": 8.7,
+    "uvIndexMax": 13.2,
+    "pm25": 12.3,
+    "aqi": 48.5,
+    "waveHeightMinM": 0.12,
+    "waveHeightM": 0.66,
+    "waveHeightMaxM": 1.86,
+    "wavePeriodS": 6.8,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.99,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

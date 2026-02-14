@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "vn-ho-chi-minh",
+  "month": 2,
+  "summary": {
+    "temperatureC": 28.5,
+    "temperatureMinC": 26.8,
+    "temperatureMaxC": 30.8,
+    "rainfallMm": 34.3,
+    "humidityPct": 67.8,
+    "windKph": 10.4,
+    "uvIndex": 9.5,
+    "uvIndexMax": 12.7,
+    "pm25": 25.7,
+    "aqi": 86.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

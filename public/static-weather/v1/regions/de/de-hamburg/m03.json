@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "de-hamburg",
+  "month": 3,
+  "summary": {
+    "temperatureC": 6.5,
+    "temperatureMinC": 0.4,
+    "temperatureMaxC": 13.6,
+    "rainfallMm": 46.1,
+    "humidityPct": 78.2,
+    "windKph": 14.5,
+    "uvIndex": 2.5,
+    "uvIndexMax": 3.8,
+    "pm25": 18.5,
+    "aqi": 62.5,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

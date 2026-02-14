@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "it-naples",
+  "month": 11,
+  "summary": {
+    "temperatureC": 13.2,
+    "temperatureMinC": 5.5,
+    "temperatureMaxC": 19.4,
+    "rainfallMm": 152.4,
+    "humidityPct": 78.8,
+    "windKph": 11.1,
+    "uvIndex": 1.9,
+    "uvIndexMax": 3,
+    "pm25": 13.2,
+    "aqi": 48.5,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.61,
+    "waveHeightMaxM": 2.6,
+    "wavePeriodS": 5.37,
+    "waveDirectionDeg": null,
+    "waterTempC": 19.03,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

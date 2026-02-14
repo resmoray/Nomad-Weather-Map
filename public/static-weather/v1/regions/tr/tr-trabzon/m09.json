@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tr-trabzon",
+  "month": 9,
+  "summary": {
+    "temperatureC": 23,
+    "temperatureMinC": 17.2,
+    "temperatureMaxC": 27.4,
+    "rainfallMm": 103.5,
+    "humidityPct": 72.3,
+    "windKph": 10.7,
+    "uvIndex": 4.7,
+    "uvIndexMax": 7.3,
+    "pm25": 6.4,
+    "aqi": 36.5,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.66,
+    "waveHeightMaxM": 3.24,
+    "wavePeriodS": 4.64,
+    "waveDirectionDeg": null,
+    "waterTempC": 24.82,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "fi-helsinki",
+  "month": 2,
+  "summary": {
+    "temperatureC": -2.9,
+    "temperatureMinC": -16.6,
+    "temperatureMaxC": 3.9,
+    "rainfallMm": 41.2,
+    "humidityPct": 86.1,
+    "windKph": 15.2,
+    "uvIndex": 0.4,
+    "uvIndexMax": 0.8,
+    "pm25": 8.2,
+    "aqi": 38.3,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.27,
+    "waveHeightMaxM": 1.32,
+    "wavePeriodS": 2.72,
+    "waveDirectionDeg": null,
+    "waterTempC": -0.05,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

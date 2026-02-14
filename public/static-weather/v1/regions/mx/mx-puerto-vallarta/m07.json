@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "mx-puerto-vallarta",
+  "month": 7,
+  "summary": {
+    "temperatureC": 25,
+    "temperatureMinC": 22.4,
+    "temperatureMaxC": 28.1,
+    "rainfallMm": 267.8,
+    "humidityPct": 85.3,
+    "windKph": 6.9,
+    "uvIndex": 9.3,
+    "uvIndexMax": 12.1,
+    "pm25": 10.4,
+    "aqi": 44.1,
+    "waveHeightMinM": 0.28,
+    "waveHeightM": 0.44,
+    "waveHeightMaxM": 0.82,
+    "wavePeriodS": 10.15,
+    "waveDirectionDeg": null,
+    "waterTempC": 31.21,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

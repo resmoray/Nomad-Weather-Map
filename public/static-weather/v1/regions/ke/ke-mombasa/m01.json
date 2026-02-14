@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ke-mombasa",
+  "month": 1,
+  "summary": {
+    "temperatureC": 28.2,
+    "temperatureMinC": 26.1,
+    "temperatureMaxC": 29.3,
+    "rainfallMm": 55.3,
+    "humidityPct": 74.8,
+    "windKph": 12.6,
+    "uvIndex": 10.4,
+    "uvIndexMax": 12.7,
+    "pm25": 13.2,
+    "aqi": 51.8,
+    "waveHeightMinM": 0.66,
+    "waveHeightM": 1.2,
+    "waveHeightMaxM": 2.1,
+    "wavePeriodS": 6.75,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.68,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

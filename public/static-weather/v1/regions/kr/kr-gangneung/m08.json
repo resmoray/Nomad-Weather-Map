@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "kr-gangneung",
+  "month": 8,
+  "summary": {
+    "temperatureC": 28,
+    "temperatureMinC": 22.2,
+    "temperatureMaxC": 33.2,
+    "rainfallMm": 164.4,
+    "humidityPct": 72.6,
+    "windKph": 7.8,
+    "uvIndex": 6.4,
+    "uvIndexMax": 8.8,
+    "pm25": 13.6,
+    "aqi": 59.2,
+    "waveHeightMinM": 0.1,
+    "waveHeightM": 0.33,
+    "waveHeightMaxM": 0.86,
+    "wavePeriodS": 5.02,
+    "waveDirectionDeg": null,
+    "waterTempC": 26.35,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

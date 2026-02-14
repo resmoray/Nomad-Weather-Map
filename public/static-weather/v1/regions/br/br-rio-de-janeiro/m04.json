@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "br-rio-de-janeiro",
+  "month": 4,
+  "summary": {
+    "temperatureC": 24.8,
+    "temperatureMinC": 21.6,
+    "temperatureMaxC": 28.6,
+    "rainfallMm": 84.6,
+    "humidityPct": 77.4,
+    "windKph": 9.8,
+    "uvIndex": 6.5,
+    "uvIndexMax": 9.4,
+    "pm25": 18.8,
+    "aqi": 68.4,
+    "waveHeightMinM": 0.4,
+    "waveHeightM": 0.91,
+    "waveHeightMaxM": 2,
+    "wavePeriodS": 9.71,
+    "waveDirectionDeg": null,
+    "waterTempC": 25.69,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ke-eldoret",
+  "month": 11,
+  "summary": {
+    "temperatureC": 17.4,
+    "temperatureMinC": 15.7,
+    "temperatureMaxC": 18.8,
+    "rainfallMm": 81.7,
+    "humidityPct": 71.2,
+    "windKph": 13.4,
+    "uvIndex": 11.2,
+    "uvIndexMax": 12.7,
+    "pm25": 9.4,
+    "aqi": 40,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

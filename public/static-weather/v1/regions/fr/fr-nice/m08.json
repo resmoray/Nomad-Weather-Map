@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "fr-nice",
+  "month": 8,
+  "summary": {
+    "temperatureC": 26.4,
+    "temperatureMinC": 21.3,
+    "temperatureMaxC": 30.4,
+    "rainfallMm": 15.6,
+    "humidityPct": 63.1,
+    "windKph": 12.2,
+    "uvIndex": 6.5,
+    "uvIndexMax": 8.3,
+    "pm25": 8.7,
+    "aqi": 51.5,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.27,
+    "waveHeightMaxM": 1.34,
+    "wavePeriodS": 3.84,
+    "waveDirectionDeg": null,
+    "waterTempC": 26.38,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "fr-bordeaux",
+  "month": 2,
+  "summary": {
+    "temperatureC": 8.6,
+    "temperatureMinC": 2.2,
+    "temperatureMaxC": 14.9,
+    "rainfallMm": 84.1,
+    "humidityPct": 81.6,
+    "windKph": 11.7,
+    "uvIndex": 1.7,
+    "uvIndexMax": 2.5,
+    "pm25": 12.6,
+    "aqi": 48.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

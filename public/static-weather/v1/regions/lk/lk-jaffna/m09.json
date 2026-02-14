@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "lk-jaffna",
+  "month": 9,
+  "summary": {
+    "temperatureC": 29,
+    "temperatureMinC": 27.5,
+    "temperatureMaxC": 30.5,
+    "rainfallMm": 59.2,
+    "humidityPct": 76.7,
+    "windKph": 26.2,
+    "uvIndex": 10.2,
+    "uvIndexMax": 12.6,
+    "pm25": 8.8,
+    "aqi": 37.4,
+    "waveHeightMinM": 0.18,
+    "waveHeightM": 0.72,
+    "waveHeightMaxM": 1.34,
+    "wavePeriodS": 4.14,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.75,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

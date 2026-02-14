@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "jp-sapporo",
+  "month": 3,
+  "summary": {
+    "temperatureC": 0.8,
+    "temperatureMinC": -7.1,
+    "temperatureMaxC": 8.1,
+    "rainfallMm": 62.1,
+    "humidityPct": 76.2,
+    "windKph": 16.1,
+    "uvIndex": 2.6,
+    "uvIndexMax": 4.5,
+    "pm25": 13,
+    "aqi": 53.6,
+    "waveHeightMinM": 0.1,
+    "waveHeightM": 1.02,
+    "waveHeightMaxM": 2.82,
+    "wavePeriodS": 5.39,
+    "waveDirectionDeg": null,
+    "waterTempC": 4.77,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

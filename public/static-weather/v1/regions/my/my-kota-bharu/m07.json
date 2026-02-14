@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "my-kota-bharu",
+  "month": 7,
+  "summary": {
+    "temperatureC": 28.4,
+    "temperatureMinC": 26.4,
+    "temperatureMaxC": 29.7,
+    "rainfallMm": 184.3,
+    "humidityPct": 81.5,
+    "windKph": 6.8,
+    "uvIndex": 9.6,
+    "uvIndexMax": 11.8,
+    "pm25": 16,
+    "aqi": 58.8,
+    "waveHeightMinM": 0.12,
+    "waveHeightM": 0.22,
+    "waveHeightMaxM": 0.54,
+    "wavePeriodS": 4.18,
+    "waveDirectionDeg": null,
+    "waterTempC": 31.45,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

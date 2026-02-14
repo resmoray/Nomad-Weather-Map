@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-jakarta",
+  "month": 6,
+  "summary": {
+    "temperatureC": 28.2,
+    "temperatureMinC": 25.2,
+    "temperatureMaxC": 29.7,
+    "rainfallMm": 126.7,
+    "humidityPct": 79.5,
+    "windKph": 8.3,
+    "uvIndex": 6.1,
+    "uvIndexMax": 7.8,
+    "pm25": 91.4,
+    "aqi": 170.2,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.23,
+    "waveHeightMaxM": 0.78,
+    "wavePeriodS": 3.4,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.66,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

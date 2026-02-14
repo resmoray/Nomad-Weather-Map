@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "it-milan",
+  "month": 11,
+  "summary": {
+    "temperatureC": 8.2,
+    "temperatureMinC": 2.7,
+    "temperatureMaxC": 15.9,
+    "rainfallMm": 13.7,
+    "humidityPct": 81.9,
+    "windKph": 5.1,
+    "uvIndex": 1.4,
+    "uvIndexMax": 2.3,
+    "pm25": 42,
+    "aqi": 110.2,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

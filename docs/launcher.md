@@ -12,10 +12,22 @@ It keeps normal development fully intact.
 Run from project root:
 
 ```bash
+./launch-dev.command
+```
+
+Alternative (shell scripts directly):
+
+```bash
 ./scripts/launch-dev.sh
 ```
 
 To stop:
+
+```bash
+./stop-dev.command
+```
+
+Alternative:
 
 ```bash
 ./scripts/stop-dev.sh

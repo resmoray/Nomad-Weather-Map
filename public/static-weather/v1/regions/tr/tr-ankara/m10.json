@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tr-ankara",
+  "month": 10,
+  "summary": {
+    "temperatureC": 13.6,
+    "temperatureMinC": 7.1,
+    "temperatureMaxC": 19,
+    "rainfallMm": 14.7,
+    "humidityPct": 61.2,
+    "windKph": 6.6,
+    "uvIndex": 3.9,
+    "uvIndexMax": 6.2,
+    "pm25": 15.9,
+    "aqi": 55.4,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

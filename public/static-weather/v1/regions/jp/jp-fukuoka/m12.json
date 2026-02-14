@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "jp-fukuoka",
+  "month": 12,
+  "summary": {
+    "temperatureC": 9.2,
+    "temperatureMinC": 2.3,
+    "temperatureMaxC": 19.3,
+    "rainfallMm": 63.5,
+    "humidityPct": 67.8,
+    "windKph": 14.6,
+    "uvIndex": 2.1,
+    "uvIndexMax": 3.2,
+    "pm25": 14.7,
+    "aqi": 54,
+    "waveHeightMinM": 0.18,
+    "waveHeightM": 1.03,
+    "waveHeightMaxM": 2.82,
+    "wavePeriodS": 6.09,
+    "waveDirectionDeg": null,
+    "waterTempC": 15.96,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

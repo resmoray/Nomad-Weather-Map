@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-hobart",
+  "month": 1,
+  "summary": {
+    "temperatureC": 9.3,
+    "temperatureMinC": 4.1,
+    "temperatureMaxC": 16.3,
+    "rainfallMm": 35.1,
+    "humidityPct": 73.1,
+    "windKph": 12.9,
+    "uvIndex": 8.2,
+    "uvIndexMax": 12.1,
+    "pm25": 5.9,
+    "aqi": 25.4,
+    "waveHeightMinM": 0.1,
+    "waveHeightM": 0.27,
+    "waveHeightMaxM": 0.66,
+    "wavePeriodS": 5.36,
+    "waveDirectionDeg": null,
+    "waterTempC": 19.85,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

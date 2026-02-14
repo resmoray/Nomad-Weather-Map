@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "sg-singapore",
+  "month": 11,
+  "summary": {
+    "temperatureC": 27.5,
+    "temperatureMinC": 25.5,
+    "temperatureMaxC": 29.9,
+    "rainfallMm": 305.3,
+    "humidityPct": 83.4,
+    "windKph": 5.9,
+    "uvIndex": 9,
+    "uvIndexMax": 12.4,
+    "pm25": 18.2,
+    "aqi": 62.5,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.19,
+    "waveHeightMaxM": 0.8,
+    "wavePeriodS": 3.34,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.32,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

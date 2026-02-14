@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "kr-jeju",
+  "month": 11,
+  "summary": {
+    "temperatureC": 14.2,
+    "temperatureMinC": 6.2,
+    "temperatureMaxC": 22.7,
+    "rainfallMm": 192.1,
+    "humidityPct": 64.9,
+    "windKph": 15.2,
+    "uvIndex": 3.2,
+    "uvIndexMax": 4.5,
+    "pm25": 13.8,
+    "aqi": 53.1,
+    "waveHeightMinM": 0.08,
+    "waveHeightM": 0.95,
+    "waveHeightMaxM": 2.74,
+    "wavePeriodS": 4.77,
+    "waveDirectionDeg": null,
+    "waterTempC": 22.28,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

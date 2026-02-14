@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "fr-lyon",
+  "month": 1,
+  "summary": {
+    "temperatureC": 5.3,
+    "temperatureMinC": -3.4,
+    "temperatureMaxC": 15.5,
+    "rainfallMm": 58.4,
+    "humidityPct": 81.6,
+    "windKph": 14.1,
+    "uvIndex": 0.8,
+    "uvIndexMax": 1.2,
+    "pm25": 15.4,
+    "aqi": 55.5,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

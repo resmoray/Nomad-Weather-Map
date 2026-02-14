@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cn-xian",
+  "month": 2,
+  "summary": {
+    "temperatureC": 3.2,
+    "temperatureMinC": -3.9,
+    "temperatureMaxC": 10.6,
+    "rainfallMm": 9.1,
+    "humidityPct": 62.2,
+    "windKph": 9.7,
+    "uvIndex": 3.1,
+    "uvIndexMax": 4.8,
+    "pm25": 70.9,
+    "aqi": 155.5,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

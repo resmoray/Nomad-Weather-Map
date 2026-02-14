@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "bn-bandar-seri-begawan",
+  "month": 2,
+  "summary": {
+    "temperatureC": 27.4,
+    "temperatureMinC": 24.9,
+    "temperatureMaxC": 28.8,
+    "rainfallMm": 282.1,
+    "humidityPct": 89.6,
+    "windKph": 9.2,
+    "uvIndex": 8.3,
+    "uvIndexMax": 12.4,
+    "pm25": 8.5,
+    "aqi": 35.9,
+    "waveHeightMinM": 0.4,
+    "waveHeightM": 0.73,
+    "waveHeightMaxM": 1.3,
+    "wavePeriodS": 6.99,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.35,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

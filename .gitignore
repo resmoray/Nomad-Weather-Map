@@ -37,3 +37,6 @@ id_ed25519
 *.njsproj
 *.sln
 *.sw?
+
+# Generated validation artifact (state + canonical are tracked)
+.github/static-refresh/validation-report.json

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "de-frankfurt",
+  "month": 6,
+  "summary": {
+    "temperatureC": 19.9,
+    "temperatureMinC": 13.5,
+    "temperatureMaxC": 26.4,
+    "rainfallMm": 36.1,
+    "humidityPct": 62.1,
+    "windKph": 7.5,
+    "uvIndex": 6.1,
+    "uvIndexMax": 8.2,
+    "pm25": 6.9,
+    "aqi": 38.3,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

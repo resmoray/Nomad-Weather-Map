@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cl-punta-arenas",
+  "month": 10,
+  "summary": {
+    "temperatureC": 7.2,
+    "temperatureMinC": 1.7,
+    "temperatureMaxC": 13.5,
+    "rainfallMm": 41.7,
+    "humidityPct": 68,
+    "windKph": 32.9,
+    "uvIndex": 3.9,
+    "uvIndexMax": 6.9,
+    "pm25": 1.3,
+    "aqi": 24.9,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.23,
+    "waveHeightMaxM": 0.7,
+    "wavePeriodS": 2.21,
+    "waveDirectionDeg": null,
+    "waterTempC": 6.23,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

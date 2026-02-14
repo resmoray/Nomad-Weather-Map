@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-makassar",
+  "month": 12,
+  "summary": {
+    "temperatureC": 26.7,
+    "temperatureMinC": 24.7,
+    "temperatureMaxC": 28.4,
+    "rainfallMm": 299.6,
+    "humidityPct": 87.2,
+    "windKph": 6.7,
+    "uvIndex": 8.2,
+    "uvIndexMax": 11.3,
+    "pm25": 21.8,
+    "aqi": 72.2,
+    "waveHeightMinM": 0.18,
+    "waveHeightM": 0.49,
+    "waveHeightMaxM": 1.06,
+    "wavePeriodS": 5.27,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.39,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "br-porto-alegre",
+  "month": 10,
+  "summary": {
+    "temperatureC": 20.2,
+    "temperatureMinC": 15.2,
+    "temperatureMaxC": 27.3,
+    "rainfallMm": 158.3,
+    "humidityPct": 76.5,
+    "windKph": 13.6,
+    "uvIndex": 6.3,
+    "uvIndexMax": 10.1,
+    "pm25": 9.1,
+    "aqi": 38.4,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

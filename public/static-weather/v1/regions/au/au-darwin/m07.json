@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-darwin",
+  "month": 7,
+  "summary": {
+    "temperatureC": 25.1,
+    "temperatureMinC": 19.1,
+    "temperatureMaxC": 27.4,
+    "rainfallMm": 0.8,
+    "humidityPct": 61.7,
+    "windKph": 11.5,
+    "uvIndex": 8,
+    "uvIndexMax": 8.8,
+    "pm25": 11.7,
+    "aqi": 46.9,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.06,
+    "waveHeightMaxM": 0.26,
+    "wavePeriodS": 2.64,
+    "waveDirectionDeg": null,
+    "waterTempC": 26,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

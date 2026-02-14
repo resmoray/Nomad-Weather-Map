@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "vn-nha-trang",
+  "month": 7,
+  "summary": {
+    "temperatureC": 29.5,
+    "temperatureMinC": 27.3,
+    "temperatureMaxC": 31.6,
+    "rainfallMm": 50.7,
+    "humidityPct": 75.2,
+    "windKph": 10.9,
+    "uvIndex": 9.8,
+    "uvIndexMax": 11.8,
+    "pm25": 16.3,
+    "aqi": 66.2,
+    "waveHeightMinM": 0.2,
+    "waveHeightM": 0.47,
+    "waveHeightMaxM": 0.96,
+    "wavePeriodS": 4.63,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.84,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

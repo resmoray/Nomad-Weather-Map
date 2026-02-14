@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ph-davao",
+  "month": 1,
+  "summary": {
+    "temperatureC": 27,
+    "temperatureMinC": 24.1,
+    "temperatureMaxC": 28.8,
+    "rainfallMm": 219.2,
+    "humidityPct": 84.5,
+    "windKph": 9.4,
+    "uvIndex": 7.2,
+    "uvIndexMax": 9.6,
+    "pm25": 8.9,
+    "aqi": 37.1,
+    "waveHeightMinM": 0.08,
+    "waveHeightM": 0.22,
+    "waveHeightMaxM": 0.56,
+    "wavePeriodS": 6.11,
+    "waveDirectionDeg": null,
+    "waterTempC": 28.99,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

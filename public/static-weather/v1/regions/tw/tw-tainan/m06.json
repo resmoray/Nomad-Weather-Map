@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tw-tainan",
+  "month": 6,
+  "summary": {
+    "temperatureC": 28.5,
+    "temperatureMinC": 24.1,
+    "temperatureMaxC": 30.9,
+    "rainfallMm": 241.1,
+    "humidityPct": 78.8,
+    "windKph": 8.8,
+    "uvIndex": 8,
+    "uvIndexMax": 12.2,
+    "pm25": 20,
+    "aqi": 65.1,
+    "waveHeightMinM": 0.26,
+    "waveHeightM": 0.91,
+    "waveHeightMaxM": 2.82,
+    "wavePeriodS": 6.64,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.37,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

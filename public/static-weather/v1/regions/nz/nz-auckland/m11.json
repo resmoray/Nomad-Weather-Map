@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "nz-auckland",
+  "month": 11,
+  "summary": {
+    "temperatureC": 17.1,
+    "temperatureMinC": 13.5,
+    "temperatureMaxC": 21.2,
+    "rainfallMm": 88.3,
+    "humidityPct": 77.4,
+    "windKph": 16.2,
+    "uvIndex": 8.2,
+    "uvIndexMax": 10.4,
+    "pm25": 6.9,
+    "aqi": 29.3,
+    "waveHeightMinM": 0.1,
+    "waveHeightM": 0.29,
+    "waveHeightMaxM": 0.94,
+    "wavePeriodS": 5.09,
+    "waveDirectionDeg": null,
+    "waterTempC": 20.84,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

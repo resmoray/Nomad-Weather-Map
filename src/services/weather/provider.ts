@@ -1,7 +1,7 @@
 import { calculateSuitability } from "../scoring/calculateSuitability";
 import { MONTHS, type Month, type Region, type RegionMonthRecord } from "../../types/weather";
 import { mapOpenMeteoSummaryToMetrics } from "./mapper";
-import { fetchOpenMeteoMonthlySummary } from "./openMeteoClient";
+import { clearStaticWeatherCache, fetchOpenMeteoMonthlySummary } from "./openMeteoClient";
 
 interface RecordLoadOptions {
   includeMarine?: boolean;
@@ -29,6 +29,7 @@ export class OpenMeteoWeatherProvider implements WeatherProvider {
 
   clearCache(): void {
     this.monthCache.clear();
+    clearStaticWeatherCache();
   }
 
   async getRegionMonthRecord(

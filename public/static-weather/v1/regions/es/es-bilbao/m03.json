@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "es-bilbao",
+  "month": 3,
+  "summary": {
+    "temperatureC": 9.1,
+    "temperatureMinC": 1.3,
+    "temperatureMaxC": 16.5,
+    "rainfallMm": 50.9,
+    "humidityPct": 76.7,
+    "windKph": 13,
+    "uvIndex": 3,
+    "uvIndexMax": 6,
+    "pm25": 7.7,
+    "aqi": 39.7,
+    "waveHeightMinM": 0.38,
+    "waveHeightM": 1.16,
+    "waveHeightMaxM": 3.16,
+    "wavePeriodS": 9.8,
+    "waveDirectionDeg": null,
+    "waterTempC": 13.42,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

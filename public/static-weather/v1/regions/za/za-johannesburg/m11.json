@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "za-johannesburg",
+  "month": 11,
+  "summary": {
+    "temperatureC": 20.9,
+    "temperatureMinC": 13.5,
+    "temperatureMaxC": 28.6,
+    "rainfallMm": 76.4,
+    "humidityPct": 59.8,
+    "windKph": 11.5,
+    "uvIndex": 8.6,
+    "uvIndexMax": 12.1,
+    "pm25": 28.6,
+    "aqi": 89.4,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ma-casablanca",
+  "month": 3,
+  "summary": {
+    "temperatureC": 15.2,
+    "temperatureMinC": 11.2,
+    "temperatureMaxC": 23.2,
+    "rainfallMm": 83.5,
+    "humidityPct": 76.7,
+    "windKph": 16.2,
+    "uvIndex": 5.3,
+    "uvIndexMax": 8.1,
+    "pm25": 9.9,
+    "aqi": 44,
+    "waveHeightMinM": 0.92,
+    "waveHeightM": 2.32,
+    "waveHeightMaxM": 5.46,
+    "wavePeriodS": 10.38,
+    "waveDirectionDeg": null,
+    "waterTempC": 17.43,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

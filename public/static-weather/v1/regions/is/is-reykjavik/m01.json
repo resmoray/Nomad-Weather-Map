@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "is-reykjavik",
+  "month": 1,
+  "summary": {
+    "temperatureC": -0.9,
+    "temperatureMinC": -13.2,
+    "temperatureMaxC": 7.3,
+    "rainfallMm": 145,
+    "humidityPct": 78.6,
+    "windKph": 22.2,
+    "uvIndex": 0.1,
+    "uvIndexMax": 0.2,
+    "pm25": 2.7,
+    "aqi": 34.7,
+    "waveHeightMinM": 0.2,
+    "waveHeightM": 1.14,
+    "waveHeightMaxM": 3.04,
+    "wavePeriodS": 8.38,
+    "waveDirectionDeg": null,
+    "waterTempC": 2.77,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

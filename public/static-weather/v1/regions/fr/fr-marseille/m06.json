@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "fr-marseille",
+  "month": 6,
+  "summary": {
+    "temperatureC": 24.1,
+    "temperatureMinC": 19.3,
+    "temperatureMaxC": 30.1,
+    "rainfallMm": 26,
+    "humidityPct": 61,
+    "windKph": 16.2,
+    "uvIndex": 7.9,
+    "uvIndexMax": 9.7,
+    "pm25": 9.8,
+    "aqi": 50.2,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.34,
+    "waveHeightMaxM": 1.12,
+    "wavePeriodS": 3.73,
+    "waveDirectionDeg": null,
+    "waterTempC": 22.71,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

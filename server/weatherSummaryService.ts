@@ -31,6 +31,7 @@ interface MarineHourlyData {
   wave_height?: Array<number | null>;
   wave_direction?: Array<number | null>;
   wave_period?: Array<number | null>;
+  sea_surface_temperature?: Array<number | null>;
 }
 
 export interface OpenMeteoMonthlySummary {
@@ -41,11 +42,15 @@ export interface OpenMeteoMonthlySummary {
   humidityPct: number | null;
   windKph: number | null;
   uvIndex: number | null;
+  uvIndexMax: number | null;
   pm25: number | null;
   aqi: number | null;
   waveHeightM: number | null;
+  waveHeightMinM: number | null;
+  waveHeightMaxM: number | null;
   wavePeriodS: number | null;
   waveDirectionDeg: number | null;
+  waterTempC: number | null;
   climateLastUpdated: string;
   airQualityLastUpdated: string;
   marineLastUpdated: string;
@@ -80,10 +85,14 @@ interface ManualRawMonthData {
   humidity_pct?: number | null;
   wind_avg_kph?: number | null;
   uv_index_avg?: number | null;
+  uv_index_max?: number | null;
   pm25_ug_m3?: number | null;
   aqi_avg?: number | null;
+  wave_height_min_m?: number | null;
   wave_height_avg_m?: number | null;
+  wave_height_max_m?: number | null;
   wave_interval_avg_s?: number | null;
+  water_temp_c?: number | null;
 }
 
 interface ManualMonthRow {
@@ -124,12 +133,12 @@ const DEFAULT_CLIMATE_FALLBACK_BASE_URL = "https://historical-forecast-api.open-
 const DEFAULT_CLIMATE_ARCHIVE_BASE_URL = "https://archive-api.open-meteo.com/v1/archive";
 const DEFAULT_AIR_BASE_URL = "https://air-quality-api.open-meteo.com/v1/air-quality";
 const DEFAULT_MARINE_BASE_URL = "https://marine-api.open-meteo.com/v1/marine";
-const DEFAULT_BASELINE_YEARS = 3;
+const DEFAULT_BASELINE_YEARS = 5;
 const MIN_OPEN_METEO_YEAR = 2022;
 const DEFAULT_FETCH_TIMEOUT_MS = 12000;
 const DEFAULT_FETCH_ATTEMPTS = 3;
 const DEFAULT_RETRY_BASE_DELAY_MS = 900;
-const DEFAULT_UPSTREAM_REQUEST_SPACING_MS = 350;
+const DEFAULT_UPSTREAM_REQUEST_SPACING_MS = 500;
 const DEFAULT_RATE_LIMIT_MIN_BACKOFF_MS = 45000;
 const DEFAULT_YEAR_CACHE_MAX_ENTRIES = 6;
 const SUMMARY_CACHE_SCHEMA_VERSION = 2;
@@ -290,10 +299,14 @@ function hasAnyManualMetric(summary: OpenMeteoMonthlySummary): boolean {
     summary.humidityPct !== null ||
     summary.windKph !== null ||
     summary.uvIndex !== null ||
+    summary.uvIndexMax !== null ||
     summary.pm25 !== null ||
     summary.aqi !== null ||
+    summary.waveHeightMinM !== null ||
     summary.waveHeightM !== null ||
-    summary.wavePeriodS !== null
+    summary.waveHeightMaxM !== null ||
+    summary.wavePeriodS !== null ||
+    summary.waterTempC !== null
   );
 }
 
@@ -338,11 +351,15 @@ function loadManualSummaryCache(): void {
           humidityPct: toNumberOrNull(rawMonth.humidity_pct),
           windKph: toNumberOrNull(rawMonth.wind_avg_kph),
           uvIndex: toNumberOrNull(rawMonth.uv_index_avg),
+          uvIndexMax: toNumberOrNull(rawMonth.uv_index_max),
           pm25: toNumberOrNull(rawMonth.pm25_ug_m3),
           aqi: toNumberOrNull(rawMonth.aqi_avg),
+          waveHeightMinM: toNumberOrNull(rawMonth.wave_height_min_m),
           waveHeightM: toNumberOrNull(rawMonth.wave_height_avg_m),
+          waveHeightMaxM: toNumberOrNull(rawMonth.wave_height_max_m),
           wavePeriodS: toNumberOrNull(rawMonth.wave_interval_avg_s),
           waveDirectionDeg: null,
+          waterTempC: toNumberOrNull(rawMonth.water_temp_c),
           climateLastUpdated: parseIsoDateOrFallback(
             monthRow.climate_last_updated ?? parsed.sources?.climate?.last_updated,
             loadedAt,
@@ -592,6 +609,7 @@ function asMarineHourlyData(payload: unknown): MarineHourlyData | null {
     wave_height: toNumberArray(typed.wave_height),
     wave_direction: toNumberArray(typed.wave_direction),
     wave_period: toNumberArray(typed.wave_period),
+    sea_surface_temperature: toNumberArray(typed.sea_surface_temperature),
   };
 }
 
@@ -652,7 +670,7 @@ function createMarineUrlForRange(region: RegionMeta, startDate: string, endDate:
     start_date: startDate,
     end_date: endDate,
     timezone: "UTC",
-    hourly: "wave_height,wave_direction,wave_period",
+    hourly: "wave_height,wave_direction,wave_period,sea_surface_temperature",
   });
 
   return `${baseUrl}?${params.toString()}`;
@@ -776,6 +794,7 @@ function sliceMarineDataByMonth(data: MarineHourlyData, month: number): MarineHo
     wave_height: pickValuesByIndexes(data.wave_height, indexes),
     wave_direction: pickValuesByIndexes(data.wave_direction, indexes),
     wave_period: pickValuesByIndexes(data.wave_period, indexes),
+    sea_surface_temperature: pickValuesByIndexes(data.sea_surface_temperature, indexes),
   };
 }
 
@@ -1069,14 +1088,17 @@ function aggregateClimate(data: ClimateDailyData[]): {
 
 function aggregateAir(data: AirHourlyData[]): {
   uvIndex: number | null;
+  uvIndexMax: number | null;
   pm25: number | null;
   aqi: number | null;
 } {
   const pmValues = data.flatMap((monthData) => cleanValues(monthData.pm2_5));
   const aqiValues = data.flatMap((monthData) => cleanValues(monthData.us_aqi));
+  const uvValues = data.flatMap((monthData) => cleanValues(monthData.uv_index));
 
   return {
     uvIndex: averageDailyMaxUv(data),
+    uvIndexMax: maximum(uvValues),
     pm25: average(pmValues),
     aqi: average(aqiValues),
   };
@@ -1084,17 +1106,24 @@ function aggregateAir(data: AirHourlyData[]): {
 
 function aggregateMarine(data: MarineHourlyData[]): {
   waveHeightM: number | null;
+  waveHeightMinM: number | null;
+  waveHeightMaxM: number | null;
   waveDirectionDeg: number | null;
   wavePeriodS: number | null;
+  waterTempC: number | null;
 } {
   const waveHeight = data.flatMap((monthData) => cleanValues(monthData.wave_height));
   const waveDirection = data.flatMap((monthData) => cleanValues(monthData.wave_direction));
   const wavePeriod = data.flatMap((monthData) => cleanValues(monthData.wave_period));
+  const waterTemp = data.flatMap((monthData) => cleanValues(monthData.sea_surface_temperature));
 
   return {
     waveHeightM: average(waveHeight),
+    waveHeightMinM: minimum(waveHeight),
+    waveHeightMaxM: maximum(waveHeight),
     waveDirectionDeg: average(waveDirection),
     wavePeriodS: average(wavePeriod),
+    waterTempC: average(waterTemp),
   };
 }
 
@@ -1149,11 +1178,15 @@ function isValidSummary(summary: unknown): summary is OpenMeteoMonthlySummary {
     "humidityPct",
     "windKph",
     "uvIndex",
+    "uvIndexMax",
     "pm25",
     "aqi",
+    "waveHeightMinM",
     "waveHeightM",
+    "waveHeightMaxM",
     "wavePeriodS",
     "waveDirectionDeg",
+    "waterTempC",
   ];
   const requiredStringFields: Array<keyof OpenMeteoMonthlySummary> = [
     "climateLastUpdated",
@@ -1170,11 +1203,15 @@ function isValidSummary(summary: unknown): summary is OpenMeteoMonthlySummary {
     humidityPct: [0, 100],
     windKph: [0, 300],
     uvIndex: [0, 20],
+    uvIndexMax: [0, 20],
     pm25: [0, 1000],
     aqi: [0, 500],
+    waveHeightMinM: [0, 30],
     waveHeightM: [0, 30],
+    waveHeightMaxM: [0, 30],
     wavePeriodS: [0, 30],
     waveDirectionDeg: [0, 360],
+    waterTempC: [-2, 40],
   };
 
   const numberFieldsValid = requiredNumberFields.every((field) => {
@@ -1425,9 +1462,12 @@ function withMarinePreference(
 
   return {
     ...summary,
+    waveHeightMinM: null,
     waveHeightM: null,
+    waveHeightMaxM: null,
     waveDirectionDeg: null,
     wavePeriodS: null,
+    waterTempC: null,
   };
 }
 
@@ -1494,14 +1534,20 @@ async function buildSummary(params: {
   }
 
   const climateMetrics = aggregateClimate(climateData);
-  const airMetrics = airData.length > 0 ? aggregateAir(airData) : { uvIndex: null, pm25: null, aqi: null };
+  const airMetrics =
+    airData.length > 0
+      ? aggregateAir(airData)
+      : { uvIndex: null, uvIndexMax: null, pm25: null, aqi: null };
   const marineMetrics =
     params.includeMarine && marineData.length > 0
       ? aggregateMarine(marineData)
       : {
+          waveHeightMinM: null,
           waveHeightM: null,
+          waveHeightMaxM: null,
           waveDirectionDeg: null,
           wavePeriodS: null,
+          waterTempC: null,
         };
   const now = new Date().toISOString();
 

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ma-rabat",
+  "month": 10,
+  "summary": {
+    "temperatureC": 20.1,
+    "temperatureMinC": 14.9,
+    "temperatureMaxC": 23.3,
+    "rainfallMm": 42.7,
+    "humidityPct": 84.4,
+    "windKph": 7.9,
+    "uvIndex": 5.4,
+    "uvIndexMax": 6.9,
+    "pm25": 10.8,
+    "aqi": 44.1,
+    "waveHeightMinM": 0.64,
+    "waveHeightM": 1.23,
+    "waveHeightMaxM": 2.84,
+    "wavePeriodS": 9.74,
+    "waveDirectionDeg": null,
+    "waterTempC": 21.49,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

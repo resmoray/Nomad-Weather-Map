@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "jp-tokyo",
+  "month": 2,
+  "summary": {
+    "temperatureC": 7.3,
+    "temperatureMinC": 1.8,
+    "temperatureMaxC": 18.2,
+    "rainfallMm": 39.6,
+    "humidityPct": 53.9,
+    "windKph": 10.4,
+    "uvIndex": 3.4,
+    "uvIndexMax": 4.9,
+    "pm25": 24.1,
+    "aqi": 74.2,
+    "waveHeightMinM": 0.08,
+    "waveHeightM": 0.36,
+    "waveHeightMaxM": 1.14,
+    "wavePeriodS": 4.67,
+    "waveDirectionDeg": null,
+    "waterTempC": 10.93,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

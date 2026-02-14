@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "mx-monterrey",
+  "month": 8,
+  "summary": {
+    "temperatureC": 29.5,
+    "temperatureMinC": 26.3,
+    "temperatureMaxC": 32.1,
+    "rainfallMm": 19.1,
+    "humidityPct": 60,
+    "windKph": 10.7,
+    "uvIndex": 9,
+    "uvIndexMax": 11.7,
+    "pm25": 11.4,
+    "aqi": 56.9,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

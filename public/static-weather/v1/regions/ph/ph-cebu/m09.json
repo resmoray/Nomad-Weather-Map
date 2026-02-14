@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ph-cebu",
+  "month": 9,
+  "summary": {
+    "temperatureC": 28.5,
+    "temperatureMinC": 26.2,
+    "temperatureMaxC": 30.8,
+    "rainfallMm": 216.3,
+    "humidityPct": 79.9,
+    "windKph": 10.9,
+    "uvIndex": 9.9,
+    "uvIndexMax": 12.8,
+    "pm25": 6.7,
+    "aqi": 32,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.12,
+    "waveHeightMaxM": 1.08,
+    "wavePeriodS": 2.71,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.07,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "eg-aswan",
+  "month": 11,
+  "summary": {
+    "temperatureC": 24.3,
+    "temperatureMinC": 15.9,
+    "temperatureMaxC": 31.5,
+    "rainfallMm": 0,
+    "humidityPct": 35.8,
+    "windKph": 10.7,
+    "uvIndex": 6.1,
+    "uvIndexMax": 6.8,
+    "pm25": 31,
+    "aqi": 96.9,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

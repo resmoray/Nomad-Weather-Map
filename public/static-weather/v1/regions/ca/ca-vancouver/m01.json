@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ca-vancouver",
+  "month": 1,
+  "summary": {
+    "temperatureC": 4.5,
+    "temperatureMinC": -9.6,
+    "temperatureMaxC": 14.3,
+    "rainfallMm": 239.4,
+    "humidityPct": 85.5,
+    "windKph": 3,
+    "uvIndex": 0.7,
+    "uvIndexMax": 1.1,
+    "pm25": 13.8,
+    "aqi": 51.7,
+    "waveHeightMinM": 0,
+    "waveHeightM": 0.13,
+    "waveHeightMaxM": 0.9,
+    "wavePeriodS": 2.5,
+    "waveDirectionDeg": null,
+    "waterTempC": 7.44,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

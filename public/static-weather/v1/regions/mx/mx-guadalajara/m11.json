@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "mx-guadalajara",
+  "month": 11,
+  "summary": {
+    "temperatureC": 18.7,
+    "temperatureMinC": 14.5,
+    "temperatureMaxC": 22,
+    "rainfallMm": 10.7,
+    "humidityPct": 64,
+    "windKph": 2.3,
+    "uvIndex": 7.7,
+    "uvIndexMax": 9.1,
+    "pm25": 14.4,
+    "aqi": 62.8,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

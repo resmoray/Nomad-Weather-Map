@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-balikpapan",
+  "month": 7,
+  "summary": {
+    "temperatureC": 27.7,
+    "temperatureMinC": 25.1,
+    "temperatureMaxC": 28.9,
+    "rainfallMm": 144.8,
+    "humidityPct": 84.2,
+    "windKph": 8.7,
+    "uvIndex": 8.7,
+    "uvIndexMax": 11,
+    "pm25": 9.9,
+    "aqi": 41.3,
+    "waveHeightMinM": 0.06,
+    "waveHeightM": 0.27,
+    "waveHeightMaxM": 0.62,
+    "wavePeriodS": 3.19,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.83,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

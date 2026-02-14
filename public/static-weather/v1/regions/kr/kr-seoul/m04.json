@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "kr-seoul",
+  "month": 4,
+  "summary": {
+    "temperatureC": 14.5,
+    "temperatureMinC": 4.5,
+    "temperatureMaxC": 22,
+    "rainfallMm": 65.4,
+    "humidityPct": 58.7,
+    "windKph": 8.9,
+    "uvIndex": 4.5,
+    "uvIndexMax": 7.7,
+    "pm25": 33.1,
+    "aqi": 96.3,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

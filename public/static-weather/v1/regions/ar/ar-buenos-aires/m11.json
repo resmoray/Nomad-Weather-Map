@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "ar-buenos-aires",
+  "month": 11,
+  "summary": {
+    "temperatureC": 20.7,
+    "temperatureMinC": 13.6,
+    "temperatureMaxC": 25.5,
+    "rainfallMm": 116.8,
+    "humidityPct": 66.5,
+    "windKph": 16.1,
+    "uvIndex": 8.7,
+    "uvIndexMax": 11.8,
+    "pm25": 8.7,
+    "aqi": 38.3,
+    "waveHeightMinM": 0.02,
+    "waveHeightM": 0.4,
+    "waveHeightMaxM": 1.24,
+    "wavePeriodS": 3.12,
+    "waveDirectionDeg": null,
+    "waterTempC": 21.89,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

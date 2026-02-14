@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "za-port-elizabeth",
+  "month": 1,
+  "summary": {
+    "temperatureC": 21.6,
+    "temperatureMinC": 16.2,
+    "temperatureMaxC": 25.6,
+    "rainfallMm": 61.8,
+    "humidityPct": 79,
+    "windKph": 19.1,
+    "uvIndex": 9.3,
+    "uvIndexMax": 13.2,
+    "pm25": 8.6,
+    "aqi": 36.3,
+    "waveHeightMinM": 1.34,
+    "waveHeightM": 2.13,
+    "waveHeightMaxM": 3.36,
+    "wavePeriodS": 8.84,
+    "waveDirectionDeg": null,
+    "waterTempC": 22.72,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "de-munich",
+  "month": 7,
+  "summary": {
+    "temperatureC": 20.2,
+    "temperatureMinC": 13.1,
+    "temperatureMaxC": 28.1,
+    "rainfallMm": 111.4,
+    "humidityPct": 66.9,
+    "windKph": 9.2,
+    "uvIndex": 5.5,
+    "uvIndexMax": 8.8,
+    "pm25": 6,
+    "aqi": 36.6,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

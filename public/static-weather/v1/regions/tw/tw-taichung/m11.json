@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "tw-taichung",
+  "month": 11,
+  "summary": {
+    "temperatureC": 21.8,
+    "temperatureMinC": 15.8,
+    "temperatureMaxC": 26.2,
+    "rainfallMm": 46,
+    "humidityPct": 79.9,
+    "windKph": 17.4,
+    "uvIndex": 5.7,
+    "uvIndexMax": 7.6,
+    "pm25": 26.4,
+    "aqi": 80.3,
+    "waveHeightMinM": 0.46,
+    "waveHeightM": 1.55,
+    "waveHeightMaxM": 3.18,
+    "wavePeriodS": 6.11,
+    "waveDirectionDeg": null,
+    "waterTempC": 23.44,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

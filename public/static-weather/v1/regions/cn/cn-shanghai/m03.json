@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "cn-shanghai",
+  "month": 3,
+  "summary": {
+    "temperatureC": 12.2,
+    "temperatureMinC": 3.2,
+    "temperatureMaxC": 25.9,
+    "rainfallMm": 64.6,
+    "humidityPct": 67.4,
+    "windKph": 9.7,
+    "uvIndex": 4.4,
+    "uvIndexMax": 7.1,
+    "pm25": 58,
+    "aqi": 134.2,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.23,
+    "waveHeightMaxM": 0.84,
+    "wavePeriodS": 3.45,
+    "waveDirectionDeg": null,
+    "waterTempC": 10.66,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "au-melbourne",
+  "month": 10,
+  "summary": {
+    "temperatureC": 14.6,
+    "temperatureMinC": 8.6,
+    "temperatureMaxC": 24.3,
+    "rainfallMm": 71.8,
+    "humidityPct": 67.5,
+    "windKph": 19.1,
+    "uvIndex": 5.2,
+    "uvIndexMax": 7.8,
+    "pm25": 6,
+    "aqi": 29.3,
+    "waveHeightMinM": 0.14,
+    "waveHeightM": 0.4,
+    "waveHeightMaxM": 1.46,
+    "wavePeriodS": 5.4,
+    "waveDirectionDeg": null,
+    "waterTempC": 15.42,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

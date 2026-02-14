@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "th-krabi",
+  "month": 10,
+  "summary": {
+    "temperatureC": 26.3,
+    "temperatureMinC": 24.4,
+    "temperatureMaxC": 27.9,
+    "rainfallMm": 287.8,
+    "humidityPct": 89.1,
+    "windKph": 7.9,
+    "uvIndex": 8.8,
+    "uvIndexMax": 12.7,
+    "pm25": 5.2,
+    "aqi": 26.9,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.15,
+    "waveHeightMaxM": 0.46,
+    "wavePeriodS": 4.34,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.87,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

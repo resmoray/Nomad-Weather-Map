@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-medan",
+  "month": 10,
+  "summary": {
+    "temperatureC": 27.2,
+    "temperatureMinC": 24.9,
+    "temperatureMaxC": 28.8,
+    "rainfallMm": 375.5,
+    "humidityPct": 88,
+    "windKph": 9.1,
+    "uvIndex": 8.9,
+    "uvIndexMax": 12.7,
+    "pm25": 34.3,
+    "aqi": 99.1,
+    "waveHeightMinM": null,
+    "waveHeightM": null,
+    "waveHeightMaxM": null,
+    "wavePeriodS": null,
+    "waveDirectionDeg": null,
+    "waterTempC": null,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-08T15:38:17.871Z"
+  }
+}

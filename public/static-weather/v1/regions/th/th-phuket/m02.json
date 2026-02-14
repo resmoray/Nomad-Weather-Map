@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "th-phuket",
+  "month": 2,
+  "summary": {
+    "temperatureC": 29.9,
+    "temperatureMinC": 27,
+    "temperatureMaxC": 32,
+    "rainfallMm": 44.6,
+    "humidityPct": 67.8,
+    "windKph": 4.6,
+    "uvIndex": 10.6,
+    "uvIndexMax": 11.9,
+    "pm25": 12.6,
+    "aqi": 57.2,
+    "waveHeightMinM": 0.18,
+    "waveHeightM": 0.36,
+    "waveHeightMaxM": 0.92,
+    "wavePeriodS": 6.23,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.64,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

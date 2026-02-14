@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "jp-osaka",
+  "month": 8,
+  "summary": {
+    "temperatureC": 29.9,
+    "temperatureMinC": 25.8,
+    "temperatureMaxC": 34.9,
+    "rainfallMm": 190.2,
+    "humidityPct": 71.1,
+    "windKph": 9.1,
+    "uvIndex": 7.4,
+    "uvIndexMax": 10.2,
+    "pm25": 19.8,
+    "aqi": 76.9,
+    "waveHeightMinM": 0.04,
+    "waveHeightM": 0.27,
+    "waveHeightMaxM": 1.28,
+    "wavePeriodS": 3.96,
+    "waveDirectionDeg": null,
+    "waterTempC": 30.72,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T05:46:30.000Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "nomad-static-weather-v1",
+  "regionId": "id-lombok",
+  "month": 11,
+  "summary": {
+    "temperatureC": 27.9,
+    "temperatureMinC": 26.2,
+    "temperatureMaxC": 29.5,
+    "rainfallMm": 181.7,
+    "humidityPct": 83,
+    "windKph": 5.7,
+    "uvIndex": 9.1,
+    "uvIndexMax": 13.2,
+    "pm25": 29.9,
+    "aqi": 88.3,
+    "waveHeightMinM": 0.24,
+    "waveHeightM": 0.4,
+    "waveHeightMaxM": 0.72,
+    "wavePeriodS": 10.03,
+    "waveDirectionDeg": null,
+    "waterTempC": 29.74,
+    "climateLastUpdated": "2026-02-08T16:24:55.000Z",
+    "airQualityLastUpdated": "2026-02-09T02:44:10.000Z",
+    "marineLastUpdated": "2026-02-09T06:00:09.000Z"
+  }
+}
