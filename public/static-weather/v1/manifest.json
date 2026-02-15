@@ -1,11 +1,11 @@
 {
   "schemaVersion": "nomad-static-weather-v1",
-  "generatedAt": "2026-02-14T07:31:24.560Z",
+  "generatedAt": "2026-02-14T14:55:26.326Z",
   "baselineYears": 5,
   "layoutMode": "region-month",
   "regionCount": 193,
   "monthCount": 12,
-  "datasetVersion": "20260214073124",
+  "datasetVersion": "20260214145526",
   "sourceCycle": {
     "targetCycleDays": 180,
     "dailyBudget": 3000,
