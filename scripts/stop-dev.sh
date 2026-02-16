@@ -7,8 +7,8 @@ LAUNCHER_TTY_FILE="$STATE_DIR/launcher.tty"
 
 PIDS="$(
   {
-    pgrep -f "$PROJECT_DIR.*server/index.ts" || true
-    pgrep -f "$PROJECT_DIR.*vite" || true
+    pgrep -f "$PROJECT_DIR.*server/index.ts" 2>/dev/null || true
+    pgrep -f "$PROJECT_DIR.*vite" 2>/dev/null || true
   } | sort -u
 )"
 
