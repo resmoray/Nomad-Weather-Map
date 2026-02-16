@@ -639,7 +639,11 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell">
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
+      <main id="main-content" className="app-shell">
       <header className="hero">
         <div className="hero-top">
           <h1>Nomad Weather Map</h1>
@@ -844,6 +848,7 @@ export default function App() {
       </section>
 
       <ScoringGuideModal open={isScoringGuideOpen} onClose={() => setIsScoringGuideOpen(false)} />
-    </div>
+      </main>
+    </>
   );
 }
