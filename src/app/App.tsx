@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { ErrorState } from "../components/ErrorState";
 import { LoadingState } from "../components/LoadingState";
 import { countries, regions } from "../data/loadRegions";
@@ -6,7 +6,6 @@ import { ExportButtons } from "../features/export/ExportButtons";
 import { FilterBar } from "../features/filters/FilterBar";
 import { TopPicksPanel } from "../features/insights/TopPicksPanel";
 import { buildTopPicks } from "../features/insights/buildTopPicks";
-import { WeatherMap } from "../features/map/WeatherMap";
 import { ClimateMatrix } from "../features/matrix/ClimateMatrix";
 import { DEFAULT_PROFILE } from "../features/matrix/customProfile";
 import { MatrixToolbar } from "../features/matrix/MatrixToolbar";
@@ -28,6 +27,12 @@ const REGION_RETRY_CONCURRENCY = 1;
 const REGION_RATE_LIMIT_COOLDOWN_MS = 2600;
 const REGION_REQUEST_TIMEOUT_MS = 35000;
 type ThemeMode = "light" | "dark";
+
+const WeatherMap = lazy(() =>
+  import("../features/map/WeatherMap").then((module) => ({
+    default: module.WeatherMap,
+  })),
+);
 
 const defaultSelectedRegionIds = regions
   .filter((region) => region.countryCode === "VN")
@@ -807,16 +812,18 @@ export default function App() {
       </section>
 
       <section ref={supportSectionRef} className="support-grid">
-        <WeatherMap
-          records={records}
-          profile={profile}
-          seasonByRegion={seasonByRegion}
-          minScore={minScore}
-          onMinScoreChange={setMinScore}
-          focusedRegionId={focusedRegionId}
-          onFocusRegion={setFocusedRegionId}
-          onNavigateToRegion={navigateToRegionComparison}
-        />
+        <Suspense fallback={<LoadingState message="Loading map view..." />}>
+          <WeatherMap
+            records={records}
+            profile={profile}
+            seasonByRegion={seasonByRegion}
+            minScore={minScore}
+            onMinScoreChange={setMinScore}
+            focusedRegionId={focusedRegionId}
+            onFocusRegion={setFocusedRegionId}
+            onNavigateToRegion={navigateToRegionComparison}
+          />
+        </Suspense>
         <section>
           <p className="hint-text step3-hint">
             Step 3: Export your current selection after checking top picks, matrix and map.
