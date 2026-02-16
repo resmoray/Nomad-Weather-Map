@@ -361,6 +361,9 @@ export function ClimateMatrix({
                                           cellRefs.current[`${keyboardRowIndex}-${index}`] = element;
                                         }}
                                         type="button"
+                                        aria-label={`${column.title} ${row.label}: ${cell.label}${
+                                          cell.valueText ? ` (${cell.valueText})` : ""
+                                        }`}
                                         title={cell.tooltipText ?? `${cell.label} ${cell.valueText}`}
                                         className={`matrix-cell severity-${cell.severity} ${
                                           column.regionId === focusedRegionId ? "matrix-cell-focused" : ""
@@ -421,6 +424,9 @@ export function ClimateMatrix({
                       <button
                         key={`card-cell-${row.key}-${column.key}`}
                         type="button"
+                        aria-label={`${column.title} ${row.label}: ${cell.label}${
+                          cell.valueText ? ` (${cell.valueText})` : ""
+                        }`}
                         className={`matrix-card-cell severity-${cell.severity}`}
                         onClick={() => {
                           setSelected({

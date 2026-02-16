@@ -1,9 +1,11 @@
+import { memo } from "react";
+
 interface ErrorStateProps {
   message: string;
   onRetry?: () => void;
 }
 
-export function ErrorState({ message, onRetry }: ErrorStateProps) {
+export const ErrorState = memo(function ErrorState({ message, onRetry }: ErrorStateProps) {
   return (
     <div className="status-card status-error" role="alert">
       <p>{message}</p>
@@ -14,4 +16,4 @@ export function ErrorState({ message, onRetry }: ErrorStateProps) {
       ) : null}
     </div>
   );
-}
+});
