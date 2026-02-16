@@ -123,6 +123,22 @@ body {
   width: 100%;
 }
 
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.5rem;
+  background: var(--bg-panel);
+  color: var(--text-main);
+  border: 2px solid var(--matrix-focus);
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+  z-index: 20;
+}
+
+.skip-link:focus-visible {
+  left: 0.75rem;
+}
+
 .app-shell {
   width: min(1280px, 95vw);
   margin: 1.5rem auto 2rem;
@@ -415,6 +431,14 @@ button:hover:not(:disabled) {
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--matrix-focus);
+  outline-offset: 2px;
 }
 
 .ghost-button {
