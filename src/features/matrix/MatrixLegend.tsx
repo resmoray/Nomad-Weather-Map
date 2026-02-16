@@ -1,4 +1,6 @@
-export function MatrixLegend() {
+import { memo } from "react";
+
+export const MatrixLegend = memo(function MatrixLegend() {
   return (
     <div className="matrix-legend" aria-label="Matrix legend">
       <span className="legend-item severity-excellent">Excellent</span>
@@ -13,4 +15,4 @@ export function MatrixLegend() {
       <span className="legend-note">Metric rows below = live API values</span>
     </div>
   );
-}
+});
