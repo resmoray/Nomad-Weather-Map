@@ -1169,10 +1169,10 @@ select:focus-visible {
   left: 0;
   z-index: 100;
   min-width: 160px;
-  background: var(--color-surface, #1e1e2e);
-  border: 1px solid var(--color-border, #444);
+  background: var(--bg-panel);
+  border: 1px solid var(--line-strong);
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1188,7 +1188,7 @@ select:focus-visible {
 }
 
 .export-dropdown-menu button:hover:not(:disabled) {
-  background: var(--color-surface-hover, #2e2e3e);
+  background: var(--surface-muted);
 }
 
 .export-dropdown-menu button:disabled {
