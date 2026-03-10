@@ -343,7 +343,11 @@ createServer(async (request, response) => {
       const regionId = (url.searchParams.get("regionId") ?? "").trim();
       const year = parseYear(url.searchParams.get("year"));
       const month = parseMonth(url.searchParams.get("month"));
-      const weatherByMonthRaw = url.searchParams.get("weatherByMonth");
+      const weatherByMonthRawParam = url.searchParams.get("weatherByMonth");
+      const weatherByMonthRaw =
+        weatherByMonthRawParam !== null && weatherByMonthRawParam.length <= 1024
+          ? weatherByMonthRawParam
+          : null;
       const presetId = (url.searchParams.get("presetId") ?? "perfectTemp:cityTrip").trim();
 
       if (!regionId) {

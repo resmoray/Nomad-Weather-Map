@@ -1158,6 +1158,44 @@ select:focus-visible {
   flex-wrap: wrap;
 }
 
+.export-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.export-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  min-width: 160px;
+  background: var(--bg-panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.export-dropdown-menu button {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.export-dropdown-menu button:hover:not(:disabled) {
+  background: var(--surface-muted);
+}
+
+.export-dropdown-menu button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;

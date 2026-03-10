@@ -38,5 +38,9 @@ id_ed25519
 *.sln
 *.sw?
 
+# Python virtual environments
+.venv-meteostat/
+
 # Generated validation artifact (state + canonical are tracked)
 .github/static-refresh/validation-report.json
+.worktrees/

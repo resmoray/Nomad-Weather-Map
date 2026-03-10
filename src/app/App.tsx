@@ -11,11 +11,13 @@ import { DEFAULT_PROFILE } from "../features/matrix/customProfile";
 import { MatrixToolbar } from "../features/matrix/MatrixToolbar";
 import { calculatePersonalScore } from "../features/matrix/presets";
 import { ScoringGuideModal } from "../features/matrix/ScoringGuideModal";
+import { buildMatrixViewModel } from "../features/matrix/buildMatrixViewModel";
 import { useAppUrlSync } from "./hooks/useAppUrlSync";
 import { useRegionMonthRecords } from "./hooks/useRegionMonthRecords";
 import { fetchSeasonSummary } from "../services/season/seasonClient";
 import { weatherProvider } from "../services/weather/provider";
 import type { MatrixMode, UserPreferenceProfile } from "../types/presentation";
+import { MONTH_LABELS } from "../utils/months";
 import type { SeasonSignalByMonth } from "../types/season";
 import type { CountryCode, MetricKey, Month, Region, RegionMonthRecord } from "../types/weather";
 import { formatRegionLabel } from "../utils/regionLabel";
@@ -319,6 +321,40 @@ export default function App() {
 
   const lastUpdated = useMemo(() => latestMetricUpdate(records), [records]);
 
+  const matrixViewModel = useMemo(
+    () =>
+      buildMatrixViewModel({
+        mode: matrixMode,
+        month: selectedMonth,
+        monthRecords: records,
+        timelineRecords,
+        seasonByRegion,
+        profile,
+      }),
+    [matrixMode, selectedMonth, records, timelineRecords, seasonByRegion, profile],
+  );
+
+  const filteredMatrixViewModel = useMemo(() => {
+    const visibleColumnIndexes = matrixViewModel.columns
+      .map((col, index) => ({ score: col.personalScore, index }))
+      .filter((entry) => entry.score >= minScore)
+      .map((entry) => entry.index);
+    return {
+      columns: visibleColumnIndexes.map((index) => matrixViewModel.columns[index]),
+      rows: matrixViewModel.rows.map((row) => ({
+        ...row,
+        cells: visibleColumnIndexes.map((index) => row.cells[index]),
+      })),
+    };
+  }, [matrixViewModel, minScore]);
+
+  const matrixContextLabel = useMemo(() => {
+    if (matrixMode === "timeline") {
+      return timelineRegion ? formatRegionLabel(timelineRegion) : "";
+    }
+    return MONTH_LABELS[selectedMonth];
+  }, [matrixMode, timelineRegion, selectedMonth]);
+
   useAppUrlSync({
     selectedCountryCodes,
     selectedMonth,
@@ -412,7 +448,7 @@ export default function App() {
             groups, confidence and warnings.
           </li>
           <li>
-            <strong>Export:</strong> download shortlist, monthly plan, CSV or JSON.
+            <strong>Export:</strong> download CSV and JSON exports for route planning.
           </li>
         </ol>
       </section>
@@ -562,6 +598,9 @@ export default function App() {
                 includeMarine: true,
               })
             }
+            matrixViewModel={filteredMatrixViewModel}
+            matrixMode={matrixMode}
+            matrixContextLabel={matrixContextLabel}
           />
         </section>
       </section>

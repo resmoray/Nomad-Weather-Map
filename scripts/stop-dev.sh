@@ -19,7 +19,9 @@ fi
 
 echo "Stopping processes:"
 echo "$PIDS"
-echo "$PIDS" | xargs kill
+while IFS= read -r pid; do
+  [[ -n "$pid" ]] && kill -TERM "$pid" 2>/dev/null || true
+done <<< "$PIDS"
 
 echo "Stopped."
 
