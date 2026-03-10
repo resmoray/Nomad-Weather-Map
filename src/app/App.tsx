@@ -334,6 +334,20 @@ export default function App() {
     [matrixMode, selectedMonth, records, timelineRecords, seasonByRegion, profile],
   );
 
+  const filteredMatrixViewModel = useMemo(() => {
+    const visibleColumnIndexes = matrixViewModel.columns
+      .map((col, index) => ({ score: col.personalScore, index }))
+      .filter((entry) => entry.score >= minScore)
+      .map((entry) => entry.index);
+    return {
+      columns: visibleColumnIndexes.map((index) => matrixViewModel.columns[index]),
+      rows: matrixViewModel.rows.map((row) => ({
+        ...row,
+        cells: visibleColumnIndexes.map((index) => row.cells[index]),
+      })),
+    };
+  }, [matrixViewModel, minScore]);
+
   const matrixContextLabel = useMemo(() => {
     if (matrixMode === "timeline") {
       return timelineRegion ? formatRegionLabel(timelineRegion) : "";
@@ -584,7 +598,7 @@ export default function App() {
                 includeMarine: true,
               })
             }
-            matrixViewModel={matrixViewModel}
+            matrixViewModel={filteredMatrixViewModel}
             matrixMode={matrixMode}
             matrixContextLabel={matrixContextLabel}
           />
