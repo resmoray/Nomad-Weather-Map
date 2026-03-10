@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { MatrixMode, MatrixViewModel, UserPreferenceProfile } from "../../types/presentation";
 import type { SeasonSignalByMonth } from "../../types/season";
 import type { Region, RegionMonthRecord } from "../../types/weather";
@@ -35,6 +35,17 @@ export function ExportButtons({
   const [isMonthlyPlanExporting, setIsMonthlyPlanExporting] = useState(false);
   const [csvDropdownOpen, setCsvDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!csvDropdownOpen) return;
+    function handleOutsideClick(event: MouseEvent): void {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setCsvDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [csvDropdownOpen]);
 
   const eligibleRecords = useMemo(
     () => records.filter((record) => evaluateDealbreakers(record, profile).passed),
