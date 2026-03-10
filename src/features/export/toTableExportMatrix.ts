@@ -15,7 +15,7 @@ export function toTableExportMatrix(viewModel: MatrixViewModel): string[][] {
   ];
 
   const dataRows: string[][] = rows.map((row) => {
-    const cells = columns.map((col, colIndex) => {
+    const cells = columns.map((_col, colIndex) => {
       const cell = row.cells[colIndex];
       if (!cell || cell.severity === "missing") {
         return "—";
