@@ -33,19 +33,21 @@ export function ExportButtons({
 }: ExportButtonsProps) {
   const [message, setMessage] = useState<string>("");
   const [isMonthlyPlanExporting, setIsMonthlyPlanExporting] = useState(false);
-  const [csvDropdownOpen, setCsvDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [openDropdown, setOpenDropdown] = useState<"csv" | "json" | null>(null);
+  const csvDropdownRef = useRef<HTMLDivElement>(null);
+  const jsonDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!csvDropdownOpen) return;
+    if (!openDropdown) return;
     function handleOutsideClick(event: MouseEvent): void {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setCsvDropdownOpen(false);
-      }
+      const target = event.target as Node;
+      const activeRef = openDropdown === "csv" ? csvDropdownRef.current : jsonDropdownRef.current;
+      if (activeRef?.contains(target)) return;
+      setOpenDropdown(null);
     }
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [csvDropdownOpen]);
+  }, [openDropdown]);
 
   const eligibleRecords = useMemo(
     () => records.filter((record) => evaluateDealbreakers(record, profile).passed),
@@ -56,6 +58,7 @@ export function ExportButtons({
   const excludedByDealbreakerCount = records.length - eligibleRecords.length;
   const monthlyPlanDisabled = regions.length === 0 || isMonthlyPlanExporting;
   const tableExportAvailable = !!matrixViewModel && matrixViewModel.columns.length > 0;
+  const jsonDropdownDisabled = disabled && monthlyPlanDisabled;
 
   const recordCountLabel = useMemo(() => {
     if (eligibleRecords.length === 0) {
@@ -129,83 +132,88 @@ export function ExportButtons({
     if (!matrixViewModel || !matrixMode) return;
     downloadTableCsvExport(matrixViewModel, matrixMode, matrixContextLabel ?? String(month));
     setMessage("Table CSV exported.");
-    setCsvDropdownOpen(false);
+    setOpenDropdown(null);
   }
 
   function handleRawDataCsv(): void {
     downloadCsvExport(eligibleRecords, month, profile, seasonByRegion);
     setMessage("Raw Data CSV exported.");
-    setCsvDropdownOpen(false);
+    setOpenDropdown(null);
   }
 
   return (
     <section className="panel">
       <header className="panel-header">
         <h2>Export</h2>
-        <p>Download shortlist, monthly plan, CSV or JSON for route planning.</p>
+        <p>Download CSV and JSON exports for route planning.</p>
       </header>
 
       <div className="export-row">
-        <button
-          type="button"
-          disabled={disabled}
-          onClick={() => {
-            exportShortlist(eligibleRecords, profile, seasonByRegion);
-            setMessage("Shortlist exported.");
-          }}
-        >
-          Export Shortlist
-        </button>
-
-        <button
-          type="button"
-          disabled={monthlyPlanDisabled}
-          onClick={() => {
-            void handleMonthlyPlanExport();
-          }}
-        >
-          {isMonthlyPlanExporting ? "Exporting Monthly Plan..." : "Export Monthly Plan"}
-        </button>
-
-        {/* CSV dropdown */}
-        <div className="export-dropdown" ref={dropdownRef}>
+        <div className="export-dropdown" ref={csvDropdownRef}>
           <button
             type="button"
             disabled={disabled && !tableExportAvailable}
-            onClick={() => setCsvDropdownOpen((prev) => !prev)}
+            onClick={() => setOpenDropdown((prev) => (prev === "csv" ? null : "csv"))}
           >
             Export CSV ▾
           </button>
-          {csvDropdownOpen && (
+          {openDropdown === "csv" && (
             <div className="export-dropdown-menu">
-              <button
-                type="button"
-                disabled={!tableExportAvailable}
-                onClick={handleTableCsv}
-              >
+              <button type="button" disabled={!tableExportAvailable} onClick={handleTableCsv}>
                 Table CSV
               </button>
-              <button
-                type="button"
-                disabled={disabled}
-                onClick={handleRawDataCsv}
-              >
+              <button type="button" disabled={disabled} onClick={handleRawDataCsv}>
                 Raw Data CSV
               </button>
             </div>
           )}
         </div>
 
-        <button
-          type="button"
-          disabled={disabled}
-          onClick={() => {
-            downloadJsonExport(eligibleRecords, month, profile, seasonByRegion);
-            setMessage("JSON exported.");
-          }}
-        >
-          Export JSON
-        </button>
+        <div className="export-dropdown" ref={jsonDropdownRef}>
+          <button
+            type="button"
+            disabled={jsonDropdownDisabled}
+            onClick={() => setOpenDropdown((prev) => (prev === "json" ? null : "json"))}
+          >
+            Export JSON ▾
+          </button>
+          {openDropdown === "json" && (
+            <div className="export-dropdown-menu">
+              <button
+                type="button"
+                disabled={disabled}
+                onClick={() => {
+                  exportShortlist(eligibleRecords, profile, seasonByRegion);
+                  setMessage("Shortlist exported.");
+                  setOpenDropdown(null);
+                }}
+              >
+                Shortlist JSON
+              </button>
+              <button
+                type="button"
+                disabled={monthlyPlanDisabled}
+                onClick={() => {
+                  setOpenDropdown(null);
+                  void handleMonthlyPlanExport();
+                }}
+              >
+                {isMonthlyPlanExporting ? "Exporting Monthly Plan..." : "Monthly Plan JSON"}
+              </button>
+              <button
+                type="button"
+                disabled={disabled}
+                onClick={() => {
+                  downloadJsonExport(eligibleRecords, month, profile, seasonByRegion);
+                  setMessage("JSON exported.");
+                  setOpenDropdown(null);
+                }}
+              >
+                Raw Data JSON
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <p className="hint-text">{recordCountLabel}</p>

@@ -448,7 +448,7 @@ export default function App() {
             groups, confidence and warnings.
           </li>
           <li>
-            <strong>Export:</strong> download shortlist, monthly plan, CSV or JSON.
+            <strong>Export:</strong> download CSV and JSON exports for route planning.
           </li>
         </ol>
       </section>
