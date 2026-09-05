@@ -3,24 +3,24 @@
   "regionId": "at-vienna",
   "month": 11,
   "summary": {
-    "temperatureC": 6.38,
+    "temperatureC": 6.23,
     "temperatureMinC": -1.3,
-    "temperatureMaxC": 15.3,
-    "rainfallMm": 41.7,
-    "humidityPct": 77.63,
-    "windKph": 8.89,
+    "temperatureMaxC": 13.9,
+    "rainfallMm": 44.23,
+    "humidityPct": 79.3,
+    "windKph": 9.1,
     "uvIndex": 0.95,
     "uvIndexMax": 1.85,
     "pm25": 14.71,
-    "aqi": 52.01,
+    "aqi": 57.4,
     "waveHeightMinM": null,
     "waveHeightM": null,
     "waveHeightMaxM": null,
     "waveDirectionDeg": null,
     "wavePeriodS": null,
     "waterTempC": null,
-    "climateLastUpdated": "2026-02-14T14:55:12.920Z",
-    "airQualityLastUpdated": "2026-02-14T14:55:12.920Z",
-    "marineLastUpdated": "2026-02-14T14:55:12.920Z"
+    "climateLastUpdated": "2026-09-05T07:40:32.738Z",
+    "airQualityLastUpdated": "2026-09-05T07:40:32.738Z",
+    "marineLastUpdated": "2026-09-05T07:40:32.738Z"
   }
 }
