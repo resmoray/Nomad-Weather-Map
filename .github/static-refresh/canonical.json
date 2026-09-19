@@ -1,6 +1,6 @@
 {
   "schemaVersion": "nomad-static-weather-v1",
-  "updatedAt": "2026-07-02T06:54:06.011Z",
+  "updatedAt": "2026-09-19T08:09:05.633Z",
   "summaries": {
     "ae-dubai": {
       "1": {
@@ -1528,46 +1528,46 @@
     },
     "at-vienna": {
       "1": {
-        "temperatureC": 2.93,
+        "temperatureC": 2.94,
         "temperatureMinC": -6.4,
-        "temperatureMaxC": 11.7,
-        "rainfallMm": 36.15,
-        "humidityPct": 75.36,
-        "windKph": 11.42,
+        "temperatureMaxC": 11.3,
+        "rainfallMm": 42.6,
+        "humidityPct": 75.03,
+        "windKph": 13.19,
         "uvIndex": 0.68,
         "uvIndexMax": 1.2,
         "pm25": 14.85,
-        "aqi": 53.98,
+        "aqi": 58.91,
         "waveHeightMinM": null,
         "waveHeightM": null,
         "waveHeightMaxM": null,
         "waveDirectionDeg": null,
         "wavePeriodS": null,
         "waterTempC": null,
-        "climateLastUpdated": "2026-02-14T14:55:12.894Z",
-        "airQualityLastUpdated": "2026-02-14T14:55:12.894Z",
-        "marineLastUpdated": "2026-02-14T14:55:12.894Z"
+        "climateLastUpdated": "2026-09-19T08:06:05.366Z",
+        "airQualityLastUpdated": "2026-09-19T08:06:05.366Z",
+        "marineLastUpdated": "2026-09-19T08:06:05.366Z"
       },
       "2": {
-        "temperatureC": 5.53,
+        "temperatureC": 4.99,
         "temperatureMinC": -3.3,
         "temperatureMaxC": 13.8,
-        "rainfallMm": 27.23,
-        "humidityPct": 65.54,
-        "windKph": 12.04,
+        "rainfallMm": 27.72,
+        "humidityPct": 68.94,
+        "windKph": 12.68,
         "uvIndex": 1.32,
         "uvIndexMax": 2.25,
         "pm25": 13.64,
-        "aqi": 50.94,
+        "aqi": 55.31,
         "waveHeightMinM": null,
         "waveHeightM": null,
         "waveHeightMaxM": null,
         "waveDirectionDeg": null,
         "wavePeriodS": null,
         "waterTempC": null,
-        "climateLastUpdated": "2026-02-14T14:55:12.899Z",
-        "airQualityLastUpdated": "2026-02-14T14:55:12.899Z",
-        "marineLastUpdated": "2026-02-14T14:55:12.899Z"
+        "climateLastUpdated": "2026-09-19T08:07:47.826Z",
+        "airQualityLastUpdated": "2026-09-19T08:07:47.826Z",
+        "marineLastUpdated": "2026-09-19T08:07:47.826Z"
       },
       "3": {
         "temperatureC": 8.6,
